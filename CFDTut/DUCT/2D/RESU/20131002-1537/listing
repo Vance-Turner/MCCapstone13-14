@@ -1,0 +1,1867 @@
+command: 
+ /home/vance/CFDTut/DUCT/2D/RESU/20131002-1537/cs_solver --param 2d_duct_flow --mpi
+
+***************************************************************
+
+                                  (R)
+                      Code_Saturne
+
+                      Version 2.1.0
+
+
+  Copyright (C) 1998-2011 EDF S.A., France
+
+  build Thu 26 Jan 2012 08:44:04 PM EST
+  MPI version 2.1 (Open MPI 1.4.3)
+
+
+  The Code_Saturne CFD tool  is free software;
+  you can redistribute it and/or modify it under the terms
+  of the GNU General Public License as published by the
+  Free Software Foundation; either version 2 of the License,
+  or (at your option) any later version.
+
+  The Code_Saturne CFD tool is distributed in the hope that
+  it will be useful, but WITHOUT ANY WARRANTY; without even
+  the implied warranty of MERCHANTABILITY or FITNESS FOR A
+  PARTICULAR PURPOSE.  See the GNU General Public License
+  for more details.
+
+***************************************************************
+
+
+Local case configuration:
+
+  Date:              Wed 02 Oct 2013 03:37:16 PM EDT
+  System:            Linux 3.2.0-23-generic
+  Machine:           atlacamani
+  Processor:         Intel(R) Pentium(R) CPU G850 @ 2.90GHz
+  Memory:            32167 MB
+  User:              vance (Vance)
+  Directory:         /home/vance/CFDTut/DUCT/2D/RESU/20131002-1537
+  MPI ranks:         4 (appnum attribute: 0)
+  I/O mode:          MPI-IO, explicit offsets
+
+===============================================================
+
+                   CALCULATION PREPARATION
+                   =======================
+
+
+ ===========================================================
+
+
+
+ Reading metadata from file: "mesh_input/mesh_01"
+ Reading metadata from file: "mesh_input/mesh_02"
+
+ No error detected during the data verification
+                              (interface, usini1 and others).
+
+
+ ===========================================================
+
+               CALCULATION PARAMETERS SUMMARY
+               ==============================
+
+ -----------------------------------------------------------
+
+
+ ** DIMENSIONS
+    ----------
+
+ --- Geometry
+       NPRFML =              1 (Nb max. family properties   )
+       NFML   =             12 (Nb families                 )
+
+ --- Physics
+       NVAR   =              5 (Nb variables                )
+       NSCAL  =              1 (Nb scalars                  )
+       NSCAUS =              1 (Nb user scalars             )
+       NSCAPP =              0 (Nb specific physics scalars )
+       NPROCE =              6 (Nb cell properties          )
+       NPROFA =              1 (Nb internal face properties )
+       NPROFB =              2 (Nb boundary face properties )
+
+
+ -----------------------------------------------------------
+
+
+ ** PHYSICAL PROPERTIES
+    -------------------
+
+       GX     =    0.00000E+00 (Gravity x component         )
+       GY     =    0.00000E+00 (Gravity y component         )
+       GZ     =    0.00000E+00 (Gravity z component         )
+
+       OMEGAX =    0.00000E+00 (Rotation vector x component )
+       OMEGAY =    0.00000E+00 (Rotation vector y component )
+       OMEGAZ =    0.00000E+00 (Rotation vector z component )
+       ICORIO =          0 (Coriolis source terms       )
+
+  -- Continuous phase: 
+
+       RO0    =    0.11786E+01 (Reference density           )
+       VISCL0 =    0.18300E-04 (Ref. molecular dyn. visc.   )
+       CP0    =    0.20600E+04 (Ref. specific heat          )
+       ICP    =              0 (> 0: variable CP (usphyv)   )
+       P0     =    0.10132E+06 (Ref. total pressure         )
+       PRED0  =    0.00000E+00 (Ref. reduced pressure       )
+       T0     =    0.00000E+00 (Ref. temperature            )
+
+       IROVAR =              1 (Density constant(0) or not(1)
+       IVIVAR =              1 (Molec. visc cst.(0) or not(1)
+
+       Initial reference point for pressure
+       XYZP0  =    0.00000E+00   0.00000E+00   0.00000E+00
+
+ -----------------------------------------------------------
+
+
+ ** TURBULENCE
+    ----------
+
+ --- Continuous phase: 
+
+   - Commons                                                 
+       ITURB  =              0 (Turbulence model            )
+       IDEUCH =              0 (0: one-scale model          )
+                               (1: two-scale model          )
+                               (2: invariant wall function  )
+       YPLULI =    0.23810E+01 (Limit Y+                    )
+       ILOGPO =              1 (0: power law (forbidden for
+                                              k-epsilon)    )
+                               (1: one-scale log law        )
+       IGRHOK =              0 (1: computed Grad(rho k)     )
+       ISCALT =              1 (Temperature salar number    )
+
+ --- Constants
+
+   - Commons                                                 
+       XKAPPA =    0.42000E+00 (Von Karman constant         )
+       CSTLOG =    0.52000E+01 (U+=Log(y+)/kappa +CSTLOG    )
+       APOW   =    0.83000E+01 (U+=APOW (y+)**BPOW (W&W law))
+       BPOW   =    0.14286E+00 (U+=APOW (y+)**BPOW (W&W law))
+
+
+ -----------------------------------------------------------
+
+
+ ** SECONDARY VISCOSITY
+    -------------------
+
+ --- Continuous phase:          1
+       IVISSE = 
+
+ -----------------------------------------------------------
+
+
+ ** TIME STEPPING
+    -------------
+
+    STEADY ALGORITHM
+
+ --- Global parameters
+
+       IDTVAR =             -1 (-1: steady algorithm        )
+       RELXST =    0.70000E+00 (Reference relaxation coeff. )
+                                                             
+
+ --- Frozen velocity field
+
+       ICCVFG =              0 (1: frozen velocity field    )
+
+ --- Per variable relaxation coefficient
+
+---------------------
+ RELAXV variable
+---------------------
+ Pressure  0.3000E+00
+ Velocity  0.7000E+00
+ Velocity  0.7000E+00
+ Velocity  0.7000E+00
+ TempC     0.7000E+00
+----------------------------
+
+       RELAXV =  [0.,1.]       (relaxation coefficient      )
+
+
+ -----------------------------------------------------------
+
+
+ ** CONVECTION - DIFFUSION
+    ----------------------
+
+-------------------------------------------------------------
+ Variable  ICONV  IDIFF IDIFFT ISCHCV ISSTPC   BLENCV  THETAV
+-------------------------------------------------------------
+ Pressure      0      1      1      1      0 0.00E+00 0.10E+01
+ Velocity      1      1      1      1      0 0.10E+01 0.10E+01
+ Velocity      1      1      1      1      0 0.10E+01 0.10E+01
+ Velocity      1      1      1      1      0 0.10E+01 0.10E+01
+ TempC         1      1      1      1      0 0.10E+01 0.10E+01
+-------------------------------------------------------------
+
+       ICONV  =  0 ou  1       (1 for convection active     )
+       IDIFF  =  0 ou  1       (1 for total diffusion active)
+       IDIFFT =  0 ou  1       (1 for turbulent diff. active)
+       ISCHCV =  0 ou  1       (SOLU or CD                  )
+       ISSTPC =  0 ou  1       (1: no slope test            )
+       BLENCV =  [0.;1.]       (1-upwind proportion         )
+       THETAV =  [0.;1.]       (0.5 Crank-Nicolson/AB       )
+                               (theta for convection-       )
+                               (diffusion terms uses        )
+                               ((1-theta).old+theta.new     )
+
+
+ -----------------------------------------------------------
+
+
+ ** STOKES
+    ------
+       IPHYDR =              0 (1: account for explicit
+                                   balance between pressure
+                                   gradient, gravity source
+                                   terms, and head losses     )
+       ICALHY =              0 (1: compute hydrastatic
+                                   pressure for Dirichlet
+                                   conditions for pressure
+                                   on outlet                  )
+       IPRCO  =              1 (1: pressure-continuity        )
+       IPUCOU =              0 (1: reinforced U-P coupling    )
+       NTERUP =              1 (n: n sweeps on navsto for
+                                   velocity/pressure coupling )
+
+  -- Continuous phase: 
+
+       IREVMC =              0 (Velocity reconstruction mode)
+
+       ARAK   =    0.10000E+01 (Arakawa factor              )
+
+       ISTMPF =              1 (time scheme for flow
+                               (0: explicit (THETFL = 0     )
+                               (1: std scheme (Saturne 1.0  )
+                               (2: 2nd-order (THETFL = 0.5  )
+       THETFL =   -0.99900E+03 (theta for mass flow         )
+       IROEXT =              0 (density extrapolation
+                               (0: explicit
+                               (1: n+thetro with thetro=1/2
+                               (2: n+thetro with thetro=1
+       THETRO =    0.00000E+00 (theta for density
+                               ((1+theta).new-theta.old
+       IVIEXT =              0 (total viscosity extrapolation
+                               (0: explicit
+                               (1: n+thetvi with thetro=1/2
+                               (2: n+thetvi with thetro=1
+       THETVI =    0.00000E+00 (theta for total viscosity
+                               ((1+theta).new-theta.old
+       ICPEXT =              0 (specific heat extrapolation
+                               (0: explicit
+                               (1: n+thetcp with thetro=1/2
+                               (2: n+thetcp with thetro=1
+       THETCP =    0.00000E+00 (specific heat theta-scheme
+                               ((1+theta).new-theta.old
+       THETSN =    0.00000E+00 (Nav-Stokes S.T. theta scheme)
+                               ((1+theta).new-theta.old
+       THETST =    0.00000E+00 (Turbulence S.T. theta-scheme)
+                               ((1+theta).new-theta.old
+       EPSUP  =    0.10000E-04 (Velocity/pressure coupling
+                                stop test                   )
+
+
+ -----------------------------------------------------------
+
+
+ ** GRADIENTS CALCULATION
+    ---------------------
+
+       IMRGRA =              0 (Reconstruction mode         )
+       ANOMAX =    0.78540E+00 (Non-ortho angle: limit for  )
+                               (least squares ext. neighbors)
+
+-----------------------------------------------------------
+ Variable NSWRGR NSWRSM      EPSRGR      EPSRSM      EXTRAG
+-----------------------------------------------------------
+ Pressure    100      2  0.1000E-04  0.1000E-07  0.0000E+00
+ Velocity    100      1  0.1000E-04  0.1000E-07  0.0000E+00
+ Velocity    100      1  0.1000E-04  0.1000E-07  0.0000E+00
+ Velocity    100      1  0.1000E-04  0.1000E-07  0.0000E+00
+ TempC       100      1  0.1000E-04  0.1000E-07  0.0000E+00
+-----------------------------------------------------------  
+
+-----------------------------------
+ Variable IRCFLU IMLIGR      CLIMGR
+-----------------------------------
+ Pressure      1     -1  0.1500E+01
+ Velocity      1     -1  0.1500E+01
+ Velocity      1     -1  0.1500E+01
+ Velocity      1     -1  0.1500E+01
+ TempC         1     -1  0.1500E+01
+-----------------------------------
+
+       NSWRGR =                (nb sweep gradient reconstr. )
+       NSWRSM =                (nb sweep rhs reconstrcution )
+       EPSRGR =                (grad. reconstruction prec.  )
+       EPSRSM =                (rhs   reconstruction prec.  )
+       EXTRAG =  [0.;1.]       (gradients extrapolation     )
+       IRCFLU =  0 ou  1       (flow reconstruction         )
+       IMLIGR =  < 0, 0 ou 1   (gradient limitation method  )
+       CLIMGR =  > 1 ou 1      (gradient limitation coeff.  )
+
+
+ -----------------------------------------------------------
+
+
+ ** FACE INTERPOLATION
+    ------------------
+       IMVISF =              0 (0 arithmetic                )
+
+
+ -----------------------------------------------------------
+
+
+ ** CALCULATION OF TEMPORAL MEANS (MOMENTS)
+    ---------------------------------------
+
+       NBMOMT =              0 (Number of moments           )
+
+ -----------------------------------------------------------
+
+
+ ** BASE ITERATIVE SOLVERS
+    ----------------------
+
+------------------------------------------
+ Variable IRESOL NITMAX      EPSILO IDIRCL
+------------------------------------------
+ Pressure     -1  10000  0.1000E-07      1
+ Velocity     -1  10000  0.1000E-07      1
+ Velocity     -1  10000  0.1000E-07      1
+ Velocity     -1  10000  0.1000E-07      1
+ TempC        -1  10000  0.1000E-07      1
+-----------------------------------
+
+       IRESOL =            -1  (automatic solver choice     )
+                IPOL*1000 + 0  (p conjuguate gradient       )
+                            1  (Jacobi                      )
+                IPOL*1000 + 2  (bicgstab                    )
+                  avec IPOL    (preconditioning degree      )
+       NITMAX =                (max number of iterations    )
+       EPSILO =                (resolution precision        )
+       IDIRCL = 0 ou 1         (shift diagonal if          
+                                ISTAT=0 and no Dirichlet    )
+
+
+ -----------------------------------------------------------
+
+
+ ** MULTIGRID
+    ---------
+
+       NCEGRM =             30 (Max nb cells coarsest grid  )
+       NGRMAX =             25 (Max number of levels        )
+------------------------------                               
+ Variable   IMGR NCYMAX NITMGF                               
+------------------------------                               
+ Pressure      1    100     10
+ Velocity      0    100     10
+ Velocity      0    100     10
+ Velocity      0    100     10
+ TempC         0    100     10
+------------------------------
+
+       IMGR   =  0 ou 1        (1: multigrid activated      )
+       NCYMAX =                (Max number  of cycles       )
+       NITMGF =                (Max nb iter on coarsest grid)
+
+
+  Multigrid rank merge parameters:
+    mean  coarse cells merge threshold: 300
+    total coarse cells merge threshold: 500
+    minimum ranks merge threshold:      1
+    merge stride:                       1
+
+ -----------------------------------------------------------
+
+
+ ** SCALARS
+    -------
+
+       ITBRRB =              0 (T or H reconstruction at bdy)
+
+------------------------------------------------------
+ Variable Number ISCSTH IVISLS      VISLS0      SIGMAS
+------------------------------------------------------
+ TempC         1     -1      0  0.6311E-04  0.1000E+01
+------------------------------------------------------
+
+-----------------------------------
+ Variable Number ISCAVR      RVARFL
+-----------------------------------
+ TempC         1      0  0.8000E+00
+-----------------------------------
+
+-----------------------------------------------
+ Variable Number ICLVFL      SCAMIN      SCAMAX
+-----------------------------------------------
+ TempC         1     -1  0.5000E+02  0.2000E+03
+-----------------------------------------------
+
+-------------------------------------------------------------
+
+       For each scalar, the number indicates it's rank
+         in the list of all scalars. User scalars are placed
+         first, from 1 to NSCAUS. Specific physics scalars
+         are placed at the end, from
+         NSCAUS+1 to NSCAPP+NSCAUS=NSCAL.
+
+       ISCSTH = -1,0, 1 ou 2   (T (C), Passive, T (K) or H  )
+       IVISLS = 0 ou >0        (Viscosity: constant or not  )
+       VISLS0 = >0             (Reference viscosity         )
+       SIGMAS = >0             (Schmidt                     )
+       ISCAVR = 0 ou >0        (Associat. scalar if variance)
+       RVARFL = >0             (Rf, cf variance dissipation )
+       ICLVFL = 0, 1 ou 2      (Variance clipping mode      )
+       SCAMIN =                (Min authorized value        )
+       SCAMAX =                (Max authorized value        )
+        For variances, SCAMIN is ignored and SCAMAX is used
+          only if ICLVFL = 2
+
+------------------------------------------------------
+   Scalar        THETSS    IVSEXT      THETVS
+------------------------------------------------------
+          1  0.0000E+00         0  0.0000E+00
+------------------------------------------------------
+
+       THETSS =                (theta for source terms      )
+                               ((1+theta).new-theta.old     )
+       IVSEXT =                (extrap. total viscosity     )
+                               (0: explicit                 )
+                               (1: n+thetvs with thetvs=1/2 )
+                               (2: n+thetvs with thetvs=1   )
+       THETVS =                (theta for scalar diffusivity
+                               ((1+theta).new-theta.old     )
+
+
+ -----------------------------------------------------------
+
+
+ ** CALCULATION MANAGEMENT
+    ----------------------
+
+ --- Restarted calculation
+       ISUITE =              0 (1: restarted calculuation   )
+       ILEAUX =              1 (1: also read  suiamx        )
+       IECAUX =              1 (1: also write suiavx        )
+
+       suiamx and suiavx are the auxiliary restart files.
+
+ --- Calculation time
+     The numbering of time steps and the measure of simulated
+       physical time are absolute values, and not values
+       relative to the current calculation.
+
+       INPDT0 =              0 (1: 0 time step calcuation   )
+       NTMABS =             10 (Final time step required    )
+
+ --- CPU time margin
+       TMARUS =   -0.10000E+01 (CPU time margin before stop )
+
+
+ -----------------------------------------------------------
+
+
+ ** INPUT-OUTPUT
+    ------------
+
+ --- Restart file
+       NTSUIT =              0 (Checkpoint frequency )
+
+ --- Post-processed variables
+
+       Number Name
+            2 Pressure        
+            3 VelocityX       
+            4 VelocityY       
+            5 VelocityZ       
+            6 TempC           
+            7 Density         
+            8 LamVisc         
+           11 total_pressure  
+         --           --
+
+ --- Probe history files
+       NTHIST =              1 (Output frequency     )
+       FRHIST =     -.10000E+01 (Output frequency (s) )
+       NCAPT  =              9 (Number of probes     )
+       NTHSAV =             -1 (Checkpoint frequency )
+
+       Number Name                  Nb. probes (-1: all)
+            2 Pressure                      -1
+            3 VelocityX                     -1
+            4 VelocityY                     -1
+            5 VelocityZ                     -1
+            6 TempC                         -1
+            7 Density                       -1
+            8 LamVisc                       -1
+           11 total_pressure                -1
+         --           --                --
+
+ --- Log files
+       NTLIST =              1 (Output frequency     )
+
+       Number Name                IWARNI verbosity level
+                                      (-999: not applicable)
+
+            2 Pressure                       0
+            3 VelocityX                      0
+            4 VelocityY                      0
+            5 VelocityZ                      0
+            6 TempC                          0
+            7 Density                     -999
+            8 LamVisc                     -999
+           11 total_pressure              -999
+         --           --                --
+
+ --- Additional post-processing variables
+       IPSTDV =            210 (Product of the following     
+                                values based on activation  )
+       IPSTYP =              2 (Yplus          on boundary  )
+       IPSTCL =              3 (Variables      on boundary  )
+       IPSTFT =              5 (Thermal flow   on boundary  )
+       IPSTFO =              7 (Force exerted  on boundary  )
+  and  IPSTDV =              1 (No additional output        )
+
+
+ -----------------------------------------------------------
+
+
+ ** ALE METHOD (MOVING MESH)
+    -----------                                              
+
+       IALE   =              0 (1: activated                )
+       NALINF =           -999 (Fluid initialization
+                                                  iterations)
+
+
+ -----------------------------------------------------------
+
+
+ Reading file:        mesh_input/mesh_01
+ Finished reading:    mesh_input/mesh_01
+
+ Reading file:        mesh_input/mesh_02
+ Finished reading:    mesh_input/mesh_02
+
+ Partitioning by space-filling curve: Morton (in bounding box).
+
+Postprocessing output writers:
+------------------------------
+
+  -1: name: results
+      directory: postprocessing
+      format: EnSight Gold
+      options: binary
+      time dependency: fixed mesh
+      output: at calculation end
+
+
+ ----------------------------------------------------------
+
+ Halo construction with standard neighborhood
+ ============================================
+
+ Face interfaces creation
+ Vertex interfaces creation
+ Halo creation
+ Halo definition
+    Local halo definition
+    Distant halo creation
+    Updating the faces -> cells connectivity
+
+ Halo creation times summary
+
+     Interface creation:                       0.008 s
+     Halo creation:                             0.00263 s
+
+     Total time for halo creation:              0.0106 s
+
+ ----------------------------------------------------------
+
+
+ Histogram of the number of cells per rank:
+
+    minimum value =               6250
+    maximum value =               6250
+
+      1 : [       6250 ;       6250 ] =          4
+
+ ----------------------------------------------------------
+
+ Histogram of the number of standard + halo cells per rank:
+
+    minimum value =               6366
+    maximum value =               7022
+
+      1 : [       6366 ;       6497 [ =          1
+      2 : [       6497 ;       6628 [ =          1
+      3 : [       6628 ;       6759 [ =          1
+      4 : [       6759 ;       6890 [ =          0
+      5 : [       6890 ;       7022 ] =          1
+
+ ----------------------------------------------------------
+
+ Histogram of the number of ghost cells per rank:
+
+    minimum value =                116
+    maximum value =                772
+
+      1 : [        116 ;        247 [ =          1
+      2 : [        247 ;        378 [ =          1
+      3 : [        378 ;        509 [ =          1
+      4 : [        509 ;        640 [ =          0
+      5 : [        640 ;        772 ] =          1
+
+ ----------------------------------------------------------
+
+ Histogram of the number of interior faces per rank:
+
+    minimum value =              12395
+    maximum value =              12830
+
+      1 : [      12395 ;      12482 [ =          1
+      2 : [      12482 ;      12569 [ =          2
+      3 : [      12569 ;      12656 [ =          0
+      4 : [      12656 ;      12743 [ =          0
+      5 : [      12743 ;      12830 ] =          1
+
+ ----------------------------------------------------------
+
+ Histogram of the number of boundary faces per rank:
+
+    minimum value =              12632
+    maximum value =              12903
+
+      1 : [      12632 ;      12686 [ =          1
+      2 : [      12686 ;      12740 [ =          0
+      3 : [      12740 ;      12794 [ =          0
+      4 : [      12794 ;      12848 [ =          2
+      5 : [      12848 ;      12903 ] =          1
+
+ ----------------------------------------------------------
+
+ Histogram of the number of interior faces per cell:
+
+    minimum value =                  2
+    maximum value =                  4
+
+      1 : [          2 ;          3 [ =          8
+      2 : [          3 ;          4 ] =      24992
+
+ ----------------------------------------------------------
+
+ Histogram of the number of neighboring domains per rank:
+
+    minimum value =                  2
+    maximum value =                  3
+
+      1 : [          2 ;          3 ] =          4
+
+ ----------------------------------------------------------
+
+ Global definition of the number of elements (cells, vertices, faces...)
+Synchronizing cell families
+
+ Renumbering mesh:
+
+ Writing file:        mesh_output
+ Finished writing:    mesh_output
+
+ Mesh coordinates:               minimum    and maximum
+                       X :  0.0000000e+00  1.0000000e-01
+                       Y : -2.0000000e-03  7.0000000e-03
+                       Z :  0.0000000e+00  1.0000000e-03
+ Mesh
+     Number of cells:          25000
+     Number of interior faces: 49400
+     Number of boundary faces: 51200
+     Number of vertices:       51204
+
+ Groups:
+    "bottom"
+       boundary faces:        12750
+    "inlet"
+       boundary faces:          100
+    "outlet"
+       boundary faces:          100
+    "sym"
+       boundary faces:        25500
+    "top"
+       boundary faces:        12750
+
+ --- Information on the volumes
+       Minimum control volume      =  4.3423193e-12
+       Maximum control volume      =  2.6455249e-10
+       Total volume for the domain =  1.2000000e-06
+
+ Computing geometric quantities (0.022 s)
+                                                             
+       ALMAX  =    0.10675E-01 (Characteristic length       )
+       ALMAX is the cubic root of the domain volume.
+
+                                                             
+ ----------------------------------------------------------- 
+                                                             
+                                                             
+ ** VARIABLES INITIALIZATION                                 
+    ------------------------                                 
+                                                             
+ ---------------------------------                           
+  Variable  Min. value  Max. value                           
+ ---------------------------------                           
+  Pressure  0.0000E+00  0.0000E+00
+  Velocity  0.5000E-01  0.5000E-01
+  Velocity  0.0000E+00  0.0000E+00
+  Velocity  0.0000E+00  0.0000E+00
+  TempC     0.5000E+02  0.5000E+02
+ ---------------------------------                           
+
+
+
+-------------------------------------------------------------
+
+
+
+===============================================================
+
+
+
+                       MAIN CALCULATION                      
+                       ================                      
+
+
+===============================================================
+
+
+
+
+===============================================================
+
+
+ INSTANT    0.100000000E+01   TIME STEP NUMBER               1
+ ============================================================= 
+
+
+ ---------------------------------                           
+ Property   Min. value  Max. value                           
+ ---------------------------------                           
+  Density   0.1179E+01  0.1179E+01
+  LamVisc   0.1830E-04  0.1830E-04
+ ---------------------------------                           
+
+ --- Diffusivity:                                            
+ ---------------------------------------                     
+ Scalar   Number  Min. value  Max. value                     
+ ---------------------------------------                     
+ TempC         1  0.6311E-04  0.6311E-04
+ ---------------------------------------                     
+
+
+
+   ** INFORMATION ON BOUNDARY FACES TYPE
+      ----------------------------------
+
+-------------------------------------------------------------------------
+Boundary type          Code    Nb faces
+-------------------------------------------------------------------------
+Inlet                     2         100
+Smooth wall               5       25500
+Rough wall                6           0
+Symmetry                  4       25500
+Free outlet               3         100
+Undefined                 1           0
+-------------------------------------------------------------------------
+
+
+Boundary faces with free inlet/outlet detected
+Update of reference point for total pressure
+ XYZP0 =    0.10000E+00   0.48840E-05   0.50000E-03
+
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2         100         0.000000000E+00
+Smooth wall               5       25500         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4       25500         0.000000000E+00
+Free outlet               3         100         0.000000000E+00
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+
+   ** BOUNDARY CONDITIONS FOR SMOOTH WALLS
+   ---------------------------------------
+------------------------------------------------------------
+                                         Minimum     Maximum
+------------------------------------------------------------
+   Rel velocity at the wall uiptn :  0.00000E+00 0.00000E+00
+   Friction velocity        uet   :  0.39404E-01 0.17122E+00
+   Friction velocity        uk    :  0.00000E+00 0.00000E+00
+   Dimensionless distance   yplus :  0.29202E+00 0.12689E+01
+   ------------------------------------------------------   
+   Nb of reversal of the velocity at the wall   :          0
+   Nb of faces within the viscous sub-layer     :      25500
+   Total number of wall faces                   :      25500
+------------------------------------------------------------
+
+
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.85239E-08    2572   0.10162E-04   0.99993E+00 
+c  VelocityX    0.69163E-06      41   0.89196E-08   0.24922E+00 
+c  VelocityY    0.51609E-08      40   0.81910E-08   0.11104E-02 
+c  VelocityZ    0.00000E+00       0   0.00000E+00   0.16669E-28 
+c  TempC        0.22485E-02      16   0.91382E-08   0.60901E-04 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.43829E+00   0.13420E+00         --         -- 
+v  VelocityX    0.66825E-02   0.52043E-01         --         -- 
+v  VelocityY   -0.74994E-02   0.74823E-02         --         -- 
+v  VelocityZ   -0.12264E-14   0.14520E-14         --         -- 
+v  TempC        0.50000E+02   0.50001E+02          0          0 
+v  Density      0.11786E+01   0.11786E+01          0          0 
+v  LamVisc      0.18300E-04   0.18300E-04          0          0 
+v  total_pressu 0.10132E+06   0.10133E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50001E+02          0          0 
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                1:        0.64004E+00
+
+===============================================================
+
+
+ INSTANT    0.200000000E+01   TIME STEP NUMBER               2
+ ============================================================= 
+
+
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2         100        -0.589310000E-06
+Smooth wall               5       25500         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4       25500         0.000000000E+00
+Free outlet               3         100         0.589308838E-06
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+
+   ** BOUNDARY CONDITIONS FOR SMOOTH WALLS
+   ---------------------------------------
+------------------------------------------------------------
+                                         Minimum     Maximum
+------------------------------------------------------------
+   Rel velocity at the wall uiptn :  0.00000E+00 0.00000E+00
+   Friction velocity        uet   :  0.14405E-01 0.14679E+00
+   Friction velocity        uk    :  0.00000E+00 0.00000E+00
+   Dimensionless distance   yplus :  0.20404E+00 0.12695E+01
+   ------------------------------------------------------   
+   Nb of reversal of the velocity at the wall   :          0
+   Nb of faces within the viscous sub-layer     :      25500
+   Total number of wall faces                   :      25500
+------------------------------------------------------------
+
+
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.23136E-08    2505   0.23257E-04   0.99819E+00 
+c  VelocityX    0.63646E-06      41   0.85596E-08   0.37496E-01 
+c  VelocityY    0.97244E-08      40   0.78621E-08   0.56313E-04 
+c  VelocityZ    0.74602E-21       0   0.00000E+00   0.13783E-29 
+c  TempC        0.22484E-02      16   0.89517E-08   0.67954E-04 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure     0.26554E-03   0.20522E+00         --         -- 
+v  VelocityX    0.11926E-01   0.53367E-01         --         -- 
+v  VelocityY   -0.12061E-01   0.12017E-01         --         -- 
+v  VelocityZ   -0.96224E-15   0.11538E-14         --         -- 
+v  TempC        0.50000E+02   0.50002E+02          0          0 
+v  Density      0.11786E+01   0.11786E+01          0          0 
+v  LamVisc      0.18300E-04   0.18300E-04          0          0 
+v  total_pressu 0.10133E+06   0.10133E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50002E+02          0          0 
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                2:        0.59604E+00
+
+===============================================================
+
+
+ INSTANT    0.300000000E+01   TIME STEP NUMBER               3
+ ============================================================= 
+
+
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2         100        -0.589310000E-06
+Smooth wall               5       25500         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4       25500         0.000000000E+00
+Free outlet               3         100         0.589310295E-06
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+
+   ** BOUNDARY CONDITIONS FOR SMOOTH WALLS
+   ---------------------------------------
+------------------------------------------------------------
+                                         Minimum     Maximum
+------------------------------------------------------------
+   Rel velocity at the wall uiptn :  0.00000E+00 0.00000E+00
+   Friction velocity        uet   :  0.19244E-01 0.13499E+00
+   Friction velocity        uk    :  0.00000E+00 0.00000E+00
+   Dimensionless distance   yplus :  0.15742E+00 0.12682E+01
+   ------------------------------------------------------   
+   Nb of reversal of the velocity at the wall   :          0
+   Nb of faces within the viscous sub-layer     :      25500
+   Total number of wall faces                   :      25500
+------------------------------------------------------------
+
+
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.12601E-08    2452   0.51822E-04   0.67473E+00 
+c  VelocityX    0.62670E-06      40   0.78948E-08   0.14612E-01 
+c  VelocityY    0.10562E-07      44   0.75894E-08   0.29897E-04 
+c  VelocityZ    0.46786E-21       0   0.00000E+00   0.55174E-31 
+c  TempC        0.22483E-02      16   0.89037E-08   0.65410E-04 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure     0.10198E-03   0.23315E+00         --         -- 
+v  VelocityX    0.10193E-01   0.54402E-01         --         -- 
+v  VelocityY   -0.13987E-01   0.13946E-01         --         -- 
+v  VelocityZ   -0.90350E-15   0.10812E-14         --         -- 
+v  TempC        0.50000E+02   0.50002E+02          0          0 
+v  Density      0.11786E+01   0.11786E+01          0          0 
+v  LamVisc      0.18300E-04   0.18300E-04          0          0 
+v  total_pressu 0.10133E+06   0.10133E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50002E+02          0          0 
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                3:        0.55603E+00
+
+===============================================================
+
+
+ INSTANT    0.400000000E+01   TIME STEP NUMBER               4
+ ============================================================= 
+
+
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2         100        -0.589310000E-06
+Smooth wall               5       25500         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4       25500         0.000000000E+00
+Free outlet               3         100         0.589310968E-06
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+
+   ** BOUNDARY CONDITIONS FOR SMOOTH WALLS
+   ---------------------------------------
+------------------------------------------------------------
+                                         Minimum     Maximum
+------------------------------------------------------------
+   Rel velocity at the wall uiptn :  0.00000E+00 0.00000E+00
+   Friction velocity        uet   :  0.21644E-01 0.13050E+00
+   Friction velocity        uk    :  0.00000E+00 0.00000E+00
+   Dimensionless distance   yplus :  0.13185E+00 0.12684E+01
+   ------------------------------------------------------   
+   Nb of reversal of the velocity at the wall   :          0
+   Nb of faces within the viscous sub-layer     :      25500
+   Total number of wall faces                   :      25500
+------------------------------------------------------------
+
+
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.96409E-09    2435   0.73649E-04   0.53976E+00 
+c  VelocityX    0.61527E-06      40   0.70746E-08   0.79197E-02 
+c  VelocityY    0.10659E-07      43   0.92440E-08   0.17636E-04 
+c  VelocityZ    0.40785E-21       0   0.00000E+00   0.64380E-32 
+c  TempC        0.22483E-02      16   0.88663E-08   0.63712E-04 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.14581E-03   0.23982E+00         --         -- 
+v  VelocityX    0.80015E-02   0.55155E-01         --         -- 
+v  VelocityY   -0.14767E-01   0.14731E-01         --         -- 
+v  VelocityZ   -0.88407E-15   0.10549E-14         --         -- 
+v  TempC        0.50000E+02   0.50003E+02          0          0 
+v  Density      0.11786E+01   0.11786E+01          0          0 
+v  LamVisc      0.18300E-04   0.18300E-04          0          0 
+v  total_pressu 0.10132E+06   0.10133E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50003E+02          0          0 
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                4:        0.55204E+00
+
+===============================================================
+
+
+ INSTANT    0.500000000E+01   TIME STEP NUMBER               5
+ ============================================================= 
+
+
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2         100        -0.589310000E-06
+Smooth wall               5       25500         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4       25500         0.000000000E+00
+Free outlet               3         100         0.589310898E-06
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+
+   ** BOUNDARY CONDITIONS FOR SMOOTH WALLS
+   ---------------------------------------
+------------------------------------------------------------
+                                         Minimum     Maximum
+------------------------------------------------------------
+   Rel velocity at the wall uiptn :  0.00000E+00 0.00000E+00
+   Friction velocity        uet   :  0.23208E-01 0.12876E+00
+   Friction velocity        uk    :  0.00000E+00 0.00000E+00
+   Dimensionless distance   yplus :  0.11682E+00 0.12685E+01
+   ------------------------------------------------------   
+   Nb of reversal of the velocity at the wall   :          0
+   Nb of faces within the viscous sub-layer     :      25500
+   Total number of wall faces                   :      25500
+------------------------------------------------------------
+
+
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.88699E-09    2416   0.65147E-04   0.50542E+00 
+c  VelocityX    0.60601E-06      39   0.97765E-08   0.51375E-02 
+c  VelocityY    0.10697E-07      43   0.76602E-08   0.11685E-04 
+c  VelocityZ    0.38538E-21       0   0.00000E+00   0.22351E-32 
+c  TempC        0.22482E-02      16   0.88325E-08   0.62342E-04 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.42395E-03   0.24315E+00         --         -- 
+v  VelocityX    0.67304E-02   0.55835E-01         --         -- 
+v  VelocityY   -0.15115E-01   0.15083E-01         --         -- 
+v  VelocityZ   -0.87333E-15   0.10393E-14         --         -- 
+v  TempC        0.50000E+02   0.50004E+02          0          0 
+v  Density      0.11786E+01   0.11786E+01          0          0 
+v  LamVisc      0.18300E-04   0.18300E-04          0          0 
+v  total_pressu 0.10132E+06   0.10133E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50004E+02          0          0 
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                5:        0.53603E+00
+
+===============================================================
+
+
+ INSTANT    0.600000000E+01   TIME STEP NUMBER               6
+ ============================================================= 
+
+
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2         100        -0.589310000E-06
+Smooth wall               5       25500         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4       25500         0.000000000E+00
+Free outlet               3         100         0.589310789E-06
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+
+   ** BOUNDARY CONDITIONS FOR SMOOTH WALLS
+   ---------------------------------------
+------------------------------------------------------------
+                                         Minimum     Maximum
+------------------------------------------------------------
+   Rel velocity at the wall uiptn :  0.00000E+00 0.00000E+00
+   Friction velocity        uet   :  0.24330E-01 0.12804E+00
+   Friction velocity        uk    :  0.00000E+00 0.00000E+00
+   Dimensionless distance   yplus :  0.10714E+00 0.12685E+01
+   ------------------------------------------------------   
+   Nb of reversal of the velocity at the wall   :          0
+   Nb of faces within the viscous sub-layer     :      25500
+   Total number of wall faces                   :      25500
+------------------------------------------------------------
+
+
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.89817E-09    2413   0.30695E-04   0.51560E+00 
+c  VelocityX    0.59825E-06      39   0.93465E-08   0.36722E-02 
+c  VelocityY    0.10721E-07      42   0.95285E-08   0.84685E-05 
+c  VelocityZ    0.37764E-21       0   0.00000E+00   0.13628E-32 
+c  TempC        0.22481E-02      16   0.88013E-08   0.61150E-04 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.71898E-03   0.24566E+00         --         -- 
+v  VelocityX    0.59043E-02   0.56469E-01         --         -- 
+v  VelocityY   -0.15284E-01   0.15254E-01         --         -- 
+v  VelocityZ   -0.86558E-15   0.10272E-14         --         -- 
+v  TempC        0.50000E+02   0.50004E+02          0          0 
+v  Density      0.11786E+01   0.11786E+01          0          0 
+v  LamVisc      0.18300E-04   0.18300E-04          0          0 
+v  total_pressu 0.10132E+06   0.10133E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50004E+02          0          0 
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                6:        0.53603E+00
+
+===============================================================
+
+
+ INSTANT    0.700000000E+01   TIME STEP NUMBER               7
+ ============================================================= 
+
+
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2         100        -0.589310000E-06
+Smooth wall               5       25500         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4       25500         0.000000000E+00
+Free outlet               3         100         0.589310488E-06
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+
+   ** BOUNDARY CONDITIONS FOR SMOOTH WALLS
+   ---------------------------------------
+------------------------------------------------------------
+                                         Minimum     Maximum
+------------------------------------------------------------
+   Rel velocity at the wall uiptn :  0.00000E+00 0.00000E+00
+   Friction velocity        uet   :  0.25175E-01 0.12772E+00
+   Friction velocity        uk    :  0.00000E+00 0.00000E+00
+   Dimensionless distance   yplus :  0.10035E+00 0.12686E+01
+   ------------------------------------------------------   
+   Nb of reversal of the velocity at the wall   :          0
+   Nb of faces within the viscous sub-layer     :      25500
+   Total number of wall faces                   :      25500
+------------------------------------------------------------
+
+
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.93577E-09    2399   0.53664E-04   0.53874E+00 
+c  VelocityX    0.59154E-06      39   0.89631E-08   0.27838E-02 
+c  VelocityY    0.10740E-07      42   0.84814E-08   0.65384E-05 
+c  VelocityZ    0.36743E-21       0   0.00000E+00   0.10564E-32 
+c  TempC        0.22481E-02      16   0.87724E-08   0.60077E-04 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.10264E-02   0.24778E+00         --         -- 
+v  VelocityX    0.53197E-02   0.57056E-01         --         -- 
+v  VelocityY   -0.15370E-01   0.15342E-01         --         -- 
+v  VelocityZ   -0.85893E-15   0.10170E-14         --         -- 
+v  TempC        0.50000E+02   0.50005E+02          0          0 
+v  Density      0.11786E+01   0.11786E+01          0          0 
+v  LamVisc      0.18300E-04   0.18300E-04          0          0 
+v  total_pressu 0.10132E+06   0.10133E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50005E+02          0          0 
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                7:        0.52803E+00
+
+===============================================================
+
+
+ INSTANT    0.800000000E+01   TIME STEP NUMBER               8
+ ============================================================= 
+
+
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2         100        -0.589310000E-06
+Smooth wall               5       25500         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4       25500         0.000000000E+00
+Free outlet               3         100         0.589310652E-06
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+
+   ** BOUNDARY CONDITIONS FOR SMOOTH WALLS
+   ---------------------------------------
+------------------------------------------------------------
+                                         Minimum     Maximum
+------------------------------------------------------------
+   Rel velocity at the wall uiptn :  0.00000E+00 0.00000E+00
+   Friction velocity        uet   :  0.25829E-01 0.12757E+00
+   Friction velocity        uk    :  0.00000E+00 0.00000E+00
+   Dimensionless distance   yplus :  0.95250E-01 0.12687E+01
+   ------------------------------------------------------   
+   Nb of reversal of the velocity at the wall   :          0
+   Nb of faces within the viscous sub-layer     :      25500
+   Total number of wall faces                   :      25500
+------------------------------------------------------------
+
+
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.97763E-09    2396   0.65144E-04   0.56305E+00 
+c  VelocityX    0.58561E-06      39   0.86051E-08   0.21950E-02 
+c  VelocityY    0.10757E-07      42   0.77078E-08   0.52701E-05 
+c  VelocityZ    0.36311E-21       0   0.00000E+00   0.90296E-33 
+c  TempC        0.22480E-02      16   0.87455E-08   0.59093E-04 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.13443E-02   0.24961E+00         --         -- 
+v  VelocityX    0.48796E-02   0.57601E-01         --         -- 
+v  VelocityY   -0.15413E-01   0.15386E-01         --         -- 
+v  VelocityZ   -0.85308E-15   0.10084E-14         --         -- 
+v  TempC        0.50000E+02   0.50006E+02          0          0 
+v  Density      0.11786E+01   0.11786E+01          0          0 
+v  LamVisc      0.18300E-04   0.18300E-04          0          0 
+v  total_pressu 0.10132E+06   0.10133E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50006E+02          0          0 
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                8:        0.60004E+00
+
+===============================================================
+
+
+ INSTANT    0.900000000E+01   TIME STEP NUMBER               9
+ ============================================================= 
+
+
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2         100        -0.589310000E-06
+Smooth wall               5       25500         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4       25500         0.000000000E+00
+Free outlet               3         100         0.589310516E-06
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+
+   ** BOUNDARY CONDITIONS FOR SMOOTH WALLS
+   ---------------------------------------
+------------------------------------------------------------
+                                         Minimum     Maximum
+------------------------------------------------------------
+   Rel velocity at the wall uiptn :  0.00000E+00 0.00000E+00
+   Friction velocity        uet   :  0.26347E-01 0.12749E+00
+   Friction velocity        uk    :  0.00000E+00 0.00000E+00
+   Dimensionless distance   yplus :  0.91225E-01 0.12687E+01
+   ------------------------------------------------------   
+   Nb of reversal of the velocity at the wall   :          0
+   Nb of faces within the viscous sub-layer     :      25500
+   Total number of wall faces                   :      25500
+------------------------------------------------------------
+
+
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.10175E-08    2382   0.46181E-04   0.58569E+00 
+c  VelocityX    0.58028E-06      39   0.82669E-08   0.17803E-02 
+c  VelocityY    0.10773E-07      42   0.70959E-08   0.43601E-05 
+c  VelocityZ    0.35739E-21       0   0.00000E+00   0.81205E-33 
+c  TempC        0.22480E-02      16   0.87204E-08   0.58180E-04 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.16718E-02   0.25123E+00         --         -- 
+v  VelocityX    0.45332E-02   0.58112E-01         --         -- 
+v  VelocityY   -0.15513E-01   0.15510E-01         --         -- 
+v  VelocityZ   -0.84832E-15   0.10012E-14         --         -- 
+v  TempC        0.50000E+02   0.50006E+02          0          0 
+v  Density      0.11786E+01   0.11786E+01          0          0 
+v  LamVisc      0.18300E-04   0.18300E-04          0          0 
+v  total_pressu 0.10132E+06   0.10133E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50006E+02          0          0 
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                9:        0.52003E+00
+
+===============================================================
+
+
+ INSTANT    0.100000000E+02   TIME STEP NUMBER              10
+ ============================================================= 
+
+
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2         100        -0.589310000E-06
+Smooth wall               5       25500         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4       25500         0.000000000E+00
+Free outlet               3         100         0.589310472E-06
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+
+   ** BOUNDARY CONDITIONS FOR SMOOTH WALLS
+   ---------------------------------------
+------------------------------------------------------------
+                                         Minimum     Maximum
+------------------------------------------------------------
+   Rel velocity at the wall uiptn :  0.00000E+00 0.00000E+00
+   Friction velocity        uet   :  0.26764E-01 0.12745E+00
+   Friction velocity        uk    :  0.00000E+00 0.00000E+00
+   Dimensionless distance   yplus :  0.87928E-01 0.12688E+01
+   ------------------------------------------------------   
+   Nb of reversal of the velocity at the wall   :          0
+   Nb of faces within the viscous sub-layer     :      25500
+   Total number of wall faces                   :      25500
+------------------------------------------------------------
+
+
+
+
+ Write final restart files
+   checkpoint at iteration         10, Physical time    0.10000E+02
+
+
+   ** Writing the main restart file
+      -----------------------------
+
+ Start writing
+   End writing the dimensions                           
+   End writing the options                              
+   End writing the main variables                       
+ End writing
+
+   ** Writing the auxilliary restart file
+      -----------------------------------
+
+ Start writing
+   End writing the dimensions and options               
+   End writing the physical properties                  
+   End writing the time step                            
+   End writing the mass fluxes                          
+   End writing the boundary conditions                  
+ End writing
+
+
+ CPU time for restart files:    0.16001E-01
+
+
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.10527E-08    2380   0.37446E-04   0.60529E+00 
+c  VelocityX    0.57545E-06      39   0.79457E-08   0.14748E-02 
+c  VelocityY    0.10790E-07      41   0.94994E-08   0.36832E-05 
+c  VelocityZ    0.35366E-21       0   0.00000E+00   0.75278E-33 
+c  TempC        0.22479E-02      16   0.86969E-08   0.57327E-04 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.20077E-02   0.25266E+00         --         -- 
+v  VelocityX    0.42515E-02   0.58598E-01         --         -- 
+v  VelocityY   -0.15733E-01   0.15729E-01         --         -- 
+v  VelocityZ   -0.84422E-15   0.99521E-15         --         -- 
+v  TempC        0.50000E+02   0.50007E+02          0          0 
+v  Density      0.11786E+01   0.11786E+01          0          0 
+v  LamVisc      0.18300E-04   0.18300E-04          0          0 
+v  total_pressu 0.10132E+06   0.10133E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50007E+02          0          0 
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP               10:        0.54403E+00
+
+===============================================================
+
+
+
+===============================================================
+
+
+
+                 FINAL STAGE OF THE CALCULATION              
+                 ==============================              
+
+
+ =========================================================== 
+
+
+
+
+   ** CPU TIME FOR FINAL WRITING:    0.00000E+00
+      ---------------------------                           
+
+
+
+ =========================================================== 
+
+
+
+
+                      END OF CALCULATION                     
+                      ==================                     
+
+
+===============================================================
+
+Summary of multigrid for "Pressure":
+
+  Smoother: Conjugate gradient
+  Coarsest level solver:       Conjugate gradient
+  Number of constructions:          10
+  Number of resolutions:            20
+  Number of levels:
+    minimum:                        8
+    maximum:                        8
+    mean:                           8
+  Coarse grid size (n cells):
+    minimum:                        30
+    maximum:                        33
+    mean:                           30
+  Coarse grid ranks:
+    minimum:                        4
+    maximum:                        4
+  Number of cycles:
+    minimum:                        100
+    maximum:                        100
+    mean:                           100
+  Number of iterations:
+    on finest grid:
+      minimum:                      1100
+      maximum:                      1100
+      mean:                         1100
+    on coarsest grid:
+      minimum:                      0
+      maximum:                      693
+      mean:                         190
+    total on grids:
+      minimum:                      3666
+      maximum:                      11852
+      mean:                         6260
+  Associated times (construction, resolution)
+    total elapsed:                         0.064        10.144
+    Min local total CPU time:              0.020         4.756
+    Max local total CPU time:              0.036         5.028
+
+Summary of resolutions for TempC (Jacobi):
+
+  Number of calls:                  10
+  Minimum number of iterations:     16
+  Maximum number of iterations:     16
+  Mean number of iterations:        16
+  Total elapsed time:                      0.035
+  Min local total CPU time:                0.016
+  Max local total CPU time:                0.028
+
+Summary of resolutions for VelocityX (Jacobi):
+
+  Number of calls:                  10
+  Minimum number of iterations:     39
+  Maximum number of iterations:     41
+  Mean number of iterations:        39
+  Total elapsed time:                      0.089
+  Min local total CPU time:                0.040
+  Max local total CPU time:                0.052
+
+Summary of resolutions for VelocityY (Jacobi):
+
+  Number of calls:                  10
+  Minimum number of iterations:     40
+  Maximum number of iterations:     44
+  Mean number of iterations:        41
+  Total elapsed time:                      0.086
+  Min local total CPU time:                0.036
+  Max local total CPU time:                0.044
+
+Summary of resolutions for VelocityZ (Jacobi):
+
+  Number of calls:                  10
+  Minimum number of iterations:     0
+  Maximum number of iterations:     0
+  Mean number of iterations:        0
+  Total elapsed time:                      0.000
+  Min local total CPU time:                0.000
+  Max local total CPU time:                0.000
+
+Summary of gradient computations pour "Var. 0" (Iterative reconstruction):
+
+  Number of calls:                  10
+  Total elapsed time:                      0.056
+  Min local total CPU time:                0.028
+  Max local total CPU time:                0.044
+
+Summary of gradient computations pour "Var. 1" (Iterative reconstruction):
+
+  Number of calls:                  60
+  Total elapsed time:                      0.273
+  Min local total CPU time:                0.124
+  Max local total CPU time:                0.136
+
+Summary of gradient computations pour "Var. 2" (Iterative reconstruction):
+
+  Number of calls:                  39
+  Total elapsed time:                      0.194
+  Min local total CPU time:                0.064
+  Max local total CPU time:                0.100
+
+Summary of gradient computations pour "Var. 3" (Iterative reconstruction):
+
+  Number of calls:                  39
+  Total elapsed time:                      0.188
+  Min local total CPU time:                0.084
+  Max local total CPU time:                0.096
+
+Summary of gradient computations pour "Var. 4" (Iterative reconstruction):
+
+  Number of calls:                  39
+  Total elapsed time:                      0.086
+  Min local total CPU time:                0.028
+  Max local total CPU time:                0.040
+
+Summary of gradient computations pour "Var. 5" (Iterative reconstruction):
+
+  Number of calls:                  11
+  Total elapsed time:                      0.054
+  Min local total CPU time:                0.016
+  Max local total CPU time:                0.036
+
+ Destroying structures and ending computation
+
+Mesh entity selections by criteria statistics:
+  entity type     evaluations  elapsed time
+  -----------------------------------------
+  cells                     1       0.00005
+  interior faces            0       0.00000
+  boundary faces          105       0.00047
+
+Writing of "results" (EnSight Gold) summary:
+
+  CPU time for meshes:                     0.004
+  CPU time for variables:                  0.024
+
+  Elapsed time for meshes:                 0.024
+  Elapsed time for variables:              0.027
+
+Code_Saturne IO files read:
+
+  mesh_input/mesh_01
+    global:      0.00366 s,        1.895 KiB
+    local:       0.00249 s,        1.778 MiB
+    open:        0.01445 s, 2 open(s)
+  mesh_input/mesh_02
+    global:      0.00460 s,        1.895 KiB
+    local:       0.00430 s,        1.778 MiB
+    open:        0.01121 s, 2 open(s)
+
+Code_Saturne IO files written:
+
+  checkpoint/auxiliary
+    global:      0.01156 s,        4.125 KiB
+    local:       0.01857 s,        5.450 MiB
+    open:        0.02953 s, 1 open(s)
+  checkpoint/main
+    global:      0.00189 s,        2.500 KiB
+    local:       0.00174 s,      976.562 KiB
+    open:        0.00415 s, 1 open(s)
+  mesh_output
+    global:      0.00146 s,        2.625 KiB
+    local:       0.00952 s,        4.337 MiB
+    open:        0.02702 s, 1 open(s)
+
+Calculation time summary:
+
+  User CPU time:              4.840 s
+  System CPU time:            0.936 s
+  Total CPU time:            23.561 s
+
+  Elapsed time:              12.250 s
+  CPU / elapsed time          0.472
+
+Memory use summary:
+
+  Total memory used:                               1.002 GiB
+                             local minimum:      248.738 MiB  (rank 1)
+                             local maximum:      277.605 MiB  (rank 0)
+  Theoretical instrumented dynamic memory:        24.670 MiB
+                             local minimum:        5.740 MiB  (rank 3)
+                             local maximum:        7.020 MiB  (rank 0)
+

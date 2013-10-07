@@ -1,0 +1,25 @@
+========================================================
+Start time       : Wednesday October 02 15:33:43 CEST 2013
+========================================================
+  Command        : /usr/bin/code_saturne run --param 2d_duct_flow
+========================================================
+  Package path   : /usr
+  ----------------------------------------------------
+  MPI path       : 
+  MPI type       : OpenMPI
+  ----------------------------------------------------
+  User           : vance
+  ----------------------------------------------------
+  Machine        : Linux atlacamani 3.2.0-23-generic #36-Ubuntu SMP Tue Apr 10 20:39:51 UTC 2012 x86_64 
+  N Procs        : 4
+  ----------------------------------------------------
+  Case           : 2D
+    directory    : /home/vance/CFDTut/DUCT/2D
+    results dir. : /home/vance/CFDTut/DUCT/2D/RESU/20131002-1533
+    preprocessor : /usr/lib/code_saturne/cs_preprocess
+    partitioner  : /usr/lib/code_saturne/cs_partition
+    solver       : /home/vance/CFDTut/DUCT/2D/RESU/20131002-1533/cs_solver
+  ----------------------------------------------------
+========================================================
+Finish time      : Wednesday October 02 15:33:51 CEST 2013
+========================================================
