@@ -213,4 +213,6 @@ mesh_d.GroupOnGeom(g_sym, "sym")
 print "mesh groups defined..."
 
 # update
+
 salome.sg.updateObjBrowser(1)
+

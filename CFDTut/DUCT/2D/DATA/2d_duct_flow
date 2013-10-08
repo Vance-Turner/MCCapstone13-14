@@ -4,7 +4,7 @@
 			<zone head_losses="off" id="1" initialization="on" label="all_cells" mass_source_term="off" momentum_source_term="off" scalar_source_term="off" thermal_source_term="off">all[]</zone>
 		</volumic_conditions>
 		<meshes_list>
-			<mesh name="mesh_d.med"/>
+			<mesh name="mesh_d_alt1.med"/>
 		</meshes_list>
 		<faces_cutting status="off"/>
 		<joining/>
@@ -88,6 +88,11 @@
 			<gravity_z>0</gravity_z>
 		</gravity>
 		<hydrostatic_pressure status="off"/>
+		<omega>
+			<omega_x>0</omega_x>
+			<omega_y>0</omega_y>
+			<omega_z>0</omega_z>
+		</omega>
 	</physical_properties>
 	<additional_scalars>
 		<scalar label="TempC" name="temperature_celsius" type="thermal">
@@ -220,10 +225,11 @@
 		<time_averages/>
 	</analysis_control>
 	<calculation_management>
-		<n_procs>4</n_procs>
+		<n_procs>2</n_procs>
 		<start_restart>
 			<frozen_field status="off"/>
 		</start_restart>
+		<run_type>standard</run_type>
 	</calculation_management>
 	<lagrangian model="off"/>
 </Code_Saturne_GUI>

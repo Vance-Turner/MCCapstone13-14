@@ -4,5 +4,5 @@
 export PATH="/usr/bin":$PATH
 
 # Run command:
-\code_saturne run --param 2d_duct_flow_yvel.xml 
+\code_saturne run --param 2d_duct_flow_alt2.xml 
 

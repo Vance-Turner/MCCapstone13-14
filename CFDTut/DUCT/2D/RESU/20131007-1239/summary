@@ -1,0 +1,25 @@
+========================================================
+Start time       : Monday October 07 12:39:36 CEST 2013
+========================================================
+  Command        : /usr/bin/code_saturne run --param 2d_duct_flow_alt2.xml
+========================================================
+  Package path   : /usr
+  ----------------------------------------------------
+  MPI path       : 
+  MPI type       : OpenMPI
+  ----------------------------------------------------
+  User           : vance
+  ----------------------------------------------------
+  Machine        : Linux studio-ub 3.5.0-41-generic #64~precise1-Ubuntu SMP Thu Sep 12 16:50:04 UTC 2013 x86_64 
+  N Procs        : 2
+  ----------------------------------------------------
+  Case           : 2D
+    directory    : /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/DUCT/2D
+    results dir. : /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/DUCT/2D/RESU/20131007-1239
+    preprocessor : /usr/lib/code_saturne/cs_preprocess
+    partitioner  : /usr/lib/code_saturne/cs_partition
+    solver       : /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/DUCT/2D/RESU/20131007-1239/cs_solver
+  ----------------------------------------------------
+========================================================
+Finish time      : Monday October 07 12:39:44 CEST 2013
+========================================================
