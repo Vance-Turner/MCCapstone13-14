@@ -1,0 +1,39 @@
+
+                      code_saturne is running
+                      ***********************
+
+ Version: 2.1.0
+ Path:    /usr
+
+ Result directory:
+   /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1612
+
+
+ Parallel code_saturne on 4 processes.
+
+
+ ****************************
+  Preparing calculation data
+ ****************************
+
+
+ ***************************
+  Preprocessing calculation
+ ***************************
+
+Warning: /usr/lib/code_saturne/cs_partition not found.
+
+The partitioner may not have been installed  (this is the case if neither METIS nor SCOTCH  are available).
+
+Partitioning by a space-filling curve will be used.
+
+
+ **********************
+  Starting calculation
+ **********************
+
+
+ ****************************
+  Saving calculation results
+ ****************************
+
