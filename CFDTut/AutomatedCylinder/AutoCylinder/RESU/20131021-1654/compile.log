@@ -1,0 +1,49 @@
+/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne/usphyv.f90:32.8:
+
+   coefa  , coefb  )
+        1
+Warning: Unused dummy argument 'coefa' at (1)
+/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne/usphyv.f90:32.17:
+
+   coefa  , coefb  )
+                 1
+Warning: Unused dummy argument 'coefb' at (1)
+/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne/usphyv.f90:30.5:
+
+   dt     , rtp    , rtpa   ,                                     &
+     1
+Warning: Unused dummy argument 'dt' at (1)
+/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne/usphyv.f90:29.8:
+
+   ibrom  ,                                                       &
+        1
+Warning: Unused dummy argument 'ibrom' at (1)
+/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne/usphyv.f90:28.17:
+
+ ( nvar   , nscal  ,                                              &
+                 1
+Warning: Unused dummy argument 'nscal' at (1)
+/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne/usphyv.f90:28.7:
+
+ ( nvar   , nscal  ,                                              &
+       1
+Warning: Unused dummy argument 'nvar' at (1)
+/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne/usphyv.f90:31.18:
+
+   propce , propfa , propfb ,                                     &
+                  1
+Warning: Unused dummy argument 'propfa' at (1)
+/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne/usphyv.f90:31.27:
+
+   propce , propfa , propfb ,                                     &
+                           1
+Warning: Unused dummy argument 'propfb' at (1)
+/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne/usphyv.f90:30.25:
+
+   dt     , rtp    , rtpa   ,                                     &
+                         1
+Warning: Unused dummy argument 'rtpa' at (1)
+/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne/usphyv.f90: In function ‘usphyv’:
+/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne/usphyv.f90:249:0: warning: ‘ivart’ may be used uninitialized in this function [-Wuninitialized]
+gfortran -I/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne -I/usr/include/code_saturne -x f95-cpp-input -Wall -Wno-unused  -D_CS_FC_HAVE_FLUSH  -O -c /home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/src_saturne/usphyv.f90
+gcc -o /home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1654/cs_solver *.o -L/usr/lib        -lsaturne -lmei -lfvm_filters -lfvm -lbft -lple -lcgns -lmedC -lhdf5  -lmpi  -lxml2 -lblas -Wl,-export-dynamic -Wl,-Bsymbolic-functions -Wl,-z,relro -O   -lz -ldl -L/usr/lib/gcc/i686-linux-gnu/4.6 -L/usr/lib/gcc/i686-linux-gnu/4.6/../../../i386-linux-gnu -L/usr/lib/gcc/i686-linux-gnu/4.6/../../../../lib -L/lib/i386-linux-gnu -L/lib/../lib -L/usr/lib/i386-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/i686-linux-gnu/4.6/../../.. -lgfortran -lm -lquadmath 

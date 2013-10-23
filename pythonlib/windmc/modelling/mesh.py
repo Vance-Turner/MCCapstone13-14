@@ -201,7 +201,7 @@ class SectionedCylinder(BasicMesh):
 			else:
 				print "This face is no good!>",GetSubShapeID(self.pipeGeom,sub_face) 
 		'''
-		#algo2d = self.pipeMesh.Quadrangle(geom=self.g_wall)
+		algo2d = self.pipeMesh.Quadrangle(geom=self.g_wall)
 		self.tetraMeshAlgo = self.pipeMesh.Tetrahedron()
 		status = self.pipeMesh.Compute()
 	

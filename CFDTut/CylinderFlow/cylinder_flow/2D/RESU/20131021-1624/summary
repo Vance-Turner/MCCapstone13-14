@@ -1,0 +1,25 @@
+========================================================
+Start time       : Monday October 21 16:24:34 CEST 2013
+========================================================
+  Command        : /usr/bin/code_saturne run --param cylinder_flow_cs_study
+========================================================
+  Package path   : /usr
+  ----------------------------------------------------
+  MPI path       : 
+  MPI type       : OpenMPI
+  ----------------------------------------------------
+  User           : vance
+  ----------------------------------------------------
+  Machine        : Linux atlacamani 3.2.0-23-generic #36-Ubuntu SMP Tue Apr 10 20:39:51 UTC 2012 x86_64 
+  N Procs        : 4
+  ----------------------------------------------------
+  Case           : 2D
+    directory    : /home/vance/Capstone13-14/MCCapstone13-14/CFDTut/CylinderFlow/cylinder_flow/2D
+    results dir. : /home/vance/Capstone13-14/MCCapstone13-14/CFDTut/CylinderFlow/cylinder_flow/2D/RESU/20131021-1624
+    preprocessor : /usr/lib/code_saturne/cs_preprocess
+    partitioner  : /usr/lib/code_saturne/cs_partition
+    solver       : /usr/lib/code_saturne/cs_solver
+  ----------------------------------------------------
+========================================================
+Finish time      : Monday October 21 16:27:34 CEST 2013
+========================================================

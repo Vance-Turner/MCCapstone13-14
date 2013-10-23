@@ -4,5 +4,5 @@
 export PATH="/usr/bin":$PATH
 
 # Run command:
-\code_saturne run --param cylinder_flow_cs_study.xml 
+\code_saturne run --param script_tria_mesh 
 

@@ -1,0 +1,26 @@
+SIGTERM signal (termination) received.
+--> computation interrupted by environment.
+
+Call stack:
+   1: 0x7fe29dd42277 <__sched_yield+0x7>              (libc.so.6)
+   2: 0x7fe29bcec237 <opal_progress+0xb7>             (libopen-pal.so.0)
+   3: 0x7fe29c1b4655 <+0x35655>                       (libmpi.so.0)
+   4: 0x7fe296d0eafa <+0x1afa>                        (mca_coll_tuned.so)
+   5: 0x7fe296d16376 <+0x9376>                        (mca_coll_tuned.so)
+   6: 0x7fe29c1ca0ed <MPI_Barrier+0x8d>               (libmpi.so.0)
+   7: 0x7fe29fcf8d8f <cs_halo_sync_var+0x44f>         (libsaturne.so.0)
+   8: 0x7fe29fe0e187 <cs_matrix_alpha_a_x_p_beta_y+0xb7> (libsaturne.so.0)
+   9: 0x7fe29fe12595 <+0x17f595>                      (libsaturne.so.0)
+  10: 0x7fe29fe17468 <reslin_+0x788>                  (libsaturne.so.0)
+  11: 0x7fe29fe31170 <invers_+0x1b0>                  (libsaturne.so.0)
+  12: 0x7fe29fce1696 <codits_+0x1116>                 (libsaturne.so.0)
+  13: 0x7fe29fce5d2e <covofi_+0x229e>                 (libsaturne.so.0)
+  14: 0x7fe29fdb9b6b <scalai_+0xe8b>                  (libsaturne.so.0)
+  15: 0x7fe29fdc584b <tridim_+0x4d4b>                 (libsaturne.so.0)
+  16: 0x7fe29fccc584 <caltri_+0x2f8c>                 (libsaturne.so.0)
+  17: 0x7fe29fcc57fb <cs_run+0x72b>                   (libsaturne.so.0)
+  18: 0x7fe29fcc4fea <main+0x1da>                     (libsaturne.so.0)
+  19: 0x7fe29dc9976d <__libc_start_main+0xed>         (libc.so.6)
+  20: 0x400af9     <>                               (cs_solver)
+End of stack
+

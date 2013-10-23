@@ -6,10 +6,14 @@
  Path:    /usr
 
  Result directory:
-   /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1612
+   /home/vance/Capstone13-14/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder/RESU/20131021-1656
 
 
  Parallel code_saturne on 4 processes.
+
+ ****************************************
+  Compiling user subroutines and linking
+ ****************************************
 
 
  ****************************
@@ -32,8 +36,42 @@ Partitioning by a space-filling curve will be used.
   Starting calculation
  **********************
 
+--------------------------------------------------------------------------
+[[58077,1],2]: A high-performance Open MPI point-to-point messaging module
+was unable to find any relevant network interfaces:
+
+Module: OpenFabrics (openib)
+  Host: atlacamani
+
+Another transport will be used instead, although this may result in
+lower performance.
+--------------------------------------------------------------------------
+[atlacamani:23220] 3 more processes have sent help message help-mpi-btl-base.txt / btl:no-nics
+[atlacamani:23220] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 3 in communicator MPI_COMM_WORLD 
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpiexec.openmpi has exited due to process rank 3 with PID 23224 on
+node atlacamani exiting without calling "finalize". This may
+have caused other processes in the application to be
+terminated by signals sent by mpiexec.openmpi (as reported here).
+--------------------------------------------------------------------------
+ solver script exited with status 1.
+
+Error running the calculation.
+
+Check code_saturne log (listing) and error* files for details.
+
 
  ****************************
   Saving calculation results
  ****************************
+
+ Error in calculation stage.
 

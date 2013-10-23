@@ -1,0 +1,169 @@
+/usr/lib/code_saturne/cs_preprocess --log --out mesh_input 
+/home/vance/Capstone13-14/MCCapstone13-14/CFDTut/CylinderFlow/cylinder_flow/MESH/cylinder_flow_mesh.med 
+
+  .------------------------------.
+  |                              |
+  |   Code_Saturne Preprocessor  |
+  |                              |
+  `------------------------------'
+
+  code_saturne version 2.1.0   (built Thu 26 Jan 2012 08:41:48 PM EST)
+
+  CGNS 2.5.5 file format support
+  MED 3.0.3 (HDF5 1.8.4) file format support
+  Reading of compressed files ('.gz') with Zlib 1.2.3.4
+
+
+
+Case configuration
+------------------
+
+  Date                : Mon 21 Oct 2013 04:24:34 PM EDT
+  System              : Linux 3.2.0-23-generic
+  Machine             : atlacamani
+  Processor           : Intel(R) Pentium(R) CPU G850 @ 2.90GHz
+  Memory              : 32939288
+  User                : vance (Vance)
+  Directory           : /home/vance/Capstone13-14/MCCapstone13-14/CFDTut/CylinderFlow/cylinder_flow/2D/RESU/20131021-1624
+
+  Case name           : preprocess
+  Mesh file           : /home/vance/Capstone13-14/MCCapstone13-14/CFDTut/CylinderFlow/cylinder_flow/MESH/cylinder_flow_mesh.med
+
+
+
+Reading mesh from file in MED (EDF/CEA) format
+----------------------
+  Mesh file: /home/vance/Capstone13-14/MCCapstone13-14/CFDTut/CylinderFlow/cylinder_flow/MESH/cylinder_flow_mesh.med
+
+
+  Mesh name: mesh_d
+
+  Number of vertices                          :    52847
+
+Warning
+=======
+The MED mesh contains 350 elements of type seg2
+which are ignored by the Preprocessor.
+
+  Number of faces                             :    13260
+                                   Family 6   :      380
+                                   Family 7   :      380
+                                   Family 8   :    12500
+  Number of cells                             :   250434
+                                   Family 0   :   250434
+
+  Wall-clock time: 0.044099 s; CPU time: 0.044002 s
+
+
+Done reading mesh
+-----------------
+  Theoretical mesh size:                 5.125 Mb
+  Theoretical current memory:            7.341 Mb
+  Theoretical peak memory:              12.452 Mb
+  Total memory used:                    66.332 Mb
+
+  Domain coordinate extents:
+
+  [ 0.00000e+00, -9.98027e-03, -1.00000e-02]
+  [ 1.00000e-01,  9.98027e-03,  1.00000e-02]
+  Number of elements                    tria3 :      760
+  Number of elements                    quad4 :    12500
+  Number of elements                   tetra4 :   237934
+  Number of elements                 pyramid5 :    12500
+
+
+
+Defining families
+-----------------
+
+
+  Element orientation check.
+
+
+End of conversion to descending connectivity
+--------------------------------------------
+  Theoretical mesh size:                14.671 Mb
+  Theoretical current memory:           18.796 Mb
+  Theoretical peak memory:              38.896 Mb
+  Total memory used:                    92.664 Mb
+
+
+Main mesh properties
+--------------------
+
+  Number of cells:                                250434
+  Number of internal faces:                       500488
+  Number of boundary faces:                        13260
+  Number of vertices:                              52847
+
+
+Definition of face and cell families
+------------------------------------
+
+  Family 1
+         Group "inlet"
+  Number of boundary faces :      380
+  Family 2
+         Group "outlet"
+  Number of boundary faces :      380
+  Family 3
+         Group "sym"
+  Number of boundary faces :    12500
+  Family 3
+         Default family
+         (no group)
+  Number of cells          :   250434
+  Number of internal faces :   500488
+
+
+Write output for Kernel
+-----------------------
+
+  Opening file: mesh_input
+
+  Wrote: "start_block:dimensions"
+  Wrote: "n_cells"                         ; Type: "u8"; Size: 1
+  Wrote: "n_faces"                         ; Type: "u8"; Size: 1
+  Wrote: "n_vertices"                      ; Type: "u8"; Size: 1
+  Wrote: "face_vertices_size"              ; Type: "u8"; Size: 1
+  Wrote: "n_group_classes"                 ; Type: "i4"; Size: 1
+  Wrote: "n_group_class_props_max"         ; Type: "i4"; Size: 1
+  Wrote: "n_groups"                        ; Type: "u8"; Size: 1
+  Wrote: "group_name_index"                ; Type: "i4"; Size: 4
+  Wrote: "group_name"                      ; Type: "c "; Size: 17
+  Wrote: "group_class_properties"          ; Type: "i4"; Size: 4
+  Wrote: "end_block:dimensions"
+  Wrote: "start_block:data"
+  Wrote: "face_cells"                      ; Type: "i4"; Size: 1027496
+  Wrote: "cell_group_class_id"             ; Type: "i4"; Size: 250434
+  Wrote: "face_group_class_id"             ; Type: "i4"; Size: 513748
+  Wrote: "face_vertices_index"             ; Type: "u8"; Size: 513749
+  Wrote: "face_vertices"                   ; Type: "i4"; Size: 1553744
+  Wrote: "vertex_coords"                   ; Type: "r8"; Size: 158541
+  Wrote: "end_block:data"
+  Wrote: "EOF"
+
+  Closing file: mesh_input
+
+
+Time and memory summary
+-----------------------
+
+  User CPU time                       (sec)   :        0.76
+  System CPU time                     (sec)   :        0.04
+  Total time                          (sec)   :        0.82
+  Total CPU time / Total time                 :        0.99
+
+Memory use summary:
+
+  Total memory used:                                  92.664 Mb
+  Theoretical instrumented dynamic memory:            38.896 Mb
+
+
+  .-----------------------.
+  |                       |
+  |  Preprocessor finish  |
+  |                       |
+  `-----------------------'
+
+

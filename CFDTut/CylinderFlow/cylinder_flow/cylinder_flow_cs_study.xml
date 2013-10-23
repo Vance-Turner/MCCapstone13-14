@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><Code_Saturne_GUI case="2D" study="DUCT" version="2.0">
+<?xml version="1.0" encoding="utf-8"?><Code_Saturne_GUI case="cylinder_flow" study="CylinderFlow" version="2.0">
 	<solution_domain>
 		<volumic_conditions>
 			<zone head_losses="off" id="1" initialization="on" label="all_cells" mass_source_term="off" momentum_source_term="off" scalar_source_term="off" thermal_source_term="off">all[]</zone>
