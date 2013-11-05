@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?><Code_Saturne_GUI case="AutoCylinder_Seg2" study="AutomatedCylinder" version="2.0">
+	<solution_domain>
+		<volumic_conditions>
+			<zone head_losses="off" id="1" initialization="on" label="all_cells" mass_source_term="off" momentum_source_term="off" scalar_source_term="off" thermal_source_term="off">all[]</zone>
+		</volumic_conditions>
+		<meshes_list>
+			<mesh name="mesh_export.med" path="/home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/AutomatedCylinder/scripts"/>
+		</meshes_list>
+		<faces_cutting status="off"/>
+		<joining/>
+		<periodicity/>
+		<standalone/>
+	</solution_domain>
+	<thermophysical_models>
+		<velocity_pressure>
+			<variable label="Pressure" name="pressure">
+				<reference_pressure>101325</reference_pressure>
+			</variable>
+			<variable label="VelocityX" name="velocity_U">
+				<initial_value zone_id="1">0.05</initial_value>
+				<blending_factor>1</blending_factor>
+			</variable>
+			<variable label="VelocityY" name="velocity_V">
+				<blending_factor>1</blending_factor>
+			</variable>
+			<variable label="VelocityZ" name="velocity_W">
+				<blending_factor>1</blending_factor>
+			</variable>
+			<property label="total_pressure" name="total_pressure"/>
+			<property label="Yplus" name="yplus" support="boundary"/>
+			<property label="Efforts" name="effort" support="boundary"/>
+			<property label="all_variables" name="all_variables" support="boundary"/>
+		</velocity_pressure>
+		<ale_method status="off"/>
+		<turbulence model="off">
+			<initialization choice="reference_velocity">
+				<reference_velocity>1</reference_velocity>
+			</initialization>
+		</turbulence>
+		<thermal_scalar model="temperature_celsius">
+			<property label="Flux_thermique_entrant" name="input_thermal_flux" support="boundary"/>
+		</thermal_scalar>
+		<radiative_transfer model="off">
+			<restart status="off"/>
+			<absorption_coefficient type="constant">0</absorption_coefficient>
+		</radiative_transfer>
+		<conjugate_heat_transfer>
+			<external_coupling status="off"/>
+			<external_coupling status="off"/>
+			<external_coupling status="on"/>
+		</conjugate_heat_transfer>
+		<gas_combustion model="off"/>
+		<pulverized_coal model="off"/>
+		<joule_effect model="off"/>
+		<atmospheric_flows model="off"/>
+		<heads_losses/>
+	</thermophysical_models>
+	<numerical_parameters>
+		<multigrid status="on"/>
+		<gradient_transposed status="on"/>
+		<velocity_pressure_coupling status="off"/>
+		<pressure_relaxation>1</pressure_relaxation>
+		<wall_pressure_extrapolation>0</wall_pressure_extrapolation>
+		<gradient_reconstruction choice="0"/>
+	</numerical_parameters>
+	<physical_properties>
+		<fluid_properties>
+			<property choice="variable" label="Density" name="density">
+				<initial_value>1.17862</initial_value>
+			</property>
+			<property choice="variable" label="LamVisc" name="molecular_viscosity">
+				<initial_value>1.83e-05</initial_value>
+			</property>
+			<property choice="constant" label="SpecHeat" name="specific_heat">
+				<listing_printing status="off"/>
+				<postprocessing_recording status="off"/>
+				<initial_value>2060</initial_value>
+			</property>
+			<property choice="constant" label="ThermalCond" name="thermal_conductivity">
+				<listing_printing status="off"/>
+				<postprocessing_recording status="off"/>
+				<initial_value>0.13</initial_value>
+			</property>
+		</fluid_properties>
+		<gravity>
+			<gravity_x>0</gravity_x>
+			<gravity_y>0</gravity_y>
+			<gravity_z>0</gravity_z>
+		</gravity>
+		<hydrostatic_pressure status="off"/>
+		<omega>
+			<omega_x>0</omega_x>
+			<omega_y>0</omega_y>
+			<omega_z>0</omega_z>
+		</omega>
+	</physical_properties>
+	<additional_scalars>
+		<scalar label="TempC" name="temperature_celsius" type="thermal">
+			<initial_value zone_id="1">50.0</initial_value>
+			<min_value>50</min_value>
+			<max_value>200</max_value>
+			<blending_factor>1</blending_factor>
+		</scalar>
+	</additional_scalars>
+	<boundary_conditions>
+		<boundary label="inlet" name="1" nature="inlet">inlet</boundary>
+		<inlet label="inlet">
+			<velocity_pressure choice="norm" direction="normal">
+				<norm>0.05</norm>
+			</velocity_pressure>
+			<turbulence choice="hydraulic_diameter">
+				<hydraulic_diameter>1</hydraulic_diameter>
+			</turbulence>
+			<scalar choice="dirichlet" label="TempC" name="temperature_celsius" type="thermal">
+				<dirichlet>50</dirichlet>
+			</scalar>
+		</inlet>
+		<boundary label="outlet" name="2" nature="outlet">outlet</boundary>
+		<outlet label="outlet">
+			<scalar choice="neumann" label="TempC" name="temperature_celsius" type="thermal">
+				<neumann>0</neumann>
+			</scalar>
+		</outlet>
+		<boundary label="wall" name="3" nature="wall">wall</boundary>
+		<wall label="wall">
+			<velocity_pressure choice="off">
+				<dirichlet name="velocity_U">0</dirichlet>
+				<dirichlet name="velocity_V">0</dirichlet>
+				<dirichlet name="velocity_W">0</dirichlet>
+			</velocity_pressure>
+			<scalar choice="neumann" label="TempC" name="temperature_celsius" type="thermal">
+				<neumann>-0.05</neumann>
+			</scalar>
+		</wall>
+		<variable/>
+	</boundary_conditions>
+	<analysis_control>
+		<output>
+			<writer id="-1" label="results">
+				<frequency period="none"/>
+				<output_at_end status="on"/>
+				<format name="ensight" options="binary"/>
+				<directory name="postprocessing"/>
+				<time_dependency choice="fixed_mesh"/>
+			</writer>
+			<mesh id="-1" label="Fluid domain" type="cells">
+				<all_variables status="on"/>
+				<location>all[]</location>
+				<writer id="-1"/>
+			</mesh>
+			<mesh id="-2" label="Boundary" type="boundary_faces">
+				<all_variables status="on"/>
+				<location>all[]</location>
+				<writer id="-1"/>
+			</mesh>
+			<listing_printing_frequency>1</listing_printing_frequency>
+			<probe_recording_frequency>1</probe_recording_frequency>
+			<probe_format choice="DAT"/>
+		</output>
+		<time_parameters>
+			<time_step_ref>0.1</time_step_ref>
+			<iterations>10</iterations>
+			<time_passing>0</time_passing>
+		</time_parameters>
+		<steady_management status="on">
+			<zero_iteration status="off"/>
+			<iterations>10</iterations>
+			<relaxation_coefficient>0.7</relaxation_coefficient>
+		</steady_management>
+		<time_averages/>
+		<profiles/>
+	</analysis_control>
+	<calculation_management>
+		<start_restart>
+			<frozen_field status="off"/>
+		</start_restart>
+		<n_procs>2</n_procs>
+	</calculation_management>
+	<lagrangian model="off"/>
+</Code_Saturne_GUI>

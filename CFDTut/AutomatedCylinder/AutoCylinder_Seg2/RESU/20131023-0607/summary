@@ -1,0 +1,25 @@
+========================================================
+Start time       : Wednesday October 23 06:07:08 CEST 2013
+========================================================
+  Command        : /usr/bin/code_saturne run --param cylinder_flow_cs_study.xml
+========================================================
+  Package path   : /usr
+  ----------------------------------------------------
+  MPI path       : 
+  MPI type       : OpenMPI
+  ----------------------------------------------------
+  User           : vance
+  ----------------------------------------------------
+  Machine        : Linux studio-ub 3.5.0-41-generic #64~precise1-Ubuntu SMP Thu Sep 12 16:50:04 UTC 2013 x86_64 
+  N Procs        : 4
+  ----------------------------------------------------
+  Case           : AutoCylinder_Seg2
+    directory    : /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder_Seg2
+    results dir. : /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/AutomatedCylinder/AutoCylinder_Seg2/RESU/20131023-0607
+    preprocessor : /usr/lib/code_saturne/cs_preprocess
+    partitioner  : /usr/lib/code_saturne/cs_partition
+    solver       : /usr/lib/code_saturne/cs_solver
+  ----------------------------------------------------
+========================================================
+Finish time      : Wednesday October 23 06:07:12 CEST 2013
+========================================================

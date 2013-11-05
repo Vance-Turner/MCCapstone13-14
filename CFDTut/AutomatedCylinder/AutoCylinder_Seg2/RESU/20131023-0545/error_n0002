@@ -1,0 +1,17 @@
+SIGFPE signal (floating point exception) intercepted!
+
+Call stack:
+   1: 0x7f50ecc564e4 <+0x17f4e4>                      (libsaturne.so.0)
+   2: 0x7f50ecc5b468 <reslin_+0x788>                  (libsaturne.so.0)
+   3: 0x7f50ecc75170 <invers_+0x1b0>                  (libsaturne.so.0)
+   4: 0x7f50ecb25696 <codits_+0x1116>                 (libsaturne.so.0)
+   5: 0x7f50ecb29d2e <covofi_+0x229e>                 (libsaturne.so.0)
+   6: 0x7f50ecbfdb6b <scalai_+0xe8b>                  (libsaturne.so.0)
+   7: 0x7f50ecc0984b <tridim_+0x4d4b>                 (libsaturne.so.0)
+   8: 0x7f50ecb10584 <caltri_+0x2f8c>                 (libsaturne.so.0)
+   9: 0x7f50ecb097fb <cs_run+0x72b>                   (libsaturne.so.0)
+  10: 0x7f50ecb08fea <main+0x1da>                     (libsaturne.so.0)
+  11: 0x7f50eadab76d <__libc_start_main+0xed>         (libc.so.6)
+  12: 0x4006b9     <>                               (cs_solver)
+End of stack
+

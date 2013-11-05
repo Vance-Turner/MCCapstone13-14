@@ -1,0 +1,18 @@
+SIGFPE signal (floating point exception) intercepted!
+
+Call stack:
+   1: 0x7fcc7336a2f9 <fvm_convert_array+0x6b49>       (libfvm.so.0)
+   2: 0x7fcc735f3eb5 <fvm_writer_field_helper_step_e+0xaf5> (libfvm_filters.so.0)
+   3: 0x7fcc735edb0f <fvm_to_ensight_export_field+0xdef> (libfvm_filters.so.0)
+   4: 0x7fcc735f1d37 <fvm_writer_export_field+0xb7>   (libfvm_filters.so.0)
+   5: 0x7fcc73c9f782 <cs_post_write_var+0x2f2>        (libsaturne.so.0)
+   6: 0x7fcc73ca0528 <pstev1_+0x108>                  (libsaturne.so.0)
+   7: 0x7fcc73ca4308 <psteva_+0x58>                   (libsaturne.so.0)
+   8: 0x7fcc73d51b2b <testel_+0x65b>                  (libsaturne.so.0)
+   9: 0x7fcc73c5d3c8 <caltri_+0x1dd0>                 (libsaturne.so.0)
+  10: 0x7fcc73c577fb <cs_run+0x72b>                   (libsaturne.so.0)
+  11: 0x7fcc73c56fea <main+0x1da>                     (libsaturne.so.0)
+  12: 0x7fcc71ef876d <__libc_start_main+0xed>         (libc.so.6)
+  13: 0x4006b9     <>                               (cs_solver)
+End of stack
+

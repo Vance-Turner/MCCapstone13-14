@@ -10,3 +10,5 @@ points = [(10,10),(20,13),(30,16)]
 cylinder = mesh.SectionedCylinder(points,8)
 cylinder.generateMesh([])
 salome.sg.updateObjBrowser(1)
+print("Mesh calculated...now exporting...")
+cylinder.export("mesh_export.med")

@@ -7,8 +7,8 @@ from geompy import *
 # This contains classes for generating meshes.
 class BasicMesh:
 
-	def __init__(self):
-		pass
+	def __init__(self,name):
+		self._name = name
 	
 	def generateMesh(self,params):
 		pass
@@ -68,7 +68,6 @@ class SectionedCylinder(BasicMesh):
 		face_circles = []
 		self.points.insert(0,(0,self.baseRadius))
 		for i in xrange(len(centres)):
-			print "Now creating circle:",str(i)
 			circles.append(geompy.MakeCircle(centres[i],normal,self.points[i][1]))
 			face_circles.append(geompy.MakeFace(circles[i],1))
 		
@@ -135,6 +134,8 @@ class SectionedCylinder(BasicMesh):
 		#DifferenceList(self.g_wall,sub_faces)
 		# wall is finally obtained
 		addToStudyInFather(self.pipeGeom, self.g_wall, "wall")
+
+		
 
 		print "FACE groups defined..."
 	def doEdges(self,params):
@@ -208,3 +209,6 @@ class SectionedCylinder(BasicMesh):
 		self.pipeMesh.GroupOnGeom(self.g_inlet,"inlet")
 		self.pipeMesh.GroupOnGeom(self.g_outlet,"outlet")
 		self.pipeMesh.GroupOnGeom(self.g_wall,"wall")
+
+	def export(self,location):
+		self.pipeMesh.ExportMED(location)
