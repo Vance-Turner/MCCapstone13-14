@@ -7,7 +7,7 @@ import salome
 salome.salome_init()
 from windmc.modelling import mesh
 points = [(10,10),(20,13),(30,16)]
-cylinder = mesh.SectionedCylinder(points,8)
+cylinder = mesh.SectionedCylinder(points,8,"SectionedCylinder")
 cylinder.generateMesh([])
 salome.sg.updateObjBrowser(1)
 print("Mesh calculated...now exporting...")

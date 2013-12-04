@@ -1,0 +1,26 @@
+========================================================
+Start time       : Tuesday December 03 19:50:07 CEST 2013
+========================================================
+  Command        : /usr/bin/code_saturne run --param betzlimit_cs_study_emptytunnel
+========================================================
+  Package path   : /usr
+  ----------------------------------------------------
+  MPI path       : 
+  MPI type       : OpenMPI
+  ----------------------------------------------------
+  User           : vance
+  ----------------------------------------------------
+  Machine        : Linux studio-ub 3.5.0-43-generic #66~precise1-Ubuntu SMP Thu Oct 24 14:52:23 UTC 2013 x86_64 
+  N Procs        : 2
+  ----------------------------------------------------
+  Case           : betzlimit_testing_basic
+    directory    : /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/BetzLimitTesting/betzlimit_testing_basic
+    results dir. : /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/BetzLimitTesting/betzlimit_testing_basic/RESU/20131203-1950
+    preprocessor : /usr/lib/code_saturne/cs_preprocess
+    partitioner  : /usr/lib/code_saturne/cs_partition
+    solver       : /usr/lib/code_saturne/cs_solver
+  ----------------------------------------------------
+  solver failed
+========================================================
+Finish time      : Tuesday December 03 19:50:09 CEST 2013
+========================================================

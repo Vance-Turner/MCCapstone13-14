@@ -1,0 +1,25 @@
+FORMAT
+type: ensight gold
+
+GEOMETRY
+model: headloss_x_only.geo
+
+VARIABLE
+scalar per element:       parallel_domain       headloss_x_only.parallel_domain
+scalar per element: 1            Pressure       headloss_x_only.pressure.****
+vector per element: 1            Velocity       headloss_x_only.velocity.****
+scalar per element: 1               TempC       headloss_x_only.tempc.****
+scalar per element: 1           CourantNb       headloss_x_only.courantnb.****
+scalar per element: 1           FourierNb       headloss_x_only.fouriernb.****
+scalar per element: 1      total_pressure       headloss_x_only.var_007.****
+scalar per element: 1               Yplus       headloss_x_only.yplus.****
+scalar per element: 1 Flux_thermique_entr       headloss_x_only.var_009.****
+vector per element: 1             Efforts       headloss_x_only.efforts.****
+
+TIME
+time set:              1
+number of steps:       1
+filename start number: 1
+filename increment:    1
+time values:
+            1

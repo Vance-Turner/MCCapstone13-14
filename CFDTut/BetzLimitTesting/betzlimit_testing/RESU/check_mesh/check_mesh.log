@@ -1,0 +1,531 @@
+/usr/lib/code_saturne/cs_preprocess --post-error ensight --case preprocess 
+/home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/BetzLimitTesting/MESH/betzlimit_tunnel_disksmall.med 
+
+  .------------------------------.
+  |                              |
+  |   Code_Saturne Preprocessor  |
+  |                              |
+  `------------------------------'
+
+  code_saturne version 2.1.0   (built Thu 26 Jan 2012 08:41:48 PM EST)
+
+  CGNS 2.5.5 file format support
+  MED 3.0.3 (HDF5 1.8.4) file format support
+  Reading of compressed files ('.gz') with Zlib 1.2.3.4
+
+
+
+Case configuration
+------------------
+
+  Date                : Wed 20 Nov 2013 10:04:48 AM EST
+  System              : Linux 3.5.0-43-generic
+  Machine             : studio-ub
+  Processor           : Intel(R) Core(TM)2 Duo CPU     P8700  @ 2.53GHz
+  Memory              : 8142684
+  User                : vance (Vance Turnewitsch)
+  Directory           : /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/BetzLimitTesting/betzlimit_testing/RESU/check_mesh
+
+  Case name           : preprocess
+  Mesh file           : /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/BetzLimitTesting/MESH/betzlimit_tunnel_disksmall.med
+
+
+
+Reading mesh from file in MED (EDF/CEA) format
+----------------------
+  Mesh file: /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/BetzLimitTesting/MESH/betzlimit_tunnel_disksmall.med
+
+
+  Mesh name: Mesh_3
+
+  Number of vertices                          :     9669
+
+Warning
+=======
+The MED mesh contains 173 elements of type seg2
+which are ignored by the Preprocessor.
+
+  Number of faces                             :    10090
+                                   Family 6   :     1435
+                                   Family 7   :     1435
+                                   Family 8   :     7180
+                                   Family 9   :       12
+                                   Family 10  :       12
+                                   Family 11  :       16
+  Number of cells                             :    41360
+                                   Family 0   :    41360
+
+  Wall-clock time: 0.022565 s; CPU time: 0.024001 s
+
+
+Done reading mesh
+-----------------
+  Theoretical mesh size:               804.287 Kb
+  Theoretical current memory:            1.007 Mb
+  Theoretical peak memory:               2.346 Mb
+  Total memory used:                    60.113 Mb
+
+  Domain coordinate extents:
+
+  [-1.10884e-14, -9.99995e+01, -1.00000e+02]
+  [ 3.00000e+02,  9.99995e+01,  1.00000e+02]
+  Number of elements                    tria3 :    10090
+  Number of elements                   tetra4 :    41360
+
+
+
+Defining families
+-----------------
+
+
+  Element orientation check.
+
+
+End of conversion to descending connectivity
+--------------------------------------------
+  Theoretical mesh size:                 1.971 Mb
+  Theoretical current memory:            2.192 Mb
+  Theoretical peak memory:               6.321 Mb
+  Total memory used:                    63.688 Mb
+
+
+Main mesh properties
+--------------------
+
+  Number of cells:                                 41360
+  Number of internal faces:                        77675
+  Number of boundary faces:                        10090
+  Number of vertices:                               9669
+
+
+Definition of face and cell families
+------------------------------------
+
+  Family 1
+         Group "disk_inlet"
+  Number of boundary faces :       12
+  Family 2
+         Group "disk_outlet"
+  Number of boundary faces :       12
+  Family 3
+         Group "disk_walls"
+  Number of boundary faces :       16
+  Family 4
+         Group "tunnel_inlet"
+  Number of boundary faces :     1435
+  Family 5
+         Group "tunnel_outlet"
+  Number of boundary faces :     1435
+  Family 6
+         Group "tunnel_walls"
+  Number of boundary faces :     7180
+  Family 6
+         Default family
+         (no group)
+  Number of cells          :    41360
+  Number of internal faces :    77675
+
+
+Write output for Kernel
+-----------------------
+
+  Opening file: mesh_input
+
+  Wrote: "start_block:dimensions"
+  Wrote: "n_cells"                         ; Type: "u8"; Size: 1
+  Wrote: "n_faces"                         ; Type: "u8"; Size: 1
+  Wrote: "n_vertices"                      ; Type: "u8"; Size: 1
+  Wrote: "face_vertices_size"              ; Type: "u8"; Size: 1
+  Wrote: "n_group_classes"                 ; Type: "i4"; Size: 1
+  Wrote: "n_group_class_props_max"         ; Type: "i4"; Size: 1
+  Wrote: "n_groups"                        ; Type: "u8"; Size: 1
+  Wrote: "group_name_index"                ; Type: "i4"; Size: 7
+  Wrote: "group_name"                      ; Type: "c "; Size: 74
+  Wrote: "group_class_properties"          ; Type: "i4"; Size: 7
+  Wrote: "end_block:dimensions"
+  Wrote: "start_block:data"
+  Wrote: "face_cells"                      ; Type: "i4"; Size: 175530
+  Wrote: "cell_group_class_id"             ; Type: "i4"; Size: 41360
+  Wrote: "face_group_class_id"             ; Type: "i4"; Size: 87765
+  Wrote: "face_vertices_index"             ; Type: "u8"; Size: 87766
+  Wrote: "face_vertices"                   ; Type: "i4"; Size: 263295
+  Wrote: "vertex_coords"                   ; Type: "r8"; Size: 29007
+  Wrote: "end_block:data"
+  Wrote: "EOF"
+
+  Closing file: mesh_input
+
+
+Time and memory summary
+-----------------------
+
+  User CPU time                       (sec)   :        0.16
+  System CPU time                     (sec)   :        0.01
+  Total time                          (sec)   :        0.20
+  Total CPU time / Total time                 :        0.87
+
+Memory use summary:
+
+  Total memory used:                                  63.688 Mb
+  Theoretical instrumented dynamic memory:             6.321 Mb
+
+
+  .-----------------------.
+  |                       |
+  |  Preprocessor finish  |
+  |                       |
+  `-----------------------'
+
+
+command: 
+ /usr/lib/code_saturne/cs_solver --quality --log 0 --param cs_cmd
+
+***************************************************************
+
+                                  (R)
+                      Code_Saturne
+
+                      Version 2.1.0
+
+
+  Copyright (C) 1998-2011 EDF S.A., France
+
+  build Thu 26 Jan 2012 08:44:04 PM EST
+  MPI version 2.1 (Open MPI 1.4.3)
+
+
+  The Code_Saturne CFD tool  is free software;
+  you can redistribute it and/or modify it under the terms
+  of the GNU General Public License as published by the
+  Free Software Foundation; either version 2 of the License,
+  or (at your option) any later version.
+
+  The Code_Saturne CFD tool is distributed in the hope that
+  it will be useful, but WITHOUT ANY WARRANTY; without even
+  the implied warranty of MERCHANTABILITY or FITNESS FOR A
+  PARTICULAR PURPOSE.  See the GNU General Public License
+  for more details.
+
+***************************************************************
+
+
+Local case configuration:
+
+  Date:              Wed 20 Nov 2013 10:04:48 AM EST
+  System:            Linux 3.5.0-43-generic
+  Machine:           studio-ub
+  Processor:         Intel(R) Core(TM)2 Duo CPU     P8700  @ 2.53GHz
+  Memory:            7951 MB
+  User:              vance (Vance Turnewitsch)
+  Directory:         /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/BetzLimitTesting/betzlimit_testing/RESU/check_mesh
+
+===============================================================
+
+                   CALCULATION PREPARATION
+                   =======================
+
+
+ ===========================================================
+
+
+
+ Reading metadata from file: "mesh_input"
+
+ No error detected during the data verification
+                              (interface, usini1 and others).
+
+
+ Reading file:        mesh_input
+ Finished reading:    mesh_input
+
+
+Postprocessing output writers:
+------------------------------
+
+  -1: name: results
+      directory: postprocessing
+      format: EnSight Gold
+      options: binary
+      time dependency: fixed mesh
+      output: at calculation end
+
+ Extended neighborhood structures definition
+
+ Extended connectivity creation (0.149 s)
+ Number of cells:                                      41360
+
+ ----------------------------------------------------------
+ Number of cells + halo cells:                         41360
+
+
+ ----------------------------------------------------------
+ Number of interior faces:                             77675
+
+ ----------------------------------------------------------
+ Number of boundary faces:                             10090
+
+ ----------------------------------------------------------
+
+ Histogram of the number of interior faces per cell:
+
+    minimum value =                  3
+    maximum value =                  4
+
+      1 : [          3 ;          4 ] =      41360
+
+ ----------------------------------------------------------
+
+ Renumbering mesh:
+
+ Mesh coordinates:               minimum    and maximum
+                       X : -1.1088429e-14  3.0000000e+02
+                       Y : -9.9999488e+01  9.9999491e+01
+                       Z : -1.0000000e+02  1.0000000e+02
+ Mesh
+     Number of cells:          41360
+     Number of interior faces: 77675
+     Number of boundary faces: 10090
+     Number of vertices:       9669
+
+ Groups:
+    "disk_inlet"
+       boundary faces:           12
+    "disk_outlet"
+       boundary faces:           12
+    "disk_walls"
+       boundary faces:           16
+    "tunnel_inlet"
+       boundary faces:         1435
+    "tunnel_outlet"
+       boundary faces:         1435
+    "tunnel_walls"
+       boundary faces:         7180
+
+ --- Information on the volumes
+       Minimum control volume      =  1.0197590e+00
+       Maximum control volume      =  1.1959236e+03
+       Total volume for the domain =  9.4173088e+06
+
+ Computing geometric quantities (0.0448 s)
+
+ Computing quality criteria
+
+  Histogram of the interior faces warping:
+
+    minimum value =         0.00000e+00
+    maximum value =         1.42109e-14
+
+      1 : [ 0.00000e+00 ; 1.42109e-15 [ =      77416
+      2 : [ 1.42109e-15 ; 2.84217e-15 [ =          0
+      3 : [ 2.84217e-15 ; 4.26326e-15 [ =          0
+      4 : [ 4.26326e-15 ; 5.68434e-15 [ =          0
+      5 : [ 5.68434e-15 ; 7.10543e-15 [ =          0
+      6 : [ 7.10543e-15 ; 8.52651e-15 [ =          0
+      7 : [ 8.52651e-15 ; 9.94760e-15 [ =          0
+      8 : [ 9.94760e-15 ; 1.13687e-14 [ =          0
+      9 : [ 1.13687e-14 ; 1.27898e-14 [ =          0
+     10 : [ 1.27898e-14 ; 1.42109e-14 ] =        259
+
+  Histogram of the boundary faces warping:
+
+    minimum value =         0.00000e+00
+    maximum value =         1.42109e-14
+
+      1 : [ 0.00000e+00 ; 1.42109e-15 [ =      10085
+      2 : [ 1.42109e-15 ; 2.84217e-15 [ =          0
+      3 : [ 2.84217e-15 ; 4.26326e-15 [ =          0
+      4 : [ 4.26326e-15 ; 5.68434e-15 [ =          0
+      5 : [ 5.68434e-15 ; 7.10543e-15 [ =          0
+      6 : [ 7.10543e-15 ; 8.52651e-15 [ =          0
+      7 : [ 8.52651e-15 ; 9.94760e-15 [ =          0
+      8 : [ 9.94760e-15 ; 1.13687e-14 [ =          0
+      9 : [ 1.13687e-14 ; 1.27898e-14 [ =          0
+     10 : [ 1.27898e-14 ; 1.42109e-14 ] =          5
+
+  Histogram of the interior faces weighting coefficient:
+
+    minimum value =         5.00000e-01
+    maximum value =         9.85169e-01
+
+      1 : [ 5.00000e-01 ; 5.48517e-01 [ =      34178
+      2 : [ 5.48517e-01 ; 5.97034e-01 [ =      19705
+      3 : [ 5.97034e-01 ; 6.45551e-01 [ =      12240
+      4 : [ 6.45551e-01 ; 6.94068e-01 [ =       6834
+      5 : [ 6.94068e-01 ; 7.42585e-01 [ =       3432
+      6 : [ 7.42585e-01 ; 7.91101e-01 [ =       1082
+      7 : [ 7.91101e-01 ; 8.39618e-01 [ =        143
+      8 : [ 8.39618e-01 ; 8.88135e-01 [ =         19
+      9 : [ 8.88135e-01 ; 9.36652e-01 [ =          6
+     10 : [ 9.36652e-01 ; 9.85169e-01 ] =         36
+
+  Histogram of the interior faces off-centering coefficient:
+
+    minimum value =         4.49804e-04
+    maximum value =         9.80431e-01
+
+      1 : [ 4.49804e-04 ; 9.84479e-02 [ =      11330
+      2 : [ 9.84479e-02 ; 1.96446e-01 [ =      30886
+      3 : [ 1.96446e-01 ; 2.94444e-01 [ =      22022
+      4 : [ 2.94444e-01 ; 3.92442e-01 [ =       8681
+      5 : [ 3.92442e-01 ; 4.90440e-01 [ =       3394
+      6 : [ 4.90440e-01 ; 5.88438e-01 [ =       1077
+      7 : [ 5.88438e-01 ; 6.86436e-01 [ =        227
+      8 : [ 6.86436e-01 ; 7.84435e-01 [ =         30
+      9 : [ 7.84435e-01 ; 8.82433e-01 [ =          5
+     10 : [ 8.82433e-01 ; 9.80431e-01 ] =         23
+
+  Histogram of the interior faces non-orthogonality coefficient (in degrees):
+
+    minimum value =         8.93909e-03
+    maximum value =         7.39702e+01
+
+      1 : [ 8.93909e-03 ; 7.40507e+00 [ =      16232
+      2 : [ 7.40507e+00 ; 1.48012e+01 [ =      28522
+      3 : [ 1.48012e+01 ; 2.21973e+01 [ =      21081
+      4 : [ 2.21973e+01 ; 2.95935e+01 [ =       9005
+      5 : [ 2.95935e+01 ; 3.69896e+01 [ =       2331
+      6 : [ 3.69896e+01 ; 4.43857e+01 [ =        414
+      7 : [ 4.43857e+01 ; 5.17818e+01 [ =         60
+      8 : [ 5.17818e+01 ; 5.91780e+01 [ =         14
+      9 : [ 5.91780e+01 ; 6.65741e+01 [ =          7
+     10 : [ 6.65741e+01 ; 7.39702e+01 ] =          9
+
+  Histogram of the boundary faces non-orthogonality coefficient (in degrees):
+
+    minimum value =         6.24365e-01
+    maximum value =         7.10767e+01
+
+      1 : [ 6.24365e-01 ; 7.66960e+00 [ =        326
+      2 : [ 7.66960e+00 ; 1.47148e+01 [ =       1047
+      3 : [ 1.47148e+01 ; 2.17601e+01 [ =       1621
+      4 : [ 2.17601e+01 ; 2.88053e+01 [ =       2216
+      5 : [ 2.88053e+01 ; 3.58506e+01 [ =       2488
+      6 : [ 3.58506e+01 ; 4.28958e+01 [ =       1742
+      7 : [ 4.28958e+01 ; 4.99410e+01 [ =        601
+      8 : [ 4.99410e+01 ; 5.69863e+01 [ =         40
+      9 : [ 5.69863e+01 ; 6.40315e+01 [ =          6
+     10 : [ 6.40315e+01 ; 7.10767e+01 ] =          3
+
+  Histogram of cell volumes:
+
+    minimum value =         1.01976e+00
+    maximum value =         1.19592e+03
+
+      1 : [ 1.01976e+00 ; 1.20510e+02 [ =      18294
+      2 : [ 1.20510e+02 ; 2.40001e+02 [ =       6762
+      3 : [ 2.40001e+02 ; 3.59491e+02 [ =       5594
+      4 : [ 3.59491e+02 ; 4.78981e+02 [ =       5758
+      5 : [ 4.78981e+02 ; 5.98472e+02 [ =       3309
+      6 : [ 5.98472e+02 ; 7.17962e+02 [ =       1213
+      7 : [ 7.17962e+02 ; 8.37452e+02 [ =        336
+      8 : [ 8.37452e+02 ; 9.56943e+02 [ =         72
+      9 : [ 9.56943e+02 ; 1.07643e+03 [ =         16
+     10 : [ 1.07643e+03 ; 1.19592e+03 ] =          6
+
+ Checking the mesh structure coherency:
+    Checking the face -> cells connectivity coherency
+    Coherency criteria definition
+    Coherency verification on coordinates 1
+    Coherency verification on coordinates 2
+    Coherency verification on coordinates 3
+ End of coherency check of the mesh structure.
+                                                             
+       ALMAX  =    0.21005E+03 (Characteristic length       )
+       ALMAX is the cubic root of the domain volume.
+
+       ALMAX is the length used to initialize the turbulence.
+
+===============================================================
+
+              RUNNING IN VERIFICATION MODE                   
+              ============================                   
+                                                             
+ =========================================================== 
+
+
+
+
+ Extended neighborhood reduced by non-orthogonality
+ --------------------------------------------------
+
+ Size of complete cell-cell connectivity:      2514358
+ Size of filtered cell-cell conectivity:          4553
+ 2509805 connections removed, for a ratio of 0.18 % used
+
+
+ =========================================================== 
+
+
+
+
+                      END OF CALCULATION                     
+                      ==================                     
+
+
+===============================================================
+
+Summary of gradient computations pour "Var. 1" (Iterative reconstruction):
+
+  Number of calls:                  1
+  Total elapsed time:                      0.085
+  Total CPU time:                          0.084
+
+Summary of gradient computations pour "Var. 1" (Least-squares (standard)):
+
+  Number of calls:                  1
+  Total elapsed time:                      0.020
+  Total CPU time:                          0.020
+
+Summary of gradient computations pour "Var. 1" (Least-squares (extended)):
+
+  Number of calls:                  1
+  Total elapsed time:                      0.214
+  Total CPU time:                          0.212
+
+Summary of gradient computations pour "Var. 1" (Least-squares (partially extended)):
+
+  Number of calls:                  1
+  Total elapsed time:                      0.032
+  Total CPU time:                          0.032
+
+Summary of gradient computations pour "Var. 1" (Least-squares then iterative):
+
+  Number of calls:                  1
+  Total elapsed time:                      0.136
+  Total CPU time:                          0.132
+
+ Destroying structures and ending computation
+
+Mesh entity selections by criteria statistics:
+  entity type     evaluations  elapsed time
+  -----------------------------------------
+  cells                     0       0.00000
+  interior faces            0       0.00000
+  boundary faces            0       0.00000
+
+Writing of "results" (EnSight Gold) summary:
+
+  CPU time for meshes:                     0.004
+  CPU time for variables:                  0.016
+
+  Elapsed time for meshes:                 0.002
+  Elapsed time for variables:              0.020
+
+Code_Saturne IO files read:
+
+  mesh_input
+    data:      0.00974 s,        2.577 MiB
+    open:      0.01047 s, 2 open(s)
+
+Calculation time summary:
+
+  User CPU time:              1.004 s
+  System CPU time:            0.052 s
+
+  Elapsed time:               1.074 s
+  CPU / elapsed time          0.983
+
+Memory use summary:
+
+  Total memory used:                             141.465 MiB
+  Theoretical instrumented dynamic memory:        26.497 MiB

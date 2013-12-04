@@ -1,0 +1,26 @@
+
+
+fvm_selector_postfix.c:1291: Fatal error.
+
+Error parsing expression:
+3<x and x < 3.1 and y < (100-z^2)^(1/2) and z < (100-y^2)^(1/2)
+                      ^
+Operator needs a floating point operand
+on one side, x, y, or z on the other
+
+
+Call stack:
+   1: 0x7fcc4cc1cd3c <+0x73d3c>                       (libfvm.so.0)
+   2: 0x7fcc4cc1d2fb <+0x742fb>                       (libfvm.so.0)
+   3: 0x7fcc4cc200c6 <fvm_selector_postfix_create+0x3d6> (libfvm.so.0)
+   4: 0x7fcc4cc194b9 <+0x704b9>                       (libfvm.so.0)
+   5: 0x7fcc4cc1b7d9 <fvm_selector_get_list+0x39>     (libfvm.so.0)
+   6: 0x7fcc4d7a4fd8 <+0x325fd8>                      (libsaturne.so.0)
+   7: 0x7fcc4d7ac3c3 <uikpdc_+0xca3>                  (libsaturne.so.0)
+   8: 0x7fcc4d4b5a56 <caltri_+0x45e>                  (libsaturne.so.0)
+   9: 0x7fcc4d4b17fb <cs_run+0x72b>                   (libsaturne.so.0)
+  10: 0x7fcc4d4b0fea <main+0x1da>                     (libsaturne.so.0)
+  11: 0x7fcc4b75376d <__libc_start_main+0xed>         (libc.so.6)
+  12: 0x4006b9     <>                               (cs_solver)
+End of stack
+

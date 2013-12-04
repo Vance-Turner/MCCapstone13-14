@@ -26,8 +26,8 @@ class SectionedCylinder(BasicMesh):
 	The points list is a list of tuples that contains the radius of
 	the cylinder at various locations along it.
 	'''
-	def __init__(self,points,baseRadius):
-		BasicMesh.__init__(self)
+	def __init__(self,points,baseRadius,name):
+		BasicMesh.__init__(self,name)
 		self.points = points
 		self.sortPoints()
 		#self.normalizePoints()

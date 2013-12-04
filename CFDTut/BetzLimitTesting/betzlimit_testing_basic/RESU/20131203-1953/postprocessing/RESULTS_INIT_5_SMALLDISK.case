@@ -1,0 +1,25 @@
+FORMAT
+type: ensight gold
+
+GEOMETRY
+model: results_init_5_smalldisk.geo
+
+VARIABLE
+scalar per element:       parallel_domain       results_init_5_smalldisk.parallel_domain
+scalar per element: 1            Pressure       results_init_5_smalldisk.pressure.****
+vector per element: 1            Velocity       results_init_5_smalldisk.velocity.****
+scalar per element: 1               TempC       results_init_5_smalldisk.tempc.****
+scalar per element: 1           CourantNb       results_init_5_smalldisk.courantnb.****
+scalar per element: 1           FourierNb       results_init_5_smalldisk.fouriernb.****
+scalar per element: 1      total_pressure       results_init_5_smalldisk.total_pressure.****
+scalar per element: 1               Yplus       results_init_5_smalldisk.yplus.****
+scalar per element: 1 Flux_thermique_entr       results_init_5_smalldisk.flux_thermique_entrant_w.m-2.****
+vector per element: 1             Efforts       results_init_5_smalldisk.efforts.****
+
+TIME
+time set:              1
+number of steps:       1
+filename start number: 1
+filename increment:    1
+time values:
+            1

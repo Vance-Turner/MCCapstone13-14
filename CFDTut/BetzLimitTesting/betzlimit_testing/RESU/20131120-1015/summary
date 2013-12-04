@@ -1,0 +1,25 @@
+========================================================
+Start time       : Wednesday November 20 10:15:51 CEST 2013
+========================================================
+  Command        : /usr/bin/code_saturne run --param betzlimit_cs_study.xml
+========================================================
+  Package path   : /usr
+  ----------------------------------------------------
+  MPI path       : 
+  MPI type       : OpenMPI
+  ----------------------------------------------------
+  User           : vance
+  ----------------------------------------------------
+  Machine        : Linux studio-ub 3.5.0-43-generic #66~precise1-Ubuntu SMP Thu Oct 24 14:52:23 UTC 2013 x86_64 
+  N Procs        : 2
+  ----------------------------------------------------
+  Case           : betzlimit_testing
+    directory    : /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/BetzLimitTesting/betzlimit_testing
+    results dir. : /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/BetzLimitTesting/betzlimit_testing/RESU/20131120-1015
+    preprocessor : /usr/lib/code_saturne/cs_preprocess
+    partitioner  : /usr/lib/code_saturne/cs_partition
+    solver       : /usr/lib/code_saturne/cs_solver
+  ----------------------------------------------------
+========================================================
+Finish time      : Wednesday November 20 10:16:03 CEST 2013
+========================================================

@@ -1,0 +1,25 @@
+FORMAT
+type: ensight gold
+
+GEOMETRY
+model: results_init_5.geo
+
+VARIABLE
+scalar per element:       parallel_domain       results_init_5.parallel_domain
+scalar per element: 1            Pressure       results_init_5.pressure.****
+vector per element: 1            Velocity       results_init_5.velocity.****
+scalar per element: 1               TempC       results_init_5.tempc.****
+scalar per element: 1           CourantNb       results_init_5.courantnb.****
+scalar per element: 1           FourierNb       results_init_5.fouriernb.****
+scalar per element: 1      total_pressure       results_init_5.var_007.****
+scalar per element: 1               Yplus       results_init_5.yplus.****
+scalar per element: 1 Flux_thermique_entr       results_init_5.var_009.****
+vector per element: 1             Efforts       results_init_5.efforts.****
+
+TIME
+time set:              1
+number of steps:       1
+filename start number: 1
+filename increment:    1
+time values:
+            2

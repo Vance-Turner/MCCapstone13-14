@@ -82,6 +82,9 @@ class BasicCylinder(BasicGeom):
 
 class BasicShroud(BasicGeom):
 	
+	'''
+	  There must be an even number of points.
+	'''
 	def __init__(self,name,points,baseRadius, thickness):
 		BasicGeom.__init__(self)
 		self._name = name
@@ -164,6 +167,10 @@ class BasicShroud(BasicGeom):
 			inner_face_circles = []
 			for i in xrange(len(circles)):
 				face_circles.append(geompy.MakeFaceWires([circles[i],inner_circles[i]],True))
+			# Now make the face of the actuator disk
+			index = len(inner_circles)/2
+			self.actuator_face = geompy.MakeFace(inner_circles[index],True)
+			geompy.addToStudy(self.actuator_face,self._name+"ActuatorFace")
 			print("Just added these many circles:",len(face_circles))
 			for i in xrange(len(face_circles)):
 				geompy.addToStudy(face_circles[i],self._name+"face:"+str(i))
@@ -171,6 +178,9 @@ class BasicShroud(BasicGeom):
 
 			# Make a shell
 			self.pipeShell = geompy.MakeShell([self.pipeGeom,self.innerPipeGeom,face_circles[0],face_circles[-1]])
+			self.actuatorShell = geompy.MakeShell([self.actuator_face,self.actuator_face])
+			geompy.addToStudy(self.actuatorShell,self._name+"ActuatorShell")
+			geompy.addToStudy(self.pipeShell,self._name+"PipeShell")			
 			self.pipeSolid = geompy.MakeSolid([self.pipeShell])
 			geompy.addToStudy(self.pipeSolid,self._name+"PipeSolid")
 			self.pipeGeom = self.pipeSolid

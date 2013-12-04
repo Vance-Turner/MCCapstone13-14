@@ -1,0 +1,25 @@
+FORMAT
+type: ensight gold
+
+GEOMETRY
+model: results_inlet_massflowrate_447.geo
+
+VARIABLE
+scalar per element:       parallel_domain       results_inlet_massflowrate_447.parallel_domain
+scalar per element: 1            Pressure       results_inlet_massflowrate_447.pressure.****
+vector per element: 1            Velocity       results_inlet_massflowrate_447.velocity.****
+scalar per element: 1               TempC       results_inlet_massflowrate_447.tempc.****
+scalar per element: 1           CourantNb       results_inlet_massflowrate_447.courantnb.****
+scalar per element: 1           FourierNb       results_inlet_massflowrate_447.fouriernb.****
+scalar per element: 1      total_pressure       results_inlet_massflowrate_447.total_pressure.****
+scalar per element: 1               Yplus       results_inlet_massflowrate_447.yplus.****
+scalar per element: 1 Flux_thermique_entr       results_inlet_massflowrate_447.flux_thermique_entrant_w.m-2.****
+vector per element: 1             Efforts       results_inlet_massflowrate_447.efforts.****
+
+TIME
+time set:              1
+number of steps:       1
+filename start number: 1
+filename increment:    1
+time values:
+            6

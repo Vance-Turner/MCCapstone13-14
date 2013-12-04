@@ -1,0 +1,8 @@
+FORMAT
+type: ensight gold
+
+GEOMETRY
+model: results_init_5_smalldisk.geo
+
+VARIABLE
+scalar per element:       parallel_domain       results_init_5_smalldisk.parallel_domain

@@ -1,0 +1,2660 @@
+command: 
+ /usr/lib/code_saturne/cs_solver --param betzlimit_cs_study.xml --mpi
+
+***************************************************************
+
+                                  (R)
+                      Code_Saturne
+
+                      Version 2.1.0
+
+
+  Copyright (C) 1998-2011 EDF S.A., France
+
+  build Thu 26 Jan 2012 08:44:04 PM EST
+  MPI version 2.1 (Open MPI 1.4.3)
+
+
+  The Code_Saturne CFD tool  is free software;
+  you can redistribute it and/or modify it under the terms
+  of the GNU General Public License as published by the
+  Free Software Foundation; either version 2 of the License,
+  or (at your option) any later version.
+
+  The Code_Saturne CFD tool is distributed in the hope that
+  it will be useful, but WITHOUT ANY WARRANTY; without even
+  the implied warranty of MERCHANTABILITY or FITNESS FOR A
+  PARTICULAR PURPOSE.  See the GNU General Public License
+  for more details.
+
+***************************************************************
+
+
+Local case configuration:
+
+  Date:              Wed 20 Nov 2013 10:06:25 AM EST
+  System:            Linux 3.5.0-43-generic
+  Machine:           studio-ub
+  Processor:         Intel(R) Core(TM)2 Duo CPU     P8700  @ 2.53GHz
+  Memory:            7951 MB
+  User:              vance (Vance Turnewitsch)
+  Directory:         /home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/BetzLimitTesting/betzlimit_testing/RESU/20131120-1006
+  MPI ranks:         2 (appnum attribute: 0)
+  I/O mode:          MPI-IO, explicit offsets
+
+===============================================================
+
+                   CALCULATION PREPARATION
+                   =======================
+
+
+ ===========================================================
+
+
+
+ Reading metadata from file: "mesh_input"
+
+ No error detected during the data verification
+                              (interface, usini1 and others).
+
+
+ ===========================================================
+
+               CALCULATION PARAMETERS SUMMARY
+               ==============================
+
+ -----------------------------------------------------------
+
+
+ ** DIMENSIONS
+    ----------
+
+ --- Geometry
+       NPRFML =              1 (Nb max. family properties   )
+       NFML   =              7 (Nb families                 )
+
+ --- Physics
+       NVAR   =              5 (Nb variables                )
+       NSCAL  =              1 (Nb scalars                  )
+       NSCAUS =              1 (Nb user scalars             )
+       NSCAPP =              0 (Nb specific physics scalars )
+       NPROCE =              6 (Nb cell properties          )
+       NPROFA =              1 (Nb internal face properties )
+       NPROFB =              2 (Nb boundary face properties )
+
+
+ -----------------------------------------------------------
+
+
+ ** PHYSICAL PROPERTIES
+    -------------------
+
+       GX     =    0.00000E+00 (Gravity x component         )
+       GY     =    0.00000E+00 (Gravity y component         )
+       GZ     =    0.00000E+00 (Gravity z component         )
+
+       OMEGAX =    0.00000E+00 (Rotation vector x component )
+       OMEGAY =    0.00000E+00 (Rotation vector y component )
+       OMEGAZ =    0.00000E+00 (Rotation vector z component )
+       ICORIO =          0 (Coriolis source terms       )
+
+  -- Continuous phase: 
+
+       RO0    =    0.11400E+01 (Reference density           )
+       VISCL0 =    0.19500E-04 (Ref. molecular dyn. visc.   )
+       CP0    =    0.20600E+04 (Ref. specific heat          )
+       ICP    =              0 (> 0: variable CP (usphyv)   )
+       P0     =    0.10132E+06 (Ref. total pressure         )
+       PRED0  =    0.00000E+00 (Ref. reduced pressure       )
+       T0     =    0.00000E+00 (Ref. temperature            )
+
+       IROVAR =              0 (Density constant(0) or not(1)
+       IVIVAR =              0 (Molec. visc cst.(0) or not(1)
+
+       Initial reference point for pressure
+       XYZP0  =    0.00000E+00   0.00000E+00   0.00000E+00
+
+ -----------------------------------------------------------
+
+
+ ** TURBULENCE
+    ----------
+
+ --- Continuous phase: 
+
+   - Commons                                                 
+       ITURB  =              0 (Turbulence model            )
+       IDEUCH =              0 (0: one-scale model          )
+                               (1: two-scale model          )
+                               (2: invariant wall function  )
+       YPLULI =    0.23810E+01 (Limit Y+                    )
+       ILOGPO =              1 (0: power law (forbidden for
+                                              k-epsilon)    )
+                               (1: one-scale log law        )
+       IGRHOK =              0 (1: computed Grad(rho k)     )
+       ISCALT =              1 (Temperature salar number    )
+
+ --- Constants
+
+   - Commons                                                 
+       XKAPPA =    0.42000E+00 (Von Karman constant         )
+       CSTLOG =    0.52000E+01 (U+=Log(y+)/kappa +CSTLOG    )
+       APOW   =    0.83000E+01 (U+=APOW (y+)**BPOW (W&W law))
+       BPOW   =    0.14286E+00 (U+=APOW (y+)**BPOW (W&W law))
+
+
+ -----------------------------------------------------------
+
+
+ ** SECONDARY VISCOSITY
+    -------------------
+
+ --- Continuous phase:          1
+       IVISSE = 
+
+ -----------------------------------------------------------
+
+
+ ** TIME STEPPING
+    -------------
+
+    UNSTEADY ALGORITHM
+
+ --- Time step parameters
+
+       IDTVAR =              0 (0 cst; 1,2 var (t, t-space  )
+       IPTLRO =              0 (1: rho-related DT clipping  )
+       COUMAX =    0.10000E+01 (Maximum target CFL          )
+       FOUMAX =    0.10000E+02 (Maximum target Fourier      )
+       VARRDT =    0.10000E+00 (For var. DT, max. increase  )
+       DTMIN  =    0.10000E-01 (Minimum time step           )
+       DTMAX  =    0.10000E+03 (Maximum time step           )
+       DTREF  =    0.10000E+00 (Reference time step         )
+
+       With a non-constant time step (IDTVAR = 1 or 2),
+         when the value of COUMAX or FOUMAX is negative
+         or zero, the associated time step limitation (for
+         CFL and Fourier respectively) is ignored.
+
+ --- Frozen velocity field
+
+       ICCVFG =              0 (1: frozen velocity field    )
+
+ --- Per-variable properties
+
+----------------------------
+ Variable  ISTAT      CDTVAR
+----------------------------
+ Pressure      0  0.1000E+01
+ Velocity      1  0.1000E+01
+ Velocity      1  0.1000E+01
+ Velocity      1  0.1000E+01
+ TempC         1  0.1000E+01
+----------------------------
+
+       ISTAT  =  0 ou  1       (1 for unsteady              )
+       CDTVAR >  0             (time step multiplier        )
+
+ --- Order of base time stepping scheme
+       ISCHTP =              1 (1: order 1; 2: order 2      )
+                                                             
+
+ -----------------------------------------------------------
+
+
+ ** CONVECTION - DIFFUSION
+    ----------------------
+
+-------------------------------------------------------------
+ Variable  ICONV  IDIFF IDIFFT ISCHCV ISSTPC   BLENCV  THETAV
+-------------------------------------------------------------
+ Pressure      0      1      1      1      0 0.00E+00 0.10E+01
+ Velocity      1      1      1      1      0 0.10E+01 0.10E+01
+ Velocity      1      1      1      1      0 0.10E+01 0.10E+01
+ Velocity      1      1      1      1      0 0.10E+01 0.10E+01
+ TempC         1      1      1      1      0 0.10E+01 0.10E+01
+-------------------------------------------------------------
+
+       ICONV  =  0 ou  1       (1 for convection active     )
+       IDIFF  =  0 ou  1       (1 for total diffusion active)
+       IDIFFT =  0 ou  1       (1 for turbulent diff. active)
+       ISCHCV =  0 ou  1       (SOLU or CD                  )
+       ISSTPC =  0 ou  1       (1: no slope test            )
+       BLENCV =  [0.;1.]       (1-upwind proportion         )
+       THETAV =  [0.;1.]       (0.5 Crank-Nicolson/AB       )
+                               (theta for convection-       )
+                               (diffusion terms uses        )
+                               ((1-theta).old+theta.new     )
+
+
+ -----------------------------------------------------------
+
+
+ ** STOKES
+    ------
+       IPHYDR =              0 (1: account for explicit
+                                   balance between pressure
+                                   gradient, gravity source
+                                   terms, and head losses     )
+       ICALHY =              0 (1: compute hydrastatic
+                                   pressure for Dirichlet
+                                   conditions for pressure
+                                   on outlet                  )
+       IPRCO  =              1 (1: pressure-continuity        )
+       IPUCOU =              0 (1: reinforced U-P coupling    )
+       NTERUP =              1 (n: n sweeps on navsto for
+                                   velocity/pressure coupling )
+
+  -- Continuous phase: 
+
+       IREVMC =              0 (Velocity reconstruction mode)
+
+       RELAXV =    0.10000E+01 for pressure (relaxation)
+       ARAK   =    0.10000E+01 (Arakawa factor              )
+
+       ISTMPF =              1 (time scheme for flow
+                               (0: explicit (THETFL = 0     )
+                               (1: std scheme (Saturne 1.0  )
+                               (2: 2nd-order (THETFL = 0.5  )
+       THETFL =   -0.99900E+03 (theta for mass flow         )
+       IROEXT =              0 (density extrapolation
+                               (0: explicit
+                               (1: n+thetro with thetro=1/2
+                               (2: n+thetro with thetro=1
+       THETRO =    0.00000E+00 (theta for density
+                               ((1+theta).new-theta.old
+       IVIEXT =              0 (total viscosity extrapolation
+                               (0: explicit
+                               (1: n+thetvi with thetro=1/2
+                               (2: n+thetvi with thetro=1
+       THETVI =    0.00000E+00 (theta for total viscosity
+                               ((1+theta).new-theta.old
+       ICPEXT =              0 (specific heat extrapolation
+                               (0: explicit
+                               (1: n+thetcp with thetro=1/2
+                               (2: n+thetcp with thetro=1
+       THETCP =    0.00000E+00 (specific heat theta-scheme
+                               ((1+theta).new-theta.old
+       THETSN =    0.00000E+00 (Nav-Stokes S.T. theta scheme)
+                               ((1+theta).new-theta.old
+       THETST =    0.00000E+00 (Turbulence S.T. theta-scheme)
+                               ((1+theta).new-theta.old
+       EPSUP  =    0.10000E-04 (Velocity/pressure coupling
+                                stop test                   )
+
+
+ -----------------------------------------------------------
+
+
+ ** GRADIENTS CALCULATION
+    ---------------------
+
+       IMRGRA =              0 (Reconstruction mode         )
+       ANOMAX =    0.78540E+00 (Non-ortho angle: limit for  )
+                               (least squares ext. neighbors)
+
+-----------------------------------------------------------
+ Variable NSWRGR NSWRSM      EPSRGR      EPSRSM      EXTRAG
+-----------------------------------------------------------
+ Pressure    100      2  0.1000E-04  0.1000E-07  0.0000E+00
+ Velocity    100      1  0.1000E-04  0.1000E-07  0.0000E+00
+ Velocity    100      1  0.1000E-04  0.1000E-07  0.0000E+00
+ Velocity    100      1  0.1000E-04  0.1000E-07  0.0000E+00
+ TempC       100      1  0.1000E-04  0.1000E-07  0.0000E+00
+-----------------------------------------------------------  
+
+-----------------------------------
+ Variable IRCFLU IMLIGR      CLIMGR
+-----------------------------------
+ Pressure      1     -1  0.1500E+01
+ Velocity      1     -1  0.1500E+01
+ Velocity      1     -1  0.1500E+01
+ Velocity      1     -1  0.1500E+01
+ TempC         1     -1  0.1500E+01
+-----------------------------------
+
+       NSWRGR =                (nb sweep gradient reconstr. )
+       NSWRSM =                (nb sweep rhs reconstrcution )
+       EPSRGR =                (grad. reconstruction prec.  )
+       EPSRSM =                (rhs   reconstruction prec.  )
+       EXTRAG =  [0.;1.]       (gradients extrapolation     )
+       IRCFLU =  0 ou  1       (flow reconstruction         )
+       IMLIGR =  < 0, 0 ou 1   (gradient limitation method  )
+       CLIMGR =  > 1 ou 1      (gradient limitation coeff.  )
+
+
+ -----------------------------------------------------------
+
+
+ ** FACE INTERPOLATION
+    ------------------
+       IMVISF =              0 (0 arithmetic                )
+
+
+ -----------------------------------------------------------
+
+
+ ** CALCULATION OF TEMPORAL MEANS (MOMENTS)
+    ---------------------------------------
+
+       NBMOMT =              0 (Number of moments           )
+
+ -----------------------------------------------------------
+
+
+ ** BASE ITERATIVE SOLVERS
+    ----------------------
+
+------------------------------------------
+ Variable IRESOL NITMAX      EPSILO IDIRCL
+------------------------------------------
+ Pressure     -1  10000  0.1000E-07      1
+ Velocity     -1  10000  0.1000E-07      1
+ Velocity     -1  10000  0.1000E-07      1
+ Velocity     -1  10000  0.1000E-07      1
+ TempC        -1  10000  0.1000E-07      1
+-----------------------------------
+
+       IRESOL =            -1  (automatic solver choice     )
+                IPOL*1000 + 0  (p conjuguate gradient       )
+                            1  (Jacobi                      )
+                IPOL*1000 + 2  (bicgstab                    )
+                  avec IPOL    (preconditioning degree      )
+       NITMAX =                (max number of iterations    )
+       EPSILO =                (resolution precision        )
+       IDIRCL = 0 ou 1         (shift diagonal if          
+                                ISTAT=0 and no Dirichlet    )
+
+
+ -----------------------------------------------------------
+
+
+ ** MULTIGRID
+    ---------
+
+       NCEGRM =             30 (Max nb cells coarsest grid  )
+       NGRMAX =             25 (Max number of levels        )
+------------------------------                               
+ Variable   IMGR NCYMAX NITMGF                               
+------------------------------                               
+ Pressure      1    100     10
+ Velocity      0    100     10
+ Velocity      0    100     10
+ Velocity      0    100     10
+ TempC         0    100     10
+------------------------------
+
+       IMGR   =  0 ou 1        (1: multigrid activated      )
+       NCYMAX =                (Max number  of cycles       )
+       NITMGF =                (Max nb iter on coarsest grid)
+
+
+  Multigrid rank merge parameters:
+    mean  coarse cells merge threshold: 300
+    total coarse cells merge threshold: 500
+    minimum ranks merge threshold:      1
+    merge stride:                       1
+
+ -----------------------------------------------------------
+
+
+ ** SCALARS
+    -------
+
+       ITBRRB =              0 (T or H reconstruction at bdy)
+
+------------------------------------------------------
+ Variable Number ISCSTH IVISLS      VISLS0      SIGMAS
+------------------------------------------------------
+ TempC         1     -1      0  0.6311E-04  0.1000E+01
+------------------------------------------------------
+
+-----------------------------------
+ Variable Number ISCAVR      RVARFL
+-----------------------------------
+ TempC         1      0  0.8000E+00
+-----------------------------------
+
+-----------------------------------------------
+ Variable Number ICLVFL      SCAMIN      SCAMAX
+-----------------------------------------------
+ TempC         1     -1  0.5000E+02  0.2000E+03
+-----------------------------------------------
+
+-------------------------------------------------------------
+
+       For each scalar, the number indicates it's rank
+         in the list of all scalars. User scalars are placed
+         first, from 1 to NSCAUS. Specific physics scalars
+         are placed at the end, from
+         NSCAUS+1 to NSCAPP+NSCAUS=NSCAL.
+
+       ISCSTH = -1,0, 1 ou 2   (T (C), Passive, T (K) or H  )
+       IVISLS = 0 ou >0        (Viscosity: constant or not  )
+       VISLS0 = >0             (Reference viscosity         )
+       SIGMAS = >0             (Schmidt                     )
+       ISCAVR = 0 ou >0        (Associat. scalar if variance)
+       RVARFL = >0             (Rf, cf variance dissipation )
+       ICLVFL = 0, 1 ou 2      (Variance clipping mode      )
+       SCAMIN =                (Min authorized value        )
+       SCAMAX =                (Max authorized value        )
+        For variances, SCAMIN is ignored and SCAMAX is used
+          only if ICLVFL = 2
+
+------------------------------------------------------
+   Scalar        THETSS    IVSEXT      THETVS
+------------------------------------------------------
+          1  0.0000E+00         0  0.0000E+00
+------------------------------------------------------
+
+       THETSS =                (theta for source terms      )
+                               ((1+theta).new-theta.old     )
+       IVSEXT =                (extrap. total viscosity     )
+                               (0: explicit                 )
+                               (1: n+thetvs with thetvs=1/2 )
+                               (2: n+thetvs with thetvs=1   )
+       THETVS =                (theta for scalar diffusivity
+                               ((1+theta).new-theta.old     )
+
+
+ -----------------------------------------------------------
+
+
+ ** CALCULATION MANAGEMENT
+    ----------------------
+
+ --- Restarted calculation
+       ISUITE =              0 (1: restarted calculuation   )
+       ILEAUX =              1 (1: also read  suiamx        )
+       IECAUX =              1 (1: also write suiavx        )
+
+       suiamx and suiavx are the auxiliary restart files.
+
+ --- Calculation time
+     The numbering of time steps and the measure of simulated
+       physical time are absolute values, and not values
+       relative to the current calculation.
+
+       INPDT0 =              0 (1: 0 time step calcuation   )
+       NTMABS =             20 (Final time step required    )
+
+ --- CPU time margin
+       TMARUS =   -0.10000E+01 (CPU time margin before stop )
+
+
+ -----------------------------------------------------------
+
+
+ ** INPUT-OUTPUT
+    ------------
+
+ --- Restart file
+       NTSUIT =              0 (Checkpoint frequency )
+
+ --- Post-processed variables
+
+       Number Name
+            2 Pressure        
+            3 VelocityX       
+            4 VelocityY       
+            5 VelocityZ       
+            6 TempC           
+            9 CourantNb       
+           10 FourierNb       
+           11 total_pressure  
+         --           --
+
+ --- Probe history files
+       NTHIST =              1 (Output frequency     )
+       FRHIST =     -.10000E+01 (Output frequency (s) )
+       NCAPT  =              9 (Number of probes     )
+       NTHSAV =             -1 (Checkpoint frequency )
+
+       Number Name                  Nb. probes (-1: all)
+            2 Pressure                      -1
+            3 VelocityX                     -1
+            4 VelocityY                     -1
+            5 VelocityZ                     -1
+            6 TempC                         -1
+            7 Density                       -1
+            8 LamVisc                       -1
+            9 CourantNb                     -1
+           10 FourierNb                     -1
+           11 total_pressure                -1
+         --           --                --
+
+ --- Log files
+       NTLIST =              1 (Output frequency     )
+
+       Number Name                IWARNI verbosity level
+                                      (-999: not applicable)
+
+            2 Pressure                       0
+            3 VelocityX                      0
+            4 VelocityY                      0
+            5 VelocityZ                      0
+            6 TempC                          0
+            9 CourantNb                   -999
+           10 FourierNb                   -999
+           11 total_pressure              -999
+         --           --                --
+
+ --- Additional post-processing variables
+       IPSTDV =            210 (Product of the following     
+                                values based on activation  )
+       IPSTYP =              2 (Yplus          on boundary  )
+       IPSTCL =              3 (Variables      on boundary  )
+       IPSTFT =              5 (Thermal flow   on boundary  )
+       IPSTFO =              7 (Force exerted  on boundary  )
+  and  IPSTDV =              1 (No additional output        )
+
+
+ -----------------------------------------------------------
+
+
+ ** ALE METHOD (MOVING MESH)
+    -----------                                              
+
+       IALE   =              0 (1: activated                )
+       NALINF =           -999 (Fluid initialization
+                                                  iterations)
+
+
+ -----------------------------------------------------------
+
+
+ Reading file:        mesh_input
+ Finished reading:    mesh_input
+ No "partition/domain_number_2" file available;
+   domain partitioning will use a space-filling curve.
+
+ Partitioning by space-filling curve: Morton (in bounding box).
+
+Postprocessing output writers:
+------------------------------
+
+  -1: name: results_init_5_smalldisk
+      directory: postprocessing
+      format: EnSight Gold
+      options: 
+      time dependency: fixed mesh
+      output: at calculation end
+
+
+ ----------------------------------------------------------
+
+ Halo construction with standard neighborhood
+ ============================================
+
+ Face interfaces creation
+ Vertex interfaces creation
+ Halo creation
+ Halo definition
+    Local halo definition
+    Distant halo creation
+    Updating the faces -> cells connectivity
+
+ Halo creation times summary
+
+     Interface creation:                       0.00598 s
+     Halo creation:                             0.00253 s
+
+     Total time for halo creation:              0.00851 s
+
+ ----------------------------------------------------------
+
+
+ Histogram of the number of cells per rank:
+
+    minimum value =              20680
+    maximum value =              20680
+
+      1 : [      20680 ;      20680 ] =          2
+
+ ----------------------------------------------------------
+
+ Histogram of the number of standard + halo cells per rank:
+
+    minimum value =              21209
+    maximum value =              21216
+
+      1 : [      21209 ;      21210 [ =          1
+      2 : [      21210 ;      21211 [ =          0
+      3 : [      21211 ;      21213 [ =          0
+      4 : [      21213 ;      21214 [ =          0
+      5 : [      21214 ;      21216 ] =          1
+
+ ----------------------------------------------------------
+
+ Histogram of the number of ghost cells per rank:
+
+    minimum value =                529
+    maximum value =                536
+
+      1 : [        529 ;        530 [ =          1
+      2 : [        530 ;        531 [ =          0
+      3 : [        531 ;        533 [ =          0
+      4 : [        533 ;        534 [ =          0
+      5 : [        534 ;        536 ] =          1
+
+ ----------------------------------------------------------
+
+ Histogram of the number of interior faces per rank:
+
+    minimum value =              39072
+    maximum value =              39343
+
+      1 : [      39072 ;      39126 [ =          1
+      2 : [      39126 ;      39180 [ =          0
+      3 : [      39180 ;      39234 [ =          0
+      4 : [      39234 ;      39288 [ =          0
+      5 : [      39288 ;      39343 ] =          1
+
+ ----------------------------------------------------------
+
+ Histogram of the number of boundary faces per rank:
+
+    minimum value =               4774
+    maximum value =               5316
+
+      1 : [       4774 ;       4882 [ =          1
+      2 : [       4882 ;       4990 [ =          0
+      3 : [       4990 ;       5099 [ =          0
+      4 : [       5099 ;       5207 [ =          0
+      5 : [       5207 ;       5316 ] =          1
+
+ ----------------------------------------------------------
+
+ Histogram of the number of interior faces per cell:
+
+    minimum value =                  3
+    maximum value =                  4
+
+      1 : [          3 ;          4 ] =      41360
+
+ ----------------------------------------------------------
+
+ Histogram of the number of neighboring domains per rank:
+
+    minimum value =                  1
+    maximum value =                  1
+
+      1 : [          1 ;          1 ] =          2
+
+ ----------------------------------------------------------
+
+ Global definition of the number of elements (cells, vertices, faces...)
+Synchronizing cell families
+
+ Renumbering mesh:
+
+ Mesh coordinates:               minimum    and maximum
+                       X : -1.1088429e-14  3.0000000e+02
+                       Y : -9.9999488e+01  9.9999491e+01
+                       Z : -1.0000000e+02  1.0000000e+02
+ Mesh
+     Number of cells:          41360
+     Number of interior faces: 77675
+     Number of boundary faces: 10090
+     Number of vertices:       9669
+
+ Groups:
+    "disk_inlet"
+       boundary faces:           12
+    "disk_outlet"
+       boundary faces:           12
+    "disk_walls"
+       boundary faces:           16
+    "tunnel_inlet"
+       boundary faces:         1435
+    "tunnel_outlet"
+       boundary faces:         1435
+    "tunnel_walls"
+       boundary faces:         7180
+
+ --- Information on the volumes
+       Minimum control volume      =  1.0197590e+00
+       Maximum control volume      =  1.1959236e+03
+       Total volume for the domain =  9.4173088e+06
+
+ Computing geometric quantities (0.0194 s)
+                                                             
+       ALMAX  =    0.21005E+03 (Characteristic length       )
+       ALMAX is the cubic root of the domain volume.
+
+                                                             
+ ----------------------------------------------------------- 
+                                                             
+                                                             
+ ** VARIABLES INITIALIZATION                                 
+    ------------------------                                 
+                                                             
+ ---------------------------------                           
+  Variable  Min. value  Max. value                           
+ ---------------------------------                           
+  Pressure  0.0000E+00  0.0000E+00
+  Velocity  0.5000E+01  0.5000E+01
+  Velocity  0.0000E+00  0.0000E+00
+  Velocity  0.0000E+00  0.0000E+00
+  TempC     0.5000E+02  0.5000E+02
+ ---------------------------------                           
+
+  VisTur    0.1000E+00  0.1000E+00
+ ---------------------------------                           
+
+
+
+-------------------------------------------------------------
+
+
+
+===============================================================
+
+
+
+                       MAIN CALCULATION                      
+                       ================                      
+
+
+===============================================================
+
+
+
+
+===============================================================
+
+
+ INSTANT    0.100000000E+00   TIME STEP NUMBER               1
+ ============================================================= 
+
+
+ ---------------------------------                           
+ Property   Min. value  Max. value                           
+ ---------------------------------                           
+  Density   0.1140E+01  0.1140E+01
+  LamVisc   0.1950E-04  0.1950E-04
+ ---------------------------------                           
+
+ --- Diffusivity:                                            
+ ---------------------------------------                     
+ Scalar   Number  Min. value  Max. value                     
+ ---------------------------------------                     
+ TempC         1  0.6311E-04  0.6311E-04
+ ---------------------------------------                     
+
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+   ** INFORMATION ON BOUNDARY FACES TYPE
+      ----------------------------------
+
+-------------------------------------------------------------------------
+Boundary type          Code    Nb faces
+-------------------------------------------------------------------------
+Inlet                     2           0
+Smooth wall               5           0
+Rough wall                6           0
+Symmetry                  4           0
+Free outlet               3       10090
+Undefined                 1           0
+-------------------------------------------------------------------------
+
+
+Boundary faces with free inlet/outlet detected
+Update of reference point for total pressure
+ XYZP0 =    0.69005E-17  -0.15323E+01  -0.62154E-01
+
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2           0         0.000000000E+00
+Smooth wall               5           0         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4           0         0.000000000E+00
+Free outlet               3       10090         0.000000000E+00
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.10244E-10     680   0.99872E-08   0.10029E+01 
+c  VelocityX    0.34007E+07       0   0.10788E-22   0.11095E-30 
+c  VelocityY    0.27295E-16       0   0.00000E+00   0.22598E-30 
+c  VelocityZ    0.27199E-16       0   0.00000E+00   0.22868E-30 
+c  TempC        0.34007E+08       1   0.11428E-16   0.64501E-31 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.77621E-13   0.85619E-13         --         -- 
+v  VelocityX    0.50000E+01   0.50000E+01         --         -- 
+v  VelocityY   -0.85396E-15   0.10255E-14         --         -- 
+v  VelocityZ   -0.18650E-14   0.81623E-15         --         -- 
+v  TempC        0.50000E+02   0.50000E+02         44          0 
+v  CourantNb    0.00000E+00   0.00000E+00          0          0 
+v  FourierNb    0.16163E-06   0.17209E-03          0          0 
+v  total_pressu 0.10132E+06   0.10132E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50000E+02         44          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON THE TIME STEP
+      -----------------------------
+---------------------------------------------------------------
+Criterion    Value      at         xc           yc           zc
+---------------------------------------------------------------
+Courant min  0.00000E+00  0.69543E+01  0.58122E+02 -0.75510E+02  
+Courant max  0.00000E+00  0.69543E+01  0.58122E+02 -0.75510E+02  
+Fourier min  0.16163E-06  0.12779E+03 -0.26752E+02 -0.17192E+02  
+Fourier max  0.17209E-03  0.15016E+03  0.11741E+02 -0.51700E+01  
+Cou_Fou min  0.16163E-06  0.12779E+03 -0.26752E+02 -0.17192E+02  
+Cou_Fou max  0.17209E-03  0.15016E+03  0.11741E+02 -0.51700E+01  
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                1:        0.10681E+01
+
+===============================================================
+
+
+ INSTANT    0.200000000E+00   TIME STEP NUMBER               2
+ ============================================================= 
+
+
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2           0         0.000000000E+00
+Smooth wall               5           0         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4           0         0.000000000E+00
+Free outlet               3       10090         0.000000000E+00
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+Incoming flow detained for       5007 outlet faces on      10090
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.42964E+04     295   0.80745E-08   0.10170E+01 
+c  VelocityX    0.34007E+07      10   0.55492E-08   0.66215E+00 
+c  VelocityY    0.18364E-01      12   0.36785E-08   0.91488E-01 
+c  VelocityZ    0.18128E-01      12   0.32663E-08   0.94014E-01 
+c  TempC        0.34007E+08       1   0.11343E-16   0.51194E-31 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.14000E+03   0.10206E+02         --         -- 
+v  VelocityX    0.40576E+01   0.98541E+01         --         -- 
+v  VelocityY   -0.19995E+01   0.19358E+01         --         -- 
+v  VelocityZ   -0.22800E+01   0.21402E+01         --         -- 
+v  TempC        0.50000E+02   0.50000E+02         37          0 
+v  CourantNb    0.62187E-01   0.50000E+01          0          0 
+v  FourierNb    0.16163E-06   0.17264E-03          0          0 
+v  total_pressu 0.10119E+06   0.10134E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50000E+02         37          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON THE TIME STEP
+      -----------------------------
+---------------------------------------------------------------
+Criterion    Value      at         xc           yc           zc
+---------------------------------------------------------------
+Courant min  0.62187E-01  0.26628E+03 -0.27339E+02  0.36229E+02  
+Courant max  0.50000E+01  0.14994E+03 -0.12378E+02  0.39307E+01  
+Fourier min  0.16163E-06  0.12779E+03 -0.26752E+02 -0.17192E+02  
+Fourier max  0.17264E-03  0.15016E+03  0.11741E+02 -0.51700E+01  
+Cou_Fou min  0.62188E-01  0.26628E+03 -0.27339E+02  0.36229E+02  
+Cou_Fou max  0.50002E+01  0.15016E+03  0.11741E+02 -0.51700E+01  
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                2:        0.76005E+00
+
+===============================================================
+
+
+ INSTANT    0.300000000E+00   TIME STEP NUMBER               3
+ ============================================================= 
+
+
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2           0         0.000000000E+00
+Smooth wall               5           0         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4           0         0.000000000E+00
+Free outlet               3       10090         0.509552076E-03
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+Incoming flow detained for       5462 outlet faces on      10090
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.75156E+04     297   0.60618E-08   0.14333E+01 
+c  VelocityX    0.33719E+07      10   0.44879E-08   0.23754E+00 
+c  VelocityY    0.11362E+06      12   0.63210E-08   0.11095E+00 
+c  VelocityZ    0.11353E+06      12   0.58479E-08   0.11408E+00 
+c  TempC        0.34007E+08       1   0.11445E-16   0.52405E-31 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.18280E+03   0.66080E+02         --         -- 
+v  VelocityX    0.99623E+00   0.11595E+02         --         -- 
+v  VelocityY   -0.39684E+01   0.37317E+01         --         -- 
+v  VelocityZ   -0.38330E+01   0.39168E+01         --         -- 
+v  TempC        0.50000E+02   0.50000E+02         29          0 
+v  CourantNb    0.61525E-01   0.57553E+01          0          0 
+v  FourierNb    0.16163E-06   0.17264E-03          0          0 
+v  total_pressu 0.10114E+06   0.10139E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50000E+02         29          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON THE TIME STEP
+      -----------------------------
+---------------------------------------------------------------
+Criterion    Value      at         xc           yc           zc
+---------------------------------------------------------------
+Courant min  0.61525E-01  0.32898E+02  0.46477E+01 -0.57312E+02  
+Courant max  0.57553E+01  0.15052E+03  0.42593E+01 -0.11822E+02  
+Fourier min  0.16163E-06  0.12779E+03 -0.26752E+02 -0.17192E+02  
+Fourier max  0.17264E-03  0.15016E+03  0.11741E+02 -0.51700E+01  
+Cou_Fou min  0.61525E-01  0.32898E+02  0.46477E+01 -0.57312E+02  
+Cou_Fou max  0.57554E+01  0.15052E+03  0.42593E+01 -0.11822E+02  
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                3:        0.10881E+01
+
+===============================================================
+
+
+ INSTANT    0.400000000E+00   TIME STEP NUMBER               4
+ ============================================================= 
+
+
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2           0         0.000000000E+00
+Smooth wall               5           0         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4           0         0.000000000E+00
+Free outlet               3       10090        -0.659030775E-03
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+Incoming flow detained for       6300 outlet faces on      10090
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.86456E+04     300   0.66200E-08   0.14826E+01 
+c  VelocityX    0.33492E+07      10   0.54439E-08   0.20000E+00 
+c  VelocityY    0.15537E+06      12   0.48682E-08   0.12791E+00 
+c  VelocityZ    0.15532E+06      12   0.44894E-08   0.13097E+00 
+c  TempC        0.34007E+08       1   0.11199E-16   0.44258E-31 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.19867E+03   0.13925E+03         --         -- 
+v  VelocityX   -0.80021E+00   0.12099E+02         --         -- 
+v  VelocityY   -0.59014E+01   0.58115E+01         --         -- 
+v  VelocityZ   -0.56386E+01   0.55684E+01         --         -- 
+v  TempC        0.50000E+02   0.50000E+02         25          0 
+v  CourantNb    0.60062E-01   0.64670E+01          0          0 
+v  FourierNb    0.16163E-06   0.17264E-03          0          0 
+v  total_pressu 0.10113E+06   0.10146E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50000E+02         25          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON THE TIME STEP
+      -----------------------------
+---------------------------------------------------------------
+Criterion    Value      at         xc           yc           zc
+---------------------------------------------------------------
+Courant min  0.60062E-01  0.32898E+02  0.46477E+01 -0.57312E+02  
+Courant max  0.64670E+01  0.14985E+03 -0.41720E+01 -0.12012E+02  
+Fourier min  0.16163E-06  0.12779E+03 -0.26752E+02 -0.17192E+02  
+Fourier max  0.17264E-03  0.15016E+03  0.11741E+02 -0.51700E+01  
+Cou_Fou min  0.60062E-01  0.32898E+02  0.46477E+01 -0.57312E+02  
+Cou_Fou max  0.64670E+01  0.14985E+03 -0.41720E+01 -0.12012E+02  
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                4:        0.10361E+01
+
+===============================================================
+
+
+ INSTANT    0.500000000E+00   TIME STEP NUMBER               5
+ ============================================================= 
+
+
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2           0         0.000000000E+00
+Smooth wall               5           0         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4           0         0.000000000E+00
+Free outlet               3       10090        -0.541797053E-03
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+Incoming flow detained for       6543 outlet faces on      10090
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.91431E+04     300   0.73898E-08   0.14802E+01 
+c  VelocityX    0.33163E+07      10   0.74656E-08   0.23778E+00 
+c  VelocityY    0.19769E+06      12   0.42484E-08   0.13860E+00 
+c  VelocityZ    0.19761E+06      12   0.39141E-08   0.14069E+00 
+c  TempC        0.34007E+08       1   0.11121E-16   0.55127E-31 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.19687E+03   0.21499E+03         --         -- 
+v  VelocityX   -0.17381E+01   0.11988E+02         --         -- 
+v  VelocityY   -0.74833E+01   0.73930E+01         --         -- 
+v  VelocityZ   -0.82729E+01   0.71271E+01         --         -- 
+v  TempC        0.50000E+02   0.50000E+02         32          0 
+v  CourantNb    0.29511E-01   0.74828E+01          0          0 
+v  FourierNb    0.16163E-06   0.17264E-03          0          0 
+v  total_pressu 0.10113E+06   0.10154E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50000E+02         32          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON THE TIME STEP
+      -----------------------------
+---------------------------------------------------------------
+Criterion    Value      at         xc           yc           zc
+---------------------------------------------------------------
+Courant min  0.29511E-01  0.15302E+03  0.59159E+01  0.22530E+00  
+Courant max  0.74828E+01  0.14985E+03 -0.41720E+01 -0.12012E+02  
+Fourier min  0.16163E-06  0.12779E+03 -0.26752E+02 -0.17192E+02  
+Fourier max  0.17264E-03  0.15016E+03  0.11741E+02 -0.51700E+01  
+Cou_Fou min  0.29512E-01  0.15302E+03  0.59159E+01  0.22530E+00  
+Cou_Fou max  0.74829E+01  0.14985E+03 -0.41720E+01 -0.12012E+02  
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                5:        0.10041E+01
+
+===============================================================
+
+
+ INSTANT    0.600000000E+00   TIME STEP NUMBER               6
+ ============================================================= 
+
+
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2           0         0.000000000E+00
+Smooth wall               5           0         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4           0         0.000000000E+00
+Free outlet               3       10090        -0.637858378E-03
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+Incoming flow detained for       7084 outlet faces on      10090
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.91157E+04     300   0.79281E-08   0.14293E+01 
+c  VelocityX    0.32776E+07      11   0.18878E-08   0.29981E+00 
+c  VelocityY    0.24013E+06      12   0.44862E-08   0.14486E+00 
+c  VelocityZ    0.23971E+06      12   0.41418E-08   0.14536E+00 
+c  TempC        0.34007E+08       1   0.11123E-16   0.58807E-31 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.18635E+03   0.32031E+03         --         -- 
+v  VelocityX   -0.20442E+01   0.13245E+02         --         -- 
+v  VelocityY   -0.86290E+01   0.83840E+01         --         -- 
+v  VelocityZ   -0.10697E+02   0.83271E+01         --         -- 
+v  TempC        0.50000E+02   0.50000E+02         21          0 
+v  CourantNb    0.28644E-01   0.81090E+01          0          0 
+v  FourierNb    0.16163E-06   0.17209E-03          0          0 
+v  total_pressu 0.10114E+06   0.10165E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50000E+02         21          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON THE TIME STEP
+      -----------------------------
+---------------------------------------------------------------
+Criterion    Value      at         xc           yc           zc
+---------------------------------------------------------------
+Courant min  0.28644E-01  0.15301E+03  0.21304E+01  0.23158E+00  
+Courant max  0.81090E+01  0.14985E+03 -0.41720E+01 -0.12012E+02  
+Fourier min  0.16163E-06  0.12779E+03 -0.26752E+02 -0.17192E+02  
+Fourier max  0.17209E-03  0.15016E+03  0.11741E+02 -0.51700E+01  
+Cou_Fou min  0.28644E-01  0.15301E+03  0.21304E+01  0.23158E+00  
+Cou_Fou max  0.81090E+01  0.14985E+03 -0.41720E+01 -0.12012E+02  
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                6:        0.10121E+01
+
+===============================================================
+
+
+ INSTANT    0.700000000E+00   TIME STEP NUMBER               7
+ ============================================================= 
+
+
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2           0         0.000000000E+00
+Smooth wall               5           0         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4           0         0.000000000E+00
+Free outlet               3       10090        -0.697054988E-03
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+Incoming flow detained for       7307 outlet faces on      10090
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.86197E+04     299   0.72139E-08   0.13323E+01 
+c  VelocityX    0.32345E+07      11   0.38890E-08   0.33372E+00 
+c  VelocityY    0.28035E+06      12   0.54743E-08   0.14466E+00 
+c  VelocityZ    0.27886E+06      12   0.55710E-08   0.14375E+00 
+c  TempC        0.34007E+08       1   0.10933E-16   0.10762E-30 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.16235E+03   0.36844E+03         --         -- 
+v  VelocityX   -0.29543E+01   0.14231E+02         --         -- 
+v  VelocityY   -0.10044E+02   0.89142E+01         --         -- 
+v  VelocityZ   -0.13204E+02   0.10034E+02         --         -- 
+v  TempC        0.50000E+02   0.50000E+02         31          0 
+v  CourantNb    0.36182E-01   0.88067E+01          0          0 
+v  FourierNb    0.16163E-06   0.17209E-03          0          0 
+v  total_pressu 0.10116E+06   0.10169E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50000E+02         31          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON THE TIME STEP
+      -----------------------------
+---------------------------------------------------------------
+Criterion    Value      at         xc           yc           zc
+---------------------------------------------------------------
+Courant min  0.36182E-01  0.38986E+01 -0.63454E+02 -0.23474E+02  
+Courant max  0.88067E+01  0.14985E+03 -0.41720E+01 -0.12012E+02  
+Fourier min  0.16163E-06  0.12779E+03 -0.26752E+02 -0.17192E+02  
+Fourier max  0.17209E-03  0.15016E+03  0.11741E+02 -0.51700E+01  
+Cou_Fou min  0.36183E-01  0.38986E+01 -0.63454E+02 -0.23474E+02  
+Cou_Fou max  0.88068E+01  0.14985E+03 -0.41720E+01 -0.12012E+02  
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                7:        0.10161E+01
+
+===============================================================
+
+
+ INSTANT    0.800000000E+00   TIME STEP NUMBER               8
+ ============================================================= 
+
+
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2           0         0.000000000E+00
+Smooth wall               5           0         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4           0         0.000000000E+00
+Free outlet               3       10090        -0.640792685E-03
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+Incoming flow detained for       7461 outlet faces on      10090
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.77422E+04     296   0.54365E-08   0.11878E+01 
+c  VelocityX    0.31876E+07      11   0.76939E-08   0.37154E+00 
+c  VelocityY    0.32065E+06      12   0.80772E-08   0.13780E+00 
+c  VelocityZ    0.31767E+06      12   0.75402E-08   0.13649E+00 
+c  TempC        0.34007E+08       1   0.10686E-16   0.95674E-31 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.12747E+03   0.43388E+03         --         -- 
+v  VelocityX   -0.21548E+01   0.15326E+02         --         -- 
+v  VelocityY   -0.12662E+02   0.10029E+02         --         -- 
+v  VelocityZ   -0.15024E+02   0.10314E+02         --         -- 
+v  TempC        0.50000E+02   0.50000E+02         29          0 
+v  CourantNb    0.17929E-01   0.82890E+01          0          0 
+v  FourierNb    0.16163E-06   0.17209E-03          0          0 
+v  total_pressu 0.10120E+06   0.10176E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50000E+02         29          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON THE TIME STEP
+      -----------------------------
+---------------------------------------------------------------
+Criterion    Value      at         xc           yc           zc
+---------------------------------------------------------------
+Courant min  0.17929E-01  0.41529E+01 -0.23064E+02 -0.46705E+02  
+Courant max  0.82890E+01  0.14985E+03 -0.41720E+01 -0.12012E+02  
+Fourier min  0.16163E-06  0.12779E+03 -0.26752E+02 -0.17192E+02  
+Fourier max  0.17209E-03  0.15016E+03  0.11741E+02 -0.51700E+01  
+Cou_Fou min  0.17930E-01  0.41529E+01 -0.23064E+02 -0.46705E+02  
+Cou_Fou max  0.82891E+01  0.14985E+03 -0.41720E+01 -0.12012E+02  
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                8:        0.10121E+01
+
+===============================================================
+
+
+ INSTANT    0.900000000E+00   TIME STEP NUMBER               9
+ ============================================================= 
+
+
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2           0         0.000000000E+00
+Smooth wall               5           0         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4           0         0.000000000E+00
+Free outlet               3       10090        -0.889685820E-03
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+Incoming flow detained for       7612 outlet faces on      10090
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.66015E+04     294   0.53984E-08   0.10113E+01 
+c  VelocityX    0.31387E+07      11   0.85696E-08   0.39391E+00 
+c  VelocityY    0.35738E+06      12   0.91689E-08   0.12995E+00 
+c  VelocityZ    0.35247E+06      13   0.12710E-08   0.12756E+00 
+c  TempC        0.34007E+08       1   0.10744E-16   0.96396E-31 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.10062E+03   0.46859E+03         --         -- 
+v  VelocityX   -0.32991E+01   0.16396E+02         --         -- 
+v  VelocityY   -0.15118E+02   0.10594E+02         --         -- 
+v  VelocityZ   -0.17012E+02   0.10702E+02         --         -- 
+v  TempC        0.50000E+02   0.50000E+02         35          0 
+v  CourantNb    0.12145E-01   0.77004E+01          0          0 
+v  FourierNb    0.16163E-06   0.17209E-03          0          0 
+v  total_pressu 0.10122E+06   0.10179E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50000E+02         35          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON THE TIME STEP
+      -----------------------------
+---------------------------------------------------------------
+Criterion    Value      at         xc           yc           zc
+---------------------------------------------------------------
+Courant min  0.12145E-01  0.32493E+01  0.37846E+02 -0.31153E+02  
+Courant max  0.77004E+01  0.15006E+03  0.11820E+02 -0.49787E+01  
+Fourier min  0.16163E-06  0.12779E+03 -0.26752E+02 -0.17192E+02  
+Fourier max  0.17209E-03  0.15016E+03  0.11741E+02 -0.51700E+01  
+Cou_Fou min  0.12146E-01  0.32493E+01  0.37846E+02 -0.31153E+02  
+Cou_Fou max  0.77006E+01  0.15006E+03  0.11820E+02 -0.49787E+01  
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP                9:        0.10161E+01
+
+===============================================================
+
+
+ INSTANT    0.100000000E+01   TIME STEP NUMBER              10
+ ============================================================= 
+
+
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2           0         0.000000000E+00
+Smooth wall               5           0         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4           0         0.000000000E+00
+Free outlet               3       10090        -0.723378733E-03
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+Incoming flow detained for       7748 outlet faces on      10090
+
+
+ Write intermediate restart files
+   checkpoint at iteration         10, Physical time    0.10000E+01
+
+
+   ** Writing the main restart file
+      -----------------------------
+
+ Start writing
+   End writing the dimensions                           
+   End writing the options                              
+   End writing the main variables                       
+ End writing
+
+   ** Writing the auxilliary restart file
+      -----------------------------------
+
+ Start writing
+   End writing the dimensions and options               
+   End writing the physical properties                  
+   End writing the time step                            
+   End writing the mass fluxes                          
+   End writing the boundary conditions                  
+ End writing
+
+
+ CPU time for restart files:    0.12000E-01
+
+
+
+   ** INFORMATION ON CONVERGENCE
+      --------------------------
+---------------------------------------------------------------
+   Variable    Rhs norm      N_iter  Norm. residual      derive
+---------------------------------------------------------------
+c  Pressure     0.54027E+04     283   0.96311E-08   0.82567E+00 
+c  VelocityX    0.30885E+07      12   0.14292E-08   0.41784E+00 
+c  VelocityY    0.38955E+06      13   0.12252E-08   0.12519E+00 
+c  VelocityZ    0.38247E+06      13   0.13428E-08   0.12183E+00 
+c  TempC        0.34007E+08       1   0.10515E-16   0.10493E-30 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON VARIABLES
+      ------------------------
+---------------------------------------------------------------
+   Variable      Min. value    Max. value   Min clip   Max clip
+---------------------------------------------------------------
+v  Pressure    -0.77005E+02   0.51267E+03         --         -- 
+v  VelocityX   -0.45901E+01   0.16917E+02         --         -- 
+v  VelocityY   -0.17095E+02   0.11118E+02         --         -- 
+v  VelocityZ   -0.18618E+02   0.10935E+02         --         -- 
+v  TempC        0.50000E+02   0.50000E+02         25          0 
+v  CourantNb    0.13755E-01   0.74108E+01          0          0 
+v  FourierNb    0.16163E-06   0.17209E-03          0          0 
+v  total_pressu 0.10125E+06   0.10184E+06          0          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON CLIPPINGS
+      ------------------------
+---------------------------------------------------------------
+   Variable    Min wo clips  Max wo clips   Min clip   Max clip
+---------------------------------------------------------------
+a  TempC        0.50000E+02   0.50000E+02         25          0 
+---------------------------------------------------------------
+  
+  
+
+   ** INFORMATION ON THE TIME STEP
+      -----------------------------
+---------------------------------------------------------------
+Criterion    Value      at         xc           yc           zc
+---------------------------------------------------------------
+Courant min  0.13755E-01  0.16918E+01  0.41571E+02  0.61739E+02  
+Courant max  0.74108E+01  0.15006E+03  0.11820E+02 -0.49787E+01  
+Fourier min  0.16163E-06  0.12779E+03 -0.26752E+02 -0.17192E+02  
+Fourier max  0.17209E-03  0.15016E+03  0.11741E+02 -0.51700E+01  
+Cou_Fou min  0.13756E-01  0.16918E+01  0.41571E+02  0.61739E+02  
+Cou_Fou max  0.74110E+01  0.15006E+03  0.11820E+02 -0.49787E+01  
+---------------------------------------------------------------
+  
+  
+
+ CPU TIME FOR THE TIME STEP               10:        0.10961E+01
+
+===============================================================
+
+
+ INSTANT    0.110000000E+01   TIME STEP NUMBER              11
+ ============================================================= 
+
+
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"inlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "outlet" in the selection
+criteria:
+"outlet"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "wall" in the selection
+criteria:
+"wall"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "sym" in the selection
+criteria:
+"sym"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym)"
+ does not correspond to any boundary face.
+
+
+Code_Saturne: cs_gui_boundary_conditions.c:1074: Warning
+The group or attribute "inlet" in the selection
+criteria:
+"not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))"
+ does not correspond to any boundary face.
+
+
+   ** BOUNDARY MASS FLOW INFORMATION
+      ------------------------------
+
+---------------------------------------------------------------
+Boundary type          Code    Nb faces           Mass flow
+---------------------------------------------------------------
+Inlet                     2           0         0.000000000E+00
+Smooth wall               5           0         0.000000000E+00
+Rough wall                6           0         0.000000000E+00
+Symmetry                  4           0         0.000000000E+00
+Free outlet               3       10090        -0.268074695E-02
+Undefined                 1           0         0.000000000E+00
+---------------------------------------------------------------
+
+Incoming flow detained for       7806 outlet faces on      10090
+SIGFPE signal (floating point exception) intercepted!
+
+Call stack:
+   1: 0x7f7f2bfc4fe9 <condli_+0x5c6d>                 (libsaturne.so.0)
+   2: 0x7f7f2c0a9c20 <tridim_+0x3120>                 (libsaturne.so.0)
+   3: 0x7f7f2bfb2584 <caltri_+0x2f8c>                 (libsaturne.so.0)
+   4: 0x7f7f2bfab7fb <cs_run+0x72b>                   (libsaturne.so.0)
+   5: 0x7f7f2bfaafea <main+0x1da>                     (libsaturne.so.0)
+   6: 0x7f7f2a24d76d <__libc_start_main+0xed>         (libc.so.6)
+   7: 0x4006b9     <>                               (cs_solver)
+End of stack
+
+
