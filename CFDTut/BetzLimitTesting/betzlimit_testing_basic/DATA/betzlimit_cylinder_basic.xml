@@ -5,7 +5,7 @@
 			<zone head_losses="on" id="2" initialization="off" label="actDisk" mass_source_term="off" momentum_source_term="off" scalar_source_term="off" thermal_source_term="off">25&lt;x and x&lt;25.6 and -3&lt;y and y&lt;3 and -3&lt;z and z&lt;3</zone>
 		</volumic_conditions>
 		<meshes_list>
-			<mesh name="empty_tunnel.med"/>
+			<mesh name="empty_cylinder_simple.med"/>
 		</meshes_list>
 		<faces_cutting status="off"/>
 		<joining/>
@@ -124,15 +124,13 @@
 		</scalar>
 	</additional_scalars>
 	<boundary_conditions>
-		<boundary label="tunnel_inlet" name="1" nature="inlet">inlet</boundary>
-		<boundary label="tunnel_outlet" name="2" nature="outlet">outlet</boundary>
-		<boundary label="tunnel_walls" name="4" nature="wall">wall</boundary>
+		<boundary label="inletFace" name="1" nature="inlet">inletFace</boundary>
+		<boundary label="outletFace" name="2" nature="outlet">outletFace</boundary>
+		<boundary label="wallFace" name="4" nature="wall">wallFace</boundary>
 		<variable/>
-		<boundary label="disk_inlet" name="4" nature="inlet">sym</boundary>
-		<boundary label="disk_outlet" name="5" nature="outlet">not (inlet or outlet or wall or sym)</boundary>
-		<inlet label="tunnel_inlet">
+		<inlet label="inletFace">
 			<velocity_pressure choice="norm" direction="normal">
-				<norm>5</norm>
+				<norm>1</norm>
 			</velocity_pressure>
 			<turbulence choice="hydraulic_diameter">
 				<hydraulic_diameter>1</hydraulic_diameter>
@@ -141,48 +139,21 @@
 				<dirichlet>0</dirichlet>
 			</scalar>
 		</inlet>
-		<outlet label="tunnel_outlet">
+		<outlet label="outletFace">
 			<scalar choice="neumann" label="TempC" name="temperature_celsius" type="thermal">
 				<neumann>0</neumann>
 			</scalar>
 		</outlet>
-		<wall label="tunnel_walls">
-			<velocity_pressure choice="off">
-				<dirichlet name="velocity_U">0</dirichlet>
-				<dirichlet name="velocity_V">0</dirichlet>
-				<dirichlet name="velocity_W">0</dirichlet>
-			</velocity_pressure>
-			<scalar choice="neumann" label="TempC" name="temperature_celsius" type="thermal">
-				<neumann>0</neumann>
-			</scalar>
-		</wall>
-		<boundary label="disk_walls" name="7" nature="wall">not (inlet or outlet or wall or sym or not (inlet or outlet or wall or sym))</boundary>
-		<wall label="disk_walls">
+		<wall label="wallFace">
 			<velocity_pressure choice="off"/>
 			<scalar choice="neumann" label="TempC" name="temperature_celsius" type="thermal">
 				<neumann>0</neumann>
 			</scalar>
 		</wall>
-		<outlet label="disk_outlet">
-			<scalar choice="neumann" label="TempC" name="temperature_celsius" type="thermal">
-				<neumann>0</neumann>
-			</scalar>
-		</outlet>
-		<inlet label="disk_inlet">
-			<velocity_pressure choice="norm" direction="normal">
-				<norm>3.33</norm>
-			</velocity_pressure>
-			<turbulence choice="hydraulic_diameter">
-				<hydraulic_diameter>1</hydraulic_diameter>
-			</turbulence>
-			<scalar choice="dirichlet" label="TempC" name="temperature_celsius" type="thermal">
-				<dirichlet>0</dirichlet>
-			</scalar>
-		</inlet>
 	</boundary_conditions>
 	<analysis_control>
 		<output>
-			<writer id="-1" label="60_steps_disk_width_pt5">
+			<writer id="-1" label="empty_cylinder_simple">
 				<frequency period="none"/>
 				<output_at_end status="on"/>
 				<format name="ensight" options=""/>
@@ -203,54 +174,19 @@
 			<probe_recording_frequency>1</probe_recording_frequency>
 			<probe_format choice="DAT"/>
 			<probe name="1" status="on">
-				<probe_x>0</probe_x>
-				<probe_y>0.0001</probe_y>
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
 				<probe_z>0</probe_z>
 			</probe>
 			<probe name="2" status="on">
-				<probe_x>0</probe_x>
-				<probe_y>0.0025</probe_y>
-				<probe_z>0</probe_z>
-			</probe>
-			<probe name="3" status="on">
-				<probe_x>0</probe_x>
-				<probe_y>0.0049</probe_y>
-				<probe_z>0</probe_z>
-			</probe>
-			<probe name="4" status="on">
-				<probe_x>0.05</probe_x>
-				<probe_y>0.0001</probe_y>
-				<probe_z>0</probe_z>
-			</probe>
-			<probe name="5" status="on">
-				<probe_x>0.05</probe_x>
-				<probe_y>0.0025</probe_y>
-				<probe_z>0</probe_z>
-			</probe>
-			<probe name="6" status="on">
-				<probe_x>0.05</probe_x>
-				<probe_y>0.0049</probe_y>
-				<probe_z>0</probe_z>
-			</probe>
-			<probe name="7" status="on">
-				<probe_x>0.1</probe_x>
-				<probe_y>0.0001</probe_y>
-				<probe_z>0</probe_z>
-			</probe>
-			<probe name="8" status="on">
-				<probe_x>0.1</probe_x>
-				<probe_y>0.0025</probe_y>
-				<probe_z>0</probe_z>
-			</probe>
-			<probe name="9" status="on">
-				<probe_x>0.1</probe_x>
-				<probe_y>0.0049</probe_y>
+				<probe_x>45</probe_x>
+				<probe_y>0</probe_y>
 				<probe_z>0</probe_z>
 			</probe>
 		</output>
 		<time_parameters>
 			<time_step_ref>0.1</time_step_ref>
-			<iterations>60</iterations>
+			<iterations>10</iterations>
 			<time_passing>0</time_passing>
 			<property label="CourantNb" name="courant_number"/>
 			<property label="FourierNb" name="fourier_number"/>
