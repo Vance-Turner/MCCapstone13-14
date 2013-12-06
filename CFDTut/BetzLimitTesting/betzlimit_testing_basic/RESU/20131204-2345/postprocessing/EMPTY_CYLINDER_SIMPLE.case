@@ -1,0 +1,8 @@
+FORMAT
+type: ensight gold
+
+GEOMETRY
+model: empty_cylinder_simple.geo
+
+VARIABLE
+scalar per element:       parallel_domain       empty_cylinder_simple.var_001

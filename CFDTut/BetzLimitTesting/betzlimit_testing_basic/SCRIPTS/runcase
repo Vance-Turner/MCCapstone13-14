@@ -4,5 +4,5 @@
 export PATH="/usr/bin":$PATH
 
 # Run command:
-\code_saturne run --param betzlimit_tunnelbasic.xml 
+\code_saturne run --param betzlimit_cylinder_basic.xml 
 

@@ -1,0 +1,10 @@
+<headloss>
+	<clusters count="1">
+		<cluster id="0" ip="localhost" port="20018">
+			<basepath>/home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/BetzLimitTesting/betzlimit_testing_basic</basepath>
+			<xmlstudyname>betzlimit_cylinder_basic</xmlstudyname>
+		</cluster>	
+	</clusters>
+	<responseConfig port="1000">
+	</responseConfig>
+</headloss>

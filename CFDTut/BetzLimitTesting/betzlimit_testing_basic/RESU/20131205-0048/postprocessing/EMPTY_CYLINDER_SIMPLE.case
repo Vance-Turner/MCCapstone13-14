@@ -1,0 +1,25 @@
+FORMAT
+type: ensight gold
+
+GEOMETRY
+model: empty_cylinder_simple.geo
+
+VARIABLE
+scalar per element:       parallel_domain       empty_cylinder_simple.var_001
+scalar per element: 1            Pressure       empty_cylinder_simple.pressure.****
+vector per element: 1            Velocity       empty_cylinder_simple.velocity.****
+scalar per element: 1               TempC       empty_cylinder_simple.tempc.****
+scalar per element: 1           CourantNb       empty_cylinder_simple.courantnb.****
+scalar per element: 1           FourierNb       empty_cylinder_simple.fouriernb.****
+scalar per element: 1      total_pressure       empty_cylinder_simple.total_pressure.****
+scalar per element: 1               Yplus       empty_cylinder_simple.yplus.****
+scalar per element: 1 Flux_thermique_entr       empty_cylinder_simple.flux_thermique_entrant_w.m-2.****
+vector per element: 1             Efforts       empty_cylinder_simple.efforts.****
+
+TIME
+time set:              1
+number of steps:       1
+filename start number: 1
+filename increment:    1
+time values:
+            1

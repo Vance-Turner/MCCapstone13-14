@@ -1,0 +1,23 @@
+
+
+cs_boundary_conditions.c:410: Fatal error.
+
+
+Some boundary condition definitions are incomplete or incorrect.
+
+  For details, read the end of the calculation log,
+  or visualize the error postprocessing output.
+
+
+Call stack:
+   1: 0x7f679f1f0611 <cs_boundary_conditions_error+0x4c1> (libsaturne.so.0)
+   2: 0x7f679f2cea51 <typecl_+0x1a1>                  (libsaturne.so.0)
+   3: 0x7f679f1e17b4 <condli_+0x438>                  (libsaturne.so.0)
+   4: 0x7f679f2cbc20 <tridim_+0x3120>                 (libsaturne.so.0)
+   5: 0x7f679f1d4584 <caltri_+0x2f8c>                 (libsaturne.so.0)
+   6: 0x7f679f1cd7fb <cs_run+0x72b>                   (libsaturne.so.0)
+   7: 0x7f679f1ccfea <main+0x1da>                     (libsaturne.so.0)
+   8: 0x7f679d46f76d <__libc_start_main+0xed>         (libc.so.6)
+   9: 0x4006b9     <>                               (cs_solver)
+End of stack
+

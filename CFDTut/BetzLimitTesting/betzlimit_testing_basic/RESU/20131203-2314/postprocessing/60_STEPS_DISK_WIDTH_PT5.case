@@ -1,0 +1,25 @@
+FORMAT
+type: ensight gold
+
+GEOMETRY
+model: 60_steps_disk_width_pt5.geo
+
+VARIABLE
+scalar per element:       parallel_domain       60_steps_disk_width_pt5.var_001
+scalar per element: 1            Pressure       60_steps_disk_width_pt5.pressure.****
+vector per element: 1            Velocity       60_steps_disk_width_pt5.velocity.****
+scalar per element: 1               TempC       60_steps_disk_width_pt5.tempc.****
+scalar per element: 1           CourantNb       60_steps_disk_width_pt5.courantnb.****
+scalar per element: 1           FourierNb       60_steps_disk_width_pt5.fouriernb.****
+scalar per element: 1      total_pressure       60_steps_disk_width_pt5.total_pressure.****
+scalar per element: 1               Yplus       60_steps_disk_width_pt5.yplus.****
+scalar per element: 1 Flux_thermique_entr       60_steps_disk_width_pt5.flux_thermique_entrant_w.m-2.****
+vector per element: 1             Efforts       60_steps_disk_width_pt5.efforts.****
+
+TIME
+time set:              1
+number of steps:       1
+filename start number: 1
+filename increment:    1
+time values:
+            6

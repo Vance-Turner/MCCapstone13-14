@@ -18,7 +18,7 @@
 Case configuration
 ------------------
 
-  Date                : Tue 03 Dec 2013 07:49:04 PM EST
+  Date                : Wed 04 Dec 2013 11:41:20 PM EST
   System              : Linux 3.5.0-43-generic
   Machine             : studio-ub
   Processor           : Intel(R) Core(TM)2 Duo CPU     P8700  @ 2.53GHz
@@ -52,7 +52,7 @@ which are ignored by the Preprocessor.
   Number of cells                             :    83116
                                    Family 0   :    83116
 
-  Wall-clock time: 0.112538 s; CPU time: 0.032001 s
+  Wall-clock time: 0.199353 s; CPU time: 0.032001 s
 
 
 Done reading mesh
@@ -149,10 +149,10 @@ Write output for Kernel
 Time and memory summary
 -----------------------
 
-  User CPU time                       (sec)   :        0.30
-  System CPU time                     (sec)   :        0.02
-  Total time                          (sec)   :        0.40
-  Total CPU time / Total time                 :        0.81
+  User CPU time                       (sec)   :        0.29
+  System CPU time                     (sec)   :        0.03
+  Total time                          (sec)   :        0.48
+  Total CPU time / Total time                 :        0.67
 
 Memory use summary:
 
@@ -201,7 +201,7 @@ command:
 
 Local case configuration:
 
-  Date:              Tue 03 Dec 2013 07:49:05 PM EST
+  Date:              Wed 04 Dec 2013 11:41:20 PM EST
   System:            Linux 3.5.0-43-generic
   Machine:           studio-ub
   Processor:         Intel(R) Core(TM)2 Duo CPU     P8700  @ 2.53GHz
@@ -241,7 +241,7 @@ Postprocessing output writers:
 
  Extended neighborhood structures definition
 
- Extended connectivity creation (0.294 s)
+ Extended connectivity creation (0.284 s)
  Number of cells:                                      83116
 
  ----------------------------------------------------------
@@ -290,7 +290,7 @@ Postprocessing output writers:
        Maximum control volume      =  4.8189724e+00
        Total volume for the domain =  1.5681936e+04
 
- Computing geometric quantities (0.0805 s)
+ Computing geometric quantities (0.0841 s)
 
  Computing quality criteria
 
@@ -451,32 +451,32 @@ Postprocessing output writers:
 Summary of gradient computations pour "Var. 1" (Iterative reconstruction):
 
   Number of calls:                  1
-  Total elapsed time:                      0.178
-  Total CPU time:                          0.176
+  Total elapsed time:                      0.163
+  Total CPU time:                          0.164
 
 Summary of gradient computations pour "Var. 1" (Least-squares (standard)):
 
   Number of calls:                  1
-  Total elapsed time:                      0.059
+  Total elapsed time:                      0.056
   Total CPU time:                          0.056
 
 Summary of gradient computations pour "Var. 1" (Least-squares (extended)):
 
   Number of calls:                  1
-  Total elapsed time:                      0.547
-  Total CPU time:                          0.540
+  Total elapsed time:                      0.532
+  Total CPU time:                          0.528
 
 Summary of gradient computations pour "Var. 1" (Least-squares (partially extended)):
 
   Number of calls:                  1
-  Total elapsed time:                      0.091
-  Total CPU time:                          0.084
+  Total elapsed time:                      0.086
+  Total CPU time:                          0.088
 
 Summary of gradient computations pour "Var. 1" (Least-squares then iterative):
 
   Number of calls:                  1
-  Total elapsed time:                      0.205
-  Total CPU time:                          0.200
+  Total elapsed time:                      0.192
+  Total CPU time:                          0.192
 
  Destroying structures and ending computation
 
@@ -489,25 +489,25 @@ Mesh entity selections by criteria statistics:
 
 Writing of "results" (EnSight Gold) summary:
 
-  CPU time for meshes:                     0.000
-  CPU time for variables:                  0.036
+  CPU time for meshes:                     0.004
+  CPU time for variables:                  0.032
 
-  Elapsed time for meshes:                 0.003
-  Elapsed time for variables:              0.031
+  Elapsed time for meshes:                 0.002
+  Elapsed time for variables:              0.032
 
 Code_Saturne IO files read:
 
   mesh_input
-    data:      0.01656 s,        5.000 MiB
-    open:      0.01744 s, 2 open(s)
+    data:      0.01759 s,        5.000 MiB
+    open:      0.01846 s, 2 open(s)
 
 Calculation time summary:
 
-  User CPU time:              2.112 s
-  System CPU time:            0.096 s
+  User CPU time:              2.060 s
+  System CPU time:            0.100 s
 
-  Elapsed time:               2.414 s
-  CPU / elapsed time          0.915
+  Elapsed time:               2.336 s
+  CPU / elapsed time          0.925
 
 Memory use summary:
 

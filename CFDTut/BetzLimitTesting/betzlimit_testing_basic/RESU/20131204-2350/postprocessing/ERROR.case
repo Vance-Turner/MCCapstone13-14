@@ -1,0 +1,8 @@
+FORMAT
+type: ensight gold
+
+GEOMETRY
+model: error.geo
+
+VARIABLE
+scalar per element:               BC_type       error.bc_type
