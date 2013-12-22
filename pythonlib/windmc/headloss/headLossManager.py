@@ -17,7 +17,13 @@ class ResponseHandler(BaseRequestHandler):
 		if len(parts)==3:
 			print "Got a good response>",parts
 			headLossManagerMain.responses[parts[2]]=[float(parts[0]),float(parts[1])]
-			print "Just stored for:",parts[2],">",headLossManagerMain.responses[parts[2]]
+			print "Trying to remove requestid:",parts[2]," from ",headLossManagerMain.pendingRequests
+			try:
+				headLossManagerMain.pendingRequests.remove(parts[2])
+				print "Pending requests is now>",headLossManagerMain.pendingRequests
+				print "Just stored for:",parts[2],">",headLossManagerMain.responses[parts[2]]
+			except Exception:
+				print "Some error..."
 		else:
 			print "Got a bad response!>",parts
 		print "Stored response from cluster"
@@ -82,10 +88,10 @@ class HeadLossManager:
 			foundPort = False
 			while not foundPort:
 				try:
-					server = TCPServer(('', self.port), ResponseHandler)
+					self.server = TCPServer(('', self.port), ResponseHandler)
 					self.headLossMan.foundServerPort(self.port)
 					print "Got a port to respond on!>",self.port
-					server.serve_forever()
+					self.server.serve_forever()
 					break
 				except Exception:
 					print "Failed to get open port to respond>",self.port
@@ -105,16 +111,16 @@ class HeadLossManager:
 		alive = True
 		print "Now starting run of HeadLossManager..."
 		if self.startingFresh == True:
-			self.generateOrder(0.66,0.66,0.66,10)
+			self.generateOrder(0.66,0.66,0.66,60)
+			self.generateOrder(0.33,0.33,0.33,60)
+			self.generateOrder(0.11,0.11,0.11,60)
 			print "sent order!"
 		counter = 20
 		i = 0
-		while alive:
+		while len(self.pendingRequests)>0:
 			time.sleep(0.5)
-			i+=1
-			print i
-			if i==counter:
-				alive = False
+		print "ALL DONE, DATA IS>",self.responses
+		self.simpServ.server.shutdown()
 		#for(pendingRequests		
 
 	def generateOrder(self,xHL,yHL,zHL,timeSteps):
@@ -124,10 +130,13 @@ class HeadLossManager:
 		else:
 			basePath = cluster["basepath"]
 			xmlStudyName = cluster["studyname"]
-			order = str(xHL)+":"+str(yHL)+":"+str(zHL)+":"+str(timeSteps)+":"+str(time.time())+":"+basePath+":"+xmlStudyName+":"+str(self.port)
+			reqId = time.time()
+			self.pendingRequests.append(str(reqId))
+			order = str(xHL)+":"+str(yHL)+":"+str(zHL)+":"+str(timeSteps)+":"+str(reqId)+":"+basePath+":"+xmlStudyName+":"+str(self.port)
 			sock = socket(AF_INET,SOCK_STREAM)
 			cluster = self.findCluster()
 			sock.connect((cluster["ip"],cluster["port"]))
+			print "Sending order:",order
 			sock.send(order)
 			msg = sock.recv(8192)
 			print msg

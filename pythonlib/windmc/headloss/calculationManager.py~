@@ -9,7 +9,7 @@ import os.path
 @param: basePath This should be to the directory containing the DATA and RESU directories
 It should be the case directory.
 '''
-def startCalc(basePath,studyXMLName,headLossX,headLossY,headLossZ):
+def startCalc(basePath,studyXMLName,headLossX,headLossY,headLossZ,timeSteps):
 	tree = ET.parse(basePath+"/DATA/"+studyXMLName+".xml")
 	root = tree.getroot()
 	thermoModels = root[1]

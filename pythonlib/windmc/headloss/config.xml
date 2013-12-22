@@ -1,9 +1,18 @@
 <headloss>
-	<clusters count="1">
-		<cluster id="0" ip="localhost" port="20019">
-			<basepath>/home/vance/Downloads/Capstone/MCCapstone13-14/CFDTut/BetzLimitTesting/betzlimit_testing_basic</basepath>
-			<xmlstudyname>betzlimit_cylinder_basic</xmlstudyname>
-		</cluster>	
+	<clusters count="3">
+		<cluster id="0" ip="205.133.148.20" port="20001">
+			<basepath>/home/vance/Downloads/MCCapstone13-14/CFDTut/BetzLimitTesting/betzlimit_testing_basic</basepath>
+			<xmlstudyname>windtunnel_large_empty</xmlstudyname>
+		</cluster>
+		<cluster id="1" ip="205.133.148.117" port="20001">
+			<basepath>/home/vance/Downloads/MCCapstone13-14/CFDTut/BetzLimitTesting/betzlimit_testing_basic</basepath>
+			<xmlstudyname>windtunnel_large_empty</xmlstudyname>
+		</cluster>
+		<cluster id="2" ip="205.133.148.108" port="20001">
+			<basepath>/home/vance/Downloads/MCCapstone13-14/CFDTut/BetzLimitTesting/betzlimit_testing_basic</basepath>
+			<xmlstudyname>windtunnel_large_empty</xmlstudyname>
+		</cluster>
+			
 	</clusters>
 	<responseConfig port="1000">
 	</responseConfig>
