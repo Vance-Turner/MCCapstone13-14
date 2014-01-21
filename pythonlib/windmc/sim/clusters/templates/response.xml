@@ -1,0 +1,4 @@
+<sender>
+    <ip>The sender's ip</ip>
+    <port>The port to respond to</port>
+</sender>

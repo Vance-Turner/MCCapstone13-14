@@ -1,0 +1,4 @@
+<clusters>
+	<cluster id="0" ip="localhost" port="1990" sat_ver="2.1" corecount="1">
+	</cluster>
+</clusters>

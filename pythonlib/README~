@@ -1,0 +1,9 @@
+This contains the windmc library that is used for
+tasks for this capstone project.
+
+The controller code (windmc.sim.MainTaskManager) is to be started from within
+the controller directory.
+
+The cluster code (windmc.sim.clusters.cluster) is to be started from
+within the cluster directory.
+

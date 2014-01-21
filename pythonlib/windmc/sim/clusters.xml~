@@ -1,0 +1,8 @@
+<clusters>
+	<cluster id="0" ip="205.133.148.20" port="20001" sat_ver="2.1" corecount="1">
+	</cluster>
+	<cluster id="1" ip="205.133.148.117" port="20001" sat_ver="2.1" corecount="1">
+	</cluster>
+	<cluster id="2" ip="205.133.148.108" port="20001" sat_ver="2.1" corecount="1">
+	</cluster>
+</clusters>
