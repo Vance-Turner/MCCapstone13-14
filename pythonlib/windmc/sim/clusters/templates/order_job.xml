@@ -1,9 +1,0 @@
-<order type="job" version="0.1">
-    <exe type="code_sat">
-        <command>Thecommand</command>
-        <exeDir>The directory form which to execute the command</exeDir>
-        <process type="python">
-            <file>The path to the module that will process the data and return a result</file>
-        </process>
-    </exe>
-</order>
