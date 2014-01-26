@@ -85,9 +85,7 @@ def getInletOutletVelocity(resultsPath):
             totalOutlet += processNumber(row[i])
         averageOutlet = totalOutlet/42
         print "The average inlet and outlet velocities are:",averageInlet,averageOutlet
-    output = StringIO.StringIO()
-    json.dump({'inlet':averageInlet,'outlet':averageOutlet},output)
-    return output.getvalue()
+    return {'inlet':averageInlet,'outlet':averageOutlet}
 
 def __twoColumnProcessor__(path, upStreamVelocColumn=1, downStreamVelocColumn=2):
     """

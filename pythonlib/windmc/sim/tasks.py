@@ -2,20 +2,26 @@ __author__ = 'vance'
 
 from threading import Thread
 import os
-from bottle import route
 import time
 import json
 import subprocess
 import xml.etree.ElementTree as ET
+from processors.codesaturne import getInletOutletVelocity
+from bottle import route, run, static_file, get
 
 """
 Holds results of code-saturne jobs. The key is the job id and the value is the energy extracted.
 """
-jobResults = {}
-energyResults = {}
-jobMap = {}
+jobTypeMap = {}
+coeffMap = {}
+resultsMap = {}
+velResMap = {}
 
-configMap = json.load('config.json')
+jsonFile = open('config.json')
+configMap = json.load(jsonFile)
+jsonFile.close()
+
+SERVER_PORT = 2000
 
 CODE_SATURNE_DATA_PATH = os.path.join(configMap['serverDataPath'],'code_saturne')
 CODE_SATURNE_STUDY_PATH = os.path.join(CODE_SATURNE_DATA_PATH,'STUDIES')
@@ -42,16 +48,23 @@ codeSatStd = "STANDARD_CODE_SAT_JOB"
 codeSatActDisk = "ACT_DISK_CODE_SAT_JOB"
 
 def copyFile(src,dest):
-    if os.path.exists(src) and os.path.exists(dest):
+    if os.path.exists(src):
         subprocess.call(['cp', src, dest])
         # check to make sure it exists!
         if not os.path.exists(dest):
             raise Exception("File not copied for xml, failing!>"+src+" "+dest)
     else:
-        raise Exception("Src or Destingion does not exist!")
+        raise Exception("Src or Destination does not exist!"+src+" "+dest)
 
-def postProcessCodSatActDisk(resultsPath):
-    pass
+def postProcessCodSatActDisk(study,case,resultsPath):
+    print "Post process code saturne!!"
+    result = getInletOutletVelocity(resultsPath)
+    inletVel = result['inlet']
+    outletVel = result['outlet']
+    energyExtracted = ((outletVel**3-inletVel**3)/inletVel**3)
+    print "Inlet:",inletVel,"Outlet:",outletVel,"Energy Extracted:",((outletVel**3-inletVel**3)/inletVel**3)
+    resultsMap[coeffMap[study+'-'+case]]=energyExtracted
+    velResMap[coeffMap[study+'-'+case]]=result
 
 
 def codeSaturneSim(name,headLoss,meshType=meshTypes_COPY,meshCode='',codeSatType=codeSatActDisk):
@@ -81,17 +94,16 @@ def codeSaturneSim(name,headLoss,meshType=meshTypes_COPY,meshCode='',codeSatType
         # copy the template xml to this case
         print "Copying the xml file for a standard code-sat sim."
         copyFile(CODE_SAT_STD_PATH,os.path.join(casePath,'DATA',CODE_SAT_STD_XML_NAME))
-        xmlFilePath = os.path.join(casePath, "DATA", CODE_SAT_STD_PATH)
+        xmlFilePath = os.path.join(casePath, "DATA", CODE_SAT_STD_XML_NAME)
     elif codeSatType==codeSatActDisk:
         # copy the template xml to this case
         print "Copying the xml file for an actuator disk code-sat sim."
         copyFile(CODE_SAT_ACT_DISK_PATH,os.path.join(casePath,'DATA',CODE_SAT_ACT_XML_NAME))
-        xmlFilePath = os.path.join(casePath, "DATA", CODE_SAT_ACT_DISK_PATH)
+        xmlFilePath = os.path.join(casePath, "DATA", CODE_SAT_ACT_XML_NAME)
     else:
         print "Invalid code-saturen job type!>",codeSatType
         return -1
-    print "Ok, created the code-saturne study, now doing xml file..."
-
+    print "Ok, created the code-saturne study, now doing xml file...:",xmlFilePath
     tree = ET.parse(xmlFilePath)
     root = tree.getroot()
     # Put in the head loss coefficients
@@ -132,18 +144,45 @@ def codeSaturneSim(name,headLoss,meshType=meshTypes_COPY,meshCode='',codeSatType
         raise Exception("Cannot build a mesh yet!!")
         return -1
     # write out the file, we are done, time to process!
-    print "Got or built mesh, now writing xml file out."
+    print "Got or built mesh, now writing xml file out.:",xmlFilePath
     tree.write(xmlFilePath)
 
-    # TODO: Now we run the service, using SLURM, well actually we can't for now at least...
-    subprocess.call(["code_saturne", "run", "--param", xmlFilePath])
+    coeffMap[studyName+'-'+caseName]=headLoss
+
+    jobTypeMap[studyName+'-'+caseName] = codeSatType
+    # Now create the bash file that will run the code-saturne script and the python module for announcing completion
+    bash = open(os.path.join(casePath,'DATA','doSaturne.sh'),'w')
+    bash.write('#!/bin/sh \n')
+    bash.write('code_saturne run --param '+xmlFilePath+'\n')
+    #bash.write('python ' + os.path.join(CODE_SATURNE_TEMPLATE_PATH,'codeSatComplete.py')+ ' ' + str(SERVER_PORT)+' ' + studyName +' '+caseName)
+    bash.write('wget http://atlacamani.marietta.edu:'+str(SERVER_PORT)+'/'+'jobcompleted/'+studyName+'/'+caseName)
+    bash.close()
+    subprocess.call(['chmod','a+x',os.path.join(casePath,'DATA','doSaturne.sh')])
+    subprocess.call(['sbatch',os.path.join(casePath,'DATA','doSaturne.sh')])
+
+@get('/jobcompleted/<study>/<case>')
+def jobCompleted(study,case):
+    codeSatType = jobTypeMap[study+'-'+case]
     # Now do the post-processing
+    print "Job Completed..."
     if codeSatType==codeSatActDisk:
-        postProcessCodSatActDisk(os.path.join(casePath,'RESU'))
+        print "Doing post-processing..."
+        postProcessCodSatActDisk(study,case,os.path.join(CODE_SATURNE_STUDY_PATH,study,case,'RESU'))
+    else:
+        print "Job completed was not a code-sat-act-disk type!"
 
 @route('/currentResults')
 def getCurrentResults():
-    return "We don't have results getting implemented yet..."
+    csvFile = open(os.path.join(CODE_SATURNE_DATA_PATH,'temp.csv'),'w')
+    import csv
+    writer = csv.writer(csvFile)
+    keys = resultsMap.keys()
+    for key in keys:
+        veloc = velResMap[key]
+        writer.writerow([key,veloc['inlet'],veloc['outlet'],resultsMap[key]])
+    csvFile.close()
+    return static_file('temp.csv',CODE_SATURNE_DATA_PATH,download=True)
+
 
 class AxialInductionTask(Thread):
 
@@ -157,18 +196,19 @@ class AxialInductionTask(Thread):
         self.doSim(self._lowerHeadLoss)
 
     def doSim(self,headLoss):
-
+        codeSaturneSim('sim_'+str(self._lowerHeadLoss),self._lowerHeadLoss,meshTypes_COPY,'actuator_disk_tunnel_hd.med',codeSatActDisk)
 
 
 
 class MainControllerTask(Thread):
 
     def run(self):
-        for i in xrange(0,40):
+        for i in xrange(0,100):
             task = AxialInductionTask(float(i)/10.0,1,'task_'+str(float(i)/10.0))
             task.start()
 
 
 if __name__ == '__main__':
     MainControllerTask().start()
-    run(host='atlacamani.marietta.edu', port=1990, debug=True)
+    import socket
+    run(host='atlacamani.marietta.edu', port=SERVER_PORT)
