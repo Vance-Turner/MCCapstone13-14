@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="765"
+   height="990"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="actuator_disk_probes.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="339.64466"
+     inkscape:cy="375.11235"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="692"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-62.361768)">
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="60.609154"
+       y="48.537827"
+       id="text2985"
+       sodipodi:linespacing="125%"
+       transform="translate(0,62.361768)"><tspan
+         sodipodi:role="line"
+         id="tspan2987"
+         x="60.609154"
+         y="48.537827">X-axis View</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:4.37900019;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2989"
+       width="690.94434"
+       height="183.84776"
+       x="52.527931"
+       y="149.88605"
+       ry="0.48104414" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="303.00009"
+       y="385.66107"
+       id="text3778"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3780"
+         x="303.00009"
+         y="385.66107">100 units</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 499.01536,311.17749 234.35539,0"
+       id="path3782"
+       inkscape:connector-curvature="0"
+       transform="translate(0,62.361768)" />
+    <path
+       sodipodi:type="arc"
+       id="path3784"
+       style="fill:#000000;stroke:none"
+       sodipodi:cx="294.96454"
+       sodipodi:cy="369.49866"
+       sodipodi:rx="1.5"
+       sodipodi:ry="1.5"
+       d="m 296.46454,369.49866 a 1.5,1.5 0 1 1 -3,0 1.5,1.5 0 1 1 3,0 z" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 296.98485,310.16734 -244.456918,0"
+       id="path3786"
+       inkscape:connector-curvature="0"
+       transform="translate(0,62.361768)" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-282.57654"
+       y="38.866611"
+       id="text3788"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-1,1,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan3790"
+         x="-282.57654"
+         y="38.866611"
+         style="font-size:20px">20 units</tspan></text>
+    <path
+       sodipodi:type="arc"
+       id="path3792"
+       style="fill:#000000;stroke:none"
+       sodipodi:cx="33.335033"
+       sodipodi:cy="199.79301"
+       sodipodi:rx="1.5"
+       sodipodi:ry="1.5"
+       d="m 34.835033,199.79301 a 1.5,1.5 0 1 1 -3,0 1.5,1.5 0 1 1 3,0 z" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 33.335034,134.40079 1.010153,-8.08122 -1.010153,-39.395946"
+       id="path3794"
+       inkscape:connector-curvature="0"
+       transform="translate(0,62.361768)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 30.304576,269.76124 2.020305,-50.50763"
+       id="path3796"
+       inkscape:connector-curvature="0"
+       transform="translate(0,62.361768)" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-291.45251"
+       y="385.71933"
+       id="text3798"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-1,1,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan3800"
+         x="-291.45251"
+         y="385.71933"
+         style="font-size:14px">Actuator Disk</tspan><tspan
+         sodipodi:role="line"
+         x="-291.45251"
+         y="403.21933"
+         style="font-size:14px"
+         id="tspan3802">Thickness: 0.2</tspan><tspan
+         sodipodi:role="line"
+         x="-291.45251"
+         y="420.71933"
+         style="font-size:14px"
+         id="tspan3804">Diameter: 15</tspan></text>
+    <path
+       sodipodi:type="arc"
+       id="path3806"
+       style="fill:#000000;stroke:none"
+       sodipodi:cx="91.923882"
+       sodipodi:cy="229.08743"
+       sodipodi:rx="1.5"
+       sodipodi:ry="1.5"
+       d="m 93.423882,229.08743 a 1.5,1.5 0 1 1 -3,0 1.5,1.5 0 1 1 3,0 z" />
+    <g
+       id="g3894">
+      <path
+         transform="translate(0,62.361768)"
+         inkscape:connector-curvature="0"
+         id="path3808"
+         d="m 90.913729,106.11652 0,317.1879"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <text
+         transform="translate(0,62.361768)"
+         sodipodi:linespacing="125%"
+         id="text3810"
+         y="440.47702"
+         x="62.629459"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:20px"
+           y="440.47702"
+           x="62.629459"
+           id="tspan3812"
+           sodipodi:role="line">1st Set</tspan><tspan
+           style="font-size:20px"
+           id="tspan3814"
+           y="490.47702"
+           x="62.629459"
+           sodipodi:role="line">of Probes: x=5</tspan></text>
+    </g>
+    <g
+       id="g3914"
+       transform="translate(0,-8.6946908)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3808-7"
+         d="m 701.48134,164.67298 0,317.1879"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3810-9"
+         y="499.03348"
+         x="665.19708"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:20px"
+           id="tspan3814-5"
+           y="499.03348"
+           x="665.19708"
+           sodipodi:role="line">4th set</tspan><tspan
+           id="tspan3845"
+           style="font-size:20px"
+           y="524.03345"
+           x="665.19708"
+           sodipodi:role="line">of probes</tspan><tspan
+           id="tspan3847"
+           style="font-size:20px"
+           y="549.03345"
+           x="665.19708"
+           sodipodi:role="line">x=95</tspan></text>
+    </g>
+    <g
+       id="g3907"
+       transform="translate(0,-8.3165391)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3808-7-0"
+         d="m 560.331,164.29482 0,317.1879"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3810-9-8"
+         y="498.65533"
+         x="524.04675"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           id="tspan3847-1"
+           style="font-size:20px"
+           y="498.65533"
+           x="524.04675"
+           sodipodi:role="line">3rd set of</tspan><tspan
+           style="font-size:20px"
+           y="523.65533"
+           x="524.04675"
+           sodipodi:role="line"
+           id="tspan3940">probes</tspan><tspan
+           style="font-size:20px"
+           y="548.65533"
+           x="524.04675"
+           sodipodi:role="line"
+           id="tspan3942">x=60</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 288.59995,155.97829 0,317.1879"
+       id="path3808-7-8"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="252.31572"
+       y="490.33878"
+       id="text3810-9-9"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="252.31572"
+         y="490.33878"
+         style="font-size:20px"
+         id="tspan3847-6">2nd set</tspan><tspan
+         sodipodi:role="line"
+         x="252.31572"
+         y="515.33875"
+         style="font-size:20px"
+         id="tspan3931">of probes</tspan><tspan
+         sodipodi:role="line"
+         x="252.31572"
+         y="540.33875"
+         style="font-size:20px"
+         id="tspan3933">x=30</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 406.78777,157.22377 0,317.1879"
+       id="path3808-7-8-6"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="370.50354"
+       y="491.58423"
+       id="text3810-9-9-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="370.50354"
+         y="491.58423"
+         style="font-size:20px"
+         id="tspan3981">inside, 0.3 </tspan><tspan
+         sodipodi:role="line"
+         x="370.50354"
+         y="516.58423"
+         style="font-size:20px"
+         id="tspan3988">ahead an</tspan><tspan
+         sodipodi:role="line"
+         x="370.50354"
+         y="541.58423"
+         style="font-size:20px"
+         id="tspan3990">0.3 beyond</tspan><tspan
+         sodipodi:role="line"
+         x="370.50354"
+         y="566.58423"
+         style="font-size:20px"
+         id="tspan3992">actuator disk</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#000000;stroke-width:4.37900019;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3996"
+       sodipodi:cx="224.28572"
+       sodipodi:cy="671.42859"
+       sodipodi:rx="124.28571"
+       sodipodi:ry="124.28571"
+       d="m 348.57143,671.42859 a 124.28571,124.28571 0 1 1 -248.57142,0 124.28571,124.28571 0 1 1 248.57142,0 z"
+       transform="translate(0,62.361768)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:4.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:4.2,33.6;stroke-dashoffset:0"
+       d="m 224.28572,734.95799 0,-127.14285"
+       id="path4000"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:4.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:4.2,33.6;stroke-dashoffset:0"
+       d="m 98.310508,733.79036 127.142862,0"
+       id="path4000-8"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g4041"
+       transform="translate(-61.428566,38.57143)"
+       style="stroke-width:4.2;stroke-miterlimit:4;stroke-dasharray:4.2,33.6;stroke-dashoffset:0">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4000-0"
+         d="m 284.54664,695.21891 127.14286,0"
+         style="fill:none;stroke:#000000;stroke-width:4.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:4.2,33.6;stroke-dashoffset:0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4000-8-0"
+         d="m 285.71429,694.05128 0,127.14286"
+         style="fill:none;stroke:#000000;stroke-width:4.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:4.2,33.6;stroke-dashoffset:0" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="103.99861"
+       y="885.4765"
+       id="text4045"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4047"
+         x="103.99861"
+         y="885.4765"
+         style="font-size:24px">Probe sets 1, 2, 3, 4</tspan><tspan
+         sodipodi:role="line"
+         x="103.99861"
+         y="915.4765"
+         style="font-size:24px"
+         id="tspan4049">Probe per direction:</tspan><tspan
+         sodipodi:role="line"
+         x="103.99861"
+         y="945.4765"
+         style="font-size:24px"
+         id="tspan4051">3</tspan></text>
+    <path
+       transform="translate(337.14285,57.529234)"
+       sodipodi:type="arc"
+       style="fill:none;stroke:#000000;stroke-width:4.37900019;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3996-7"
+       sodipodi:cx="224.28572"
+       sodipodi:cy="671.42859"
+       sodipodi:rx="124.28571"
+       sodipodi:ry="124.28571"
+       d="m 348.57143,671.42859 a 124.28571,124.28571 0 1 1 -248.57142,0 124.28571,124.28571 0 1 1 248.57142,0 z" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:4.19999981;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.2, 33.6;stroke-dashoffset:0"
+       d="m 561.42857,730.12545 0,-127.14285"
+       id="path4000-1"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:4.19999981;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.2, 33.6;stroke-dashoffset:0"
+       d="m 435.45336,728.95782 127.14286,0"
+       id="path4000-8-8"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g4041-6"
+       transform="translate(275.71429,33.738894)"
+       style="stroke-width:4.19999981;stroke-miterlimit:4;stroke-dasharray:4.2, 33.6;stroke-dashoffset:0">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4000-0-9"
+         d="m 284.54664,695.21891 127.14286,0"
+         style="fill:none;stroke:#000000;stroke-width:4.19999981;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.2, 33.6;stroke-dashoffset:0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4000-8-0-5"
+         d="m 285.71429,694.05128 0,127.14286"
+         style="fill:none;stroke:#000000;stroke-width:4.19999981;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.2, 33.6;stroke-dashoffset:0" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="441.14145"
+       y="880.64398"
+       id="text4045-4"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="441.14145"
+         y="880.64398"
+         style="font-size:24px"
+         id="tspan4051-8">Probe set: 5,6,7</tspan><tspan
+         sodipodi:role="line"
+         x="441.14145"
+         y="910.64398"
+         style="font-size:24px"
+         id="tspan4103">Probes per direction: 4 </tspan></text>
+  </g>
+</svg>

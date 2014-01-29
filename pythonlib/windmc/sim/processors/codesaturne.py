@@ -4,6 +4,8 @@ import os
 import csv
 import re
 import json, StringIO
+import pandas as pd
+import numpy as np
 
 def parsePiece(string, start, end, returnInt=True):
     theStr = string[start:end]
@@ -67,6 +69,10 @@ def getInletOutletVelocity(resultsPath):
     # Get the path to the postprocessing folder
     postProcPath = os.path.join(resultsPath,getRecentRESUDir(resultsPath),'monitoring')
     probesVelXFilePath = os.path.join(postProcPath,'probes_VelocityX.csv')
+    probesVelYFilePath = os.path.join(postProcPath,'probes_VelocityY.csv')
+    probesVelZFilePath = os.path.join(postProcPath,'probes_VelocityZ.csv')
+    '''
+    We no longer use this manual processing, instead let's use PANDAS
     with open(probesVelXFilePath,'rb') as probesVelX:
         csvread = csv.reader(probesVelX,delimiter=',')
         # Now get the last line
@@ -85,7 +91,42 @@ def getInletOutletVelocity(resultsPath):
             totalOutlet += processNumber(row[i])
         averageOutlet = totalOutlet/42
         print "The average inlet and outlet velocities are:",averageInlet,averageOutlet
-    return {'inlet':averageInlet,'outlet':averageOutlet}
+    '''
+    # Get the data frames
+    dfx = pd.read_csv(probesVelXFilePath)
+    dfy = pd.read_csv(probesVelYFilePath)
+    dfz = pd.read_csv(probesVelZFilePath)
+
+    # Get the rows we are concerned with
+    row9x = dfx[9:10]
+    row9y = dfy[9:10]
+    row9z = dfz[9:10]
+
+    # Now start processing probe groups
+    # inlet probes 1-12
+    probe1 = (row9x.icol(slice(1,13))**2 + row9y.icol(slice(1,13))**2 + row9z.icol(slice(1,13))**2).apply(np.sqrt).mean(axis=1)[9]
+
+    # next probe at x=30 probes 1-12
+    probe2 = (row9x.icol(slice(13,25))**2 + row9y.icol(slice(13,25))**2 + row9z.icol(slice(13,25))**2).apply(np.sqrt).mean(axis=1)[9]
+
+    # next probe at x=60 probes 25-37
+    probe3 = (row9x.icol(slice(25,37))**2 + row9y.icol(slice(25,37))**2 + row9z.icol(slice(25,37))**2).apply(np.sqrt).mean(axis=1)[9]
+
+    # next probe at x=95 probes 1-12, the outlet
+    probe4 = (row9x.icol(slice(37,49))**2 + row9y.icol(slice(37,49))**2 + row9z.icol(slice(37,49))**2).apply(np.sqrt).mean(axis=1)[9]
+
+    # next probe at x=49 probes 1-12, just before actuator disk
+    probe5 = (row9x.icol(slice(49,65))**2 + row9y.icol(slice(49,65))**2 + row9z.icol(slice(49,65))**2).apply(np.sqrt).mean(axis=1)[9]
+
+    # next probe at x=50.05 probes 1-12, in the middle of the actuator disk
+    probe6 = (row9x.icol(slice(65,81))**2 + row9y.icol(slice(65,81))**2 + row9z.icol(slice(65,81))**2).apply(np.sqrt).mean(axis=1)[9]
+
+    # next probe at x=50.05 probes 1-12, just beyond the actuator disk
+    probe7 = (row9x.icol(slice(81,97))**2 + row9y.icol(slice(81,97))**2 + row9z.icol(slice(81,97))**2).apply(np.sqrt).mean(axis=1)[9]
+
+    dict = {'probe1':probe1,'probe2':probe2,'probe3':probe3,'probe4':probe4,'probe5':probe5,'probe6':probe6,'probe7':probe7,}
+    print "Post-processing>",dict
+    return dict
 
 def __twoColumnProcessor__(path, upStreamVelocColumn=1, downStreamVelocColumn=2):
     """

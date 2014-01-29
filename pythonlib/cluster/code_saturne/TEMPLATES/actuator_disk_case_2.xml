@@ -648,7 +648,7 @@
 		<start_restart>
 			<frozen_field status="off"/>
 		</start_restart>
-		<n_procs>2</n_procs>
+		<n_procs>4</n_procs>
 	</calculation_management>
 	<lagrangian model="off"/>
 </Code_Saturne_GUI>

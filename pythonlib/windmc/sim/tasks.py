@@ -27,7 +27,7 @@ CODE_SATURNE_DATA_PATH = os.path.join(configMap['serverDataPath'],'code_saturne'
 CODE_SATURNE_STUDY_PATH = os.path.join(CODE_SATURNE_DATA_PATH,'STUDIES')
 CODE_SATURNE_TEMPLATE_PATH = os.path.join(CODE_SATURNE_DATA_PATH,'TEMPLATES')
 
-CODE_SAT_ACT_XML_NAME = 'actuator_disk_case.xml'
+CODE_SAT_ACT_XML_NAME = 'actuator_disk_case_2.xml'#'actuator_disk_case.xml'
 CODE_SAT_STD_XML_NAME = 'case.xml'
 """
 The path to the template file for a code-saturne axial induction finder case.
@@ -59,8 +59,8 @@ def copyFile(src,dest):
 def postProcessCodSatActDisk(study,case,resultsPath):
     print "Post process code saturne!!"
     result = getInletOutletVelocity(resultsPath)
-    inletVel = result['inlet']
-    outletVel = result['outlet']
+    inletVel = result['probe1']
+    outletVel = result['probe4']
     energyExtracted = ((outletVel**3-inletVel**3)/inletVel**3)
     print "Inlet:",inletVel,"Outlet:",outletVel,"Energy Extracted:",((outletVel**3-inletVel**3)/inletVel**3)
     resultsMap[coeffMap[study+'-'+case]]=energyExtracted
@@ -179,7 +179,8 @@ def getCurrentResults():
     keys = resultsMap.keys()
     for key in keys:
         veloc = velResMap[key]
-        writer.writerow([key,veloc['inlet'],veloc['outlet'],resultsMap[key]])
+        writer.writerow([key,veloc['probe1'],veloc['probe2'],veloc['probe3'],\
+                         veloc['probe4'],veloc['probe5'],veloc['probe6'],veloc['probe7'],resultsMap[key]])
     csvFile.close()
     return static_file('temp.csv',CODE_SATURNE_DATA_PATH,download=True)
 
@@ -196,14 +197,15 @@ class AxialInductionTask(Thread):
         self.doSim(self._lowerHeadLoss)
 
     def doSim(self,headLoss):
-        codeSaturneSim('sim_'+str(self._lowerHeadLoss),self._lowerHeadLoss,meshTypes_COPY,'actuator_disk_tunnel_hd.med',codeSatActDisk)
+        #codeSaturneSim('sim_'+str(self._lowerHeadLoss),self._lowerHeadLoss,meshTypes_COPY,'actuator_disk_tunnel.med',codeSatActDisk)
+        codeSaturneSim('sim_'+str(self._lowerHeadLoss),self._lowerHeadLoss,meshTypes_COPY,'WindTunnel_HD.med',codeSatActDisk)
 
 
 
 class MainControllerTask(Thread):
 
     def run(self):
-        for i in xrange(0,100):
+        for i in xrange(0,40):
             task = AxialInductionTask(float(i)/10.0,1,'task_'+str(float(i)/10.0))
             task.start()
 
