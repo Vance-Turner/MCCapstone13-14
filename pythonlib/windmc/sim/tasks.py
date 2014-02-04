@@ -205,8 +205,8 @@ class AxialInductionTask(Thread):
 class MainControllerTask(Thread):
 
     def run(self):
-        for i in xrange(0,40):
-            task = AxialInductionTask(float(i)/10.0,1,'task_'+str(float(i)/10.0))
+        for i in xrange(0,50000,100):
+            task = AxialInductionTask(float(i),1,'task_'+str(float(i)))
             task.start()
 
 
