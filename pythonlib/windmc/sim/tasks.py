@@ -27,7 +27,7 @@ CODE_SATURNE_DATA_PATH = os.path.join(configMap['serverDataPath'],'code_saturne'
 CODE_SATURNE_STUDY_PATH = os.path.join(CODE_SATURNE_DATA_PATH,'STUDIES')
 CODE_SATURNE_TEMPLATE_PATH = os.path.join(CODE_SATURNE_DATA_PATH,'TEMPLATES')
 
-CODE_SAT_ACT_XML_NAME = 'actuator_disk_case_2.xml'#'actuator_disk_case.xml'
+CODE_SAT_ACT_XML_NAME = 'actuator_disk_case_3.xml'#'actuator_disk_case.xml'
 CODE_SAT_STD_XML_NAME = 'case.xml'
 """
 The path to the template file for a code-saturne axial induction finder case.
@@ -205,9 +205,11 @@ class AxialInductionTask(Thread):
 class MainControllerTask(Thread):
 
     def run(self):
-        for i in xrange(0,50000,100):
+        for i in xrange(0,500):
             task = AxialInductionTask(float(i),1,'task_'+str(float(i)))
             task.start()
+        # task = AxialInductionTask(0.5,0.5,'task_0.5')
+        # task.start()
 
 
 if __name__ == '__main__':

@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/usr/bin/code_saturne", line 49, in <module>
+    retcode = cs.execute()
+  File "/usr/lib/python2.7/dist-packages/code_saturne/cs_script.py", line 62, in execute
+    return self.commands[command](options)
+  File "/usr/lib/python2.7/dist-packages/code_saturne/cs_script.py", line 114, in run
+    return cs_run.main(options, self.package)
+  File "/usr/lib/python2.7/dist-packages/code_saturne/cs_run.py", line 191, in main
+    save_results=save_results)
+  File "/usr/lib/python2.7/dist-packages/code_saturne/cs_case.py", line 1718, in run
+    mpi_environment)
+  File "/usr/lib/python2.7/dist-packages/code_saturne/cs_case.py", line 1248, in prepare_data
+    self.mk_exec_dir(self.run_id)
+  File "/usr/lib/python2.7/dist-packages/code_saturne/cs_case.py", line 452, in mk_exec_dir
+    raise RunCaseError(err_str)
+cs_case_domain.RunCaseError: 
+Working/results directory: /home/vance/Downloads/Capstone/MCCapstone13-14/pythonlib/cluster/code_saturne/STUDIES/Study1/CASE1/RESU/20140204-2029 not empty.
+Calculation will not be run.
+

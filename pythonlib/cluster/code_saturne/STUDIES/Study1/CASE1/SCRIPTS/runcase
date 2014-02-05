@@ -4,5 +4,5 @@
 export PATH="/usr/bin":$PATH
 
 # Run command:
-\code_saturne run --param template.xml 
+\code_saturne run --param case3.xml 
 

@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="utf-8"?><Code_Saturne_GUI case="TEMPLATES" study="code_saturne" version="2.0">
+	<solution_domain>
+		<volumic_conditions>
+			<zone head_losses="off" id="1" initialization="on" label="all_cells" mass_source_term="off" momentum_source_term="off" scalar_source_term="off" thermal_source_term="off">all[]</zone>
+			<zone head_losses="on" id="2" initialization="off" label="actuatorDisk" mass_source_term="off" momentum_source_term="off" scalar_source_term="off" thermal_source_term="off">x &gt; 50 and x &lt; 50.1 and y &lt; 4 and y &gt; -4 and z &lt; 4 and z &gt; -4</zone>
+		</volumic_conditions>
+		<meshes_list>
+			<mesh name="actuator_disk_tunnel.med"/>
+		</meshes_list>
+		<faces_cutting status="off"/>
+		<joining/>
+		<periodicity/>
+		<standalone/>
+	</solution_domain>
+	<thermophysical_models>
+		<velocity_pressure>
+			<variable label="Pressure" name="pressure">
+				<reference_pressure>101325</reference_pressure>
+			</variable>
+			<variable label="VelocityX" name="velocity_U">
+				<blending_factor>1</blending_factor>
+			</variable>
+			<variable label="VelocityY" name="velocity_V">
+				<blending_factor>1</blending_factor>
+			</variable>
+			<variable label="VelocityZ" name="velocity_W">
+				<blending_factor>1</blending_factor>
+			</variable>
+			<property label="total_pressure" name="total_pressure"/>
+			<property label="Yplus" name="yplus" support="boundary"/>
+			<property label="Efforts" name="effort" support="boundary"/>
+			<property label="all_variables" name="all_variables" support="boundary"/>
+		</velocity_pressure>
+		<ale_method status="off"/>
+		<turbulence model="k-epsilon">
+			<variable label="TurbEner" name="turb_k"/>
+			<variable label="Dissip" name="turb_eps"/>
+			<property label="TurbVisc" name="turb_viscosity"/>
+			<initialization choice="reference_velocity">
+				<reference_velocity>1</reference_velocity>
+			</initialization>
+		</turbulence>
+		<thermal_scalar model="off"/>
+		<radiative_transfer model="off"/>
+		<conjugate_heat_transfer>
+			<external_coupling status="off"/>
+			<external_coupling status="off"/>
+		</conjugate_heat_transfer>
+		<gas_combustion model="off"/>
+		<pulverized_coal model="off"/>
+		<joule_effect model="off"/>
+		<atmospheric_flows model="off"/>
+		<heads_losses>
+			<head_loss zone_id="2">
+				<kxx>30</kxx>
+				<kyy>0</kyy>
+				<kzz>0</kzz>
+				<a11>1</a11>
+				<a12>0</a12>
+				<a13>0</a13>
+				<a21>0</a21>
+				<a22>1</a22>
+				<a23>0</a23>
+				<a31>0</a31>
+				<a32>0</a32>
+				<a33>1</a33>
+				<choice>off</choice>
+			</head_loss>
+		</heads_losses>
+	</thermophysical_models>
+	<numerical_parameters>
+		<multigrid status="on"/>
+		<gradient_transposed status="on"/>
+		<velocity_pressure_coupling status="off"/>
+		<pressure_relaxation>1</pressure_relaxation>
+		<wall_pressure_extrapolation>0</wall_pressure_extrapolation>
+		<gradient_reconstruction choice="0"/>
+	</numerical_parameters>
+	<physical_properties>
+		<fluid_properties>
+			<property choice="constant" label="Density" name="density">
+				<listing_printing status="off"/>
+				<postprocessing_recording status="off"/>
+				<initial_value>1.17862</initial_value>
+			</property>
+			<property choice="constant" label="LamVisc" name="molecular_viscosity">
+				<listing_printing status="off"/>
+				<postprocessing_recording status="off"/>
+				<initial_value>1.83e-05</initial_value>
+			</property>
+			<property choice="constant" label="SpecHeat" name="specific_heat">
+				<listing_printing status="off"/>
+				<postprocessing_recording status="off"/>
+				<initial_value>1017.24</initial_value>
+			</property>
+			<property choice="constant" label="ThermalCond" name="thermal_conductivity">
+				<listing_printing status="off"/>
+				<postprocessing_recording status="off"/>
+				<initial_value>0.02495</initial_value>
+			</property>
+		</fluid_properties>
+		<gravity>
+			<gravity_x>0</gravity_x>
+			<gravity_y>0</gravity_y>
+			<gravity_z>0</gravity_z>
+		</gravity>
+		<hydrostatic_pressure status="off"/>
+		<omega>
+			<omega_x>0</omega_x>
+			<omega_y>0</omega_y>
+			<omega_z>0</omega_z>
+		</omega>
+	</physical_properties>
+	<additional_scalars/>
+	<boundary_conditions>
+		<variable/>
+		<scalar/>
+		<boundary label="inlet" name="1" nature="inlet">inlet</boundary>
+		<inlet label="inlet">
+			<velocity_pressure choice="norm" direction="normal">
+				<norm>5</norm>
+			</velocity_pressure>
+			<turbulence choice="hydraulic_diameter">
+				<hydraulic_diameter>1</hydraulic_diameter>
+			</turbulence>
+		</inlet>
+		<boundary label="outlet" name="2" nature="outlet">outlet</boundary>
+		<outlet label="outlet"/>
+		<boundary label="wall" name="3" nature="wall">wall</boundary>
+		<wall label="wall">
+			<velocity_pressure choice="off"/>
+		</wall>
+	</boundary_conditions>
+	<analysis_control>
+		<output>
+			<writer id="-1" label="results">
+				<frequency period="none"/>
+				<output_at_end status="on"/>
+				<format name="ensight" options=""/>
+				<directory name="postprocessing"/>
+				<time_dependency choice="fixed_mesh"/>
+			</writer>
+			<mesh id="-1" label="Fluid domain" type="cells">
+				<all_variables status="on"/>
+				<location>all[]</location>
+				<writer id="-1"/>
+			</mesh>
+			<mesh id="-2" label="Boundary" type="boundary_faces">
+				<all_variables status="on"/>
+				<location>all[]</location>
+				<writer id="-1"/>
+			</mesh>
+			<listing_printing_frequency>1</listing_printing_frequency>
+			<probe_recording_frequency>1</probe_recording_frequency>
+			<probe_format choice="CSV"/>
+			<probe name="1" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>1.5</probe_z>
+			</probe>
+			<probe name="2" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>3.0</probe_z>
+			</probe>
+			<probe name="3" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>4.5</probe_z>
+			</probe>
+			<probe name="4" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>6.0</probe_z>
+			</probe>
+			<probe name="5" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>7.5</probe_z>
+			</probe>
+			<probe name="6" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>9.0</probe_z>
+			</probe>
+			<probe name="7" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>1.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="8" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>3.0</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="9" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>4.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="10" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>6.0</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="11" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>7.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="12" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>9.0</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="13" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-1.5</probe_z>
+			</probe>
+			<probe name="14" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-3.0</probe_z>
+			</probe>
+			<probe name="15" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-4.5</probe_z>
+			</probe>
+			<probe name="16" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-6.0</probe_z>
+			</probe>
+			<probe name="17" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-7.5</probe_z>
+			</probe>
+			<probe name="18" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-9.0</probe_z>
+			</probe>
+			<probe name="19" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>-1.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="20" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>-3.0</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="21" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>-4.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="22" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>-6.0</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="23" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>-7.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="24" status="on">
+				<probe_x>5</probe_x>
+				<probe_y>-9.0</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="25" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>1.5</probe_z>
+			</probe>
+			<probe name="26" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>3.0</probe_z>
+			</probe>
+			<probe name="27" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>4.5</probe_z>
+			</probe>
+			<probe name="28" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>6.0</probe_z>
+			</probe>
+			<probe name="29" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>7.5</probe_z>
+			</probe>
+			<probe name="30" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>9.0</probe_z>
+			</probe>
+			<probe name="31" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>1.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="32" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>3.0</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="33" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>4.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="34" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>6.0</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="35" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>7.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="36" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>9.0</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="37" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-1.5</probe_z>
+			</probe>
+			<probe name="38" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-3.0</probe_z>
+			</probe>
+			<probe name="39" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-4.5</probe_z>
+			</probe>
+			<probe name="40" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-6.0</probe_z>
+			</probe>
+			<probe name="41" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-7.5</probe_z>
+			</probe>
+			<probe name="42" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-9.0</probe_z>
+			</probe>
+			<probe name="43" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>-1.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="44" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>-3.0</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="45" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>-4.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="46" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>-6.0</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="47" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>-7.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="48" status="on">
+				<probe_x>30</probe_x>
+				<probe_y>-9.0</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="49" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>0.5</probe_z>
+			</probe>
+			<probe name="50" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>1.5</probe_z>
+			</probe>
+			<probe name="51" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>2.5</probe_z>
+			</probe>
+			<probe name="52" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>3.5</probe_z>
+			</probe>
+			<probe name="53" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>0.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="54" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>1.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="55" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>2.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="56" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>3.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="57" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-0.5</probe_z>
+			</probe>
+			<probe name="58" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-1.5</probe_z>
+			</probe>
+			<probe name="59" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-2.5</probe_z>
+			</probe>
+			<probe name="60" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-3.5</probe_z>
+			</probe>
+			<probe name="61" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>-0.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="62" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>-1.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="63" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>-2.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="64" status="on">
+				<probe_x>49</probe_x>
+				<probe_y>-3.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="65" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>0.5</probe_z>
+			</probe>
+			<probe name="66" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>1.5</probe_z>
+			</probe>
+			<probe name="67" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>2.5</probe_z>
+			</probe>
+			<probe name="68" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>3.5</probe_z>
+			</probe>
+			<probe name="69" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>0.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="70" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>1.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="71" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>2.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="72" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>3.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="73" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-0.5</probe_z>
+			</probe>
+			<probe name="74" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-1.5</probe_z>
+			</probe>
+			<probe name="75" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-2.5</probe_z>
+			</probe>
+			<probe name="76" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-3.5</probe_z>
+			</probe>
+			<probe name="77" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>-0.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="78" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>-1.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="79" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>-2.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="80" status="on">
+				<probe_x>50.05</probe_x>
+				<probe_y>-3.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="81" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>0.5</probe_z>
+			</probe>
+			<probe name="82" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>1.5</probe_z>
+			</probe>
+			<probe name="83" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>2.5</probe_z>
+			</probe>
+			<probe name="84" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>3.5</probe_z>
+			</probe>
+			<probe name="85" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>0.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="86" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>1.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="87" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>2.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="88" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>3.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="89" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-0.5</probe_z>
+			</probe>
+			<probe name="90" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-1.5</probe_z>
+			</probe>
+			<probe name="91" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-2.5</probe_z>
+			</probe>
+			<probe name="92" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>0</probe_y>
+				<probe_z>-3.5</probe_z>
+			</probe>
+			<probe name="93" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>-0.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="94" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>-1.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="95" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>-2.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+			<probe name="96" status="on">
+				<probe_x>51.1</probe_x>
+				<probe_y>-3.5</probe_y>
+				<probe_z>0</probe_z>
+			</probe>
+		</output>
+		<time_parameters>
+			<time_step_ref>0.1</time_step_ref>
+			<iterations>10</iterations>
+			<time_passing>0</time_passing>
+			<property label="CourantNb" name="courant_number"/>
+			<property label="FourierNb" name="fourier_number"/>
+			<zero_time_step status="off"/>
+		</time_parameters>
+		<steady_management status="off"/>
+		<time_averages/>
+		<profiles/>
+	</analysis_control>
+	<calculation_management>
+		<start_restart>
+			<frozen_field status="off"/>
+		</start_restart>
+		<n_procs>4</n_procs>
+	</calculation_management>
+	<lagrangian model="off"/>
+</Code_Saturne_GUI>

@@ -1,0 +1,24 @@
+========================================================
+Start time       : Tuesday February 04 03:37:29 CEST 2014
+========================================================
+  Command        : /usr/bin/code_saturne run --param /home/vance/Capstone/pythonlib/cluster/code_saturne/STUDIES/sim_4860.0_STUDY/sim_4860.0_CASE/DATA/actuator_disk_case_2.xml
+========================================================
+  Package path   : /usr
+  ----------------------------------------------------
+  MPI path       : 
+  MPI type       : OpenMPI
+  ----------------------------------------------------
+  User           : vance
+  ----------------------------------------------------
+  Machine        : Linux atlacamani304 3.2.0-23-generic #36-Ubuntu SMP Tue Apr 10 20:39:51 UTC 2012 x86_64 
+  N Procs        : 1
+  ----------------------------------------------------
+  Case           : sim_4860.0_CASE
+    directory    : /home/vance/Capstone/pythonlib/cluster/code_saturne/STUDIES/sim_4860.0_STUDY/sim_4860.0_CASE
+    results dir. : /home/vance/Capstone/pythonlib/cluster/code_saturne/STUDIES/sim_4860.0_STUDY/sim_4860.0_CASE/RESU/20140204-0337
+    preprocessor : /usr/lib/code_saturne/cs_preprocess
+    solver       : /usr/lib/code_saturne/cs_solver
+  ----------------------------------------------------
+========================================================
+Finish time      : Tuesday February 04 03:59:37 CEST 2014
+========================================================

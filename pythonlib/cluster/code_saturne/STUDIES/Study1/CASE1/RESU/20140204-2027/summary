@@ -1,0 +1,25 @@
+========================================================
+Start time       : Tuesday February 04 20:27:33 CEST 2014
+========================================================
+  Command        : /usr/bin/code_saturne run --param case3.xml
+========================================================
+  Package path   : /usr
+  ----------------------------------------------------
+  MPI path       : 
+  MPI type       : OpenMPI
+  ----------------------------------------------------
+  User           : vance
+  ----------------------------------------------------
+  Machine        : Linux studio-ub 3.5.0-45-generic #68~precise1-Ubuntu SMP Wed Dec 4 16:18:46 UTC 2013 x86_64 
+  N Procs        : 4
+  ----------------------------------------------------
+  Case           : CASE1
+    directory    : /home/vance/Downloads/Capstone/MCCapstone13-14/pythonlib/cluster/code_saturne/STUDIES/Study1/CASE1
+    results dir. : /home/vance/Downloads/Capstone/MCCapstone13-14/pythonlib/cluster/code_saturne/STUDIES/Study1/CASE1/RESU/20140204-2027
+    preprocessor : /usr/lib/code_saturne/cs_preprocess
+    partitioner  : /usr/lib/code_saturne/cs_partition
+    solver       : /usr/lib/code_saturne/cs_solver
+  ----------------------------------------------------
+========================================================
+Finish time      : Tuesday February 04 20:27:49 CEST 2014
+========================================================

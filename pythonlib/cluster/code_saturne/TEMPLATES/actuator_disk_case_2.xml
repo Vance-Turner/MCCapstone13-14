@@ -126,10 +126,8 @@
 		</inlet>
 		<boundary label="outlet" name="2" nature="outlet">outlet</boundary>
 		<outlet label="outlet"/>
-		<boundary label="wall" name="3" nature="wall">wall</boundary>
-		<wall label="wall">
-			<velocity_pressure choice="off"/>
-		</wall>
+		<boundary label="wall" name="3" nature="outlet">wall</boundary>
+		<outlet label="wall"/>
 	</boundary_conditions>
 	<analysis_control>
 		<output>

@@ -1,0 +1,26 @@
+
+
+fvm_selector_postfix.c:1291: Fatal error.
+
+Error parsing expression:
+x < 50 and x < 50.1 and y < sqrt(1-z^2)
+                          ^
+Operator needs a floating point operand
+on one side, x, y, or z on the other
+
+
+Call stack:
+   1: 0x7fe037074d3c <+0x73d3c>                       (libfvm.so.0)
+   2: 0x7fe0370752fb <+0x742fb>                       (libfvm.so.0)
+   3: 0x7fe0370780c6 <fvm_selector_postfix_create+0x3d6> (libfvm.so.0)
+   4: 0x7fe0370714b9 <+0x704b9>                       (libfvm.so.0)
+   5: 0x7fe0370737d9 <fvm_selector_get_list+0x39>     (libfvm.so.0)
+   6: 0x7fe037bfcfd8 <+0x325fd8>                      (libsaturne.so.0)
+   7: 0x7fe037c043c3 <uikpdc_+0xca3>                  (libsaturne.so.0)
+   8: 0x7fe03790da56 <caltri_+0x45e>                  (libsaturne.so.0)
+   9: 0x7fe0379097fb <cs_run+0x72b>                   (libsaturne.so.0)
+  10: 0x7fe037908fea <main+0x1da>                     (libsaturne.so.0)
+  11: 0x7fe035bab76d <__libc_start_main+0xed>         (libc.so.6)
+  12: 0x4006b9     <>                               (cs_solver)
+End of stack
+
