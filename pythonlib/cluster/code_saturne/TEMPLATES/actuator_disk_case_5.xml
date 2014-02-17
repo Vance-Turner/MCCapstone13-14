@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><Code_Saturne_GUI case="TEMPLATES" study="code_saturne" version="2.0">
+<?xml version="1.0" encoding="utf-8"?><Code_Saturne_GUI case="CASE1" study="TestStudy" version="2.0">
 	<solution_domain>
 		<volumic_conditions>
 			<zone head_losses="off" id="1" initialization="on" label="all_cells" mass_source_term="off" momentum_source_term="off" scalar_source_term="off" thermal_source_term="off">all[]</zone>
-			<zone head_losses="on" id="2" initialization="off" label="actuatorDisk" mass_source_term="off" momentum_source_term="off" scalar_source_term="off" thermal_source_term="off">x &gt; 50 and x &lt; 50.1 and y &lt; 4 and y &gt; -4 and z &lt; 4 and z &gt; -4</zone>
+			<zone head_losses="on" id="2" initialization="off" label="Zone_1" mass_source_term="off" momentum_source_term="off" scalar_source_term="off" thermal_source_term="off">Disk</zone>
 		</volumic_conditions>
 		<meshes_list>
-			<mesh name="actuator_disk_tunnel.med"/>
+			<mesh name="TunnelHD.med" path="../MESH/"/>
 		</meshes_list>
 		<faces_cutting status="off"/>
 		<joining/>
@@ -52,7 +52,7 @@
 		<atmospheric_flows model="off"/>
 		<heads_losses>
 			<head_loss zone_id="2">
-				<kxx>30</kxx>
+				<kxx>600</kxx>
 				<kyy>0</kyy>
 				<kzz>0</kzz>
 				<a11>1</a11>
@@ -81,7 +81,7 @@
 			<property choice="constant" label="Density" name="density">
 				<listing_printing status="off"/>
 				<postprocessing_recording status="off"/>
-				<initial_value>1.17862</initial_value>
+				<initial_value>1.07862</initial_value>
 			</property>
 			<property choice="constant" label="LamVisc" name="molecular_viscosity">
 				<listing_printing status="off"/>
@@ -115,7 +115,7 @@
 	<boundary_conditions>
 		<variable/>
 		<scalar/>
-		<boundary label="inlet" name="1" nature="inlet">inlet</boundary>
+		<boundary label="inlet" name="1" nature="inlet">Inlet</boundary>
 		<inlet label="inlet">
 			<velocity_pressure choice="norm" direction="normal">
 				<norm>5</norm>
@@ -124,9 +124,9 @@
 				<hydraulic_diameter>1</hydraulic_diameter>
 			</turbulence>
 		</inlet>
-		<boundary label="outlet" name="2" nature="outlet">outlet</boundary>
+		<boundary label="outlet" name="2" nature="outlet">Outlet</boundary>
 		<outlet label="outlet"/>
-		<boundary label="wall" name="3" nature="wall">wall</boundary>
+		<boundary label="wall" name="3" nature="wall">TunnelWall</boundary>
 		<wall label="wall">
 			<velocity_pressure choice="off"/>
 		</wall>
@@ -650,7 +650,7 @@
 		<start_restart>
 			<frozen_field status="off"/>
 		</start_restart>
-		<n_procs>12</n_procs>
+		<n_procs>8</n_procs>
 	</calculation_management>
 	<lagrangian model="off"/>
 </Code_Saturne_GUI>
