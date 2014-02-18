@@ -21,13 +21,13 @@ jsonFile = open('config.json')
 configMap = json.load(jsonFile)
 jsonFile.close()
 
-SERVER_PORT = 2000
+SERVER_PORT = configMap['serverPort']
 
 CODE_SATURNE_DATA_PATH = os.path.join(configMap['serverDataPath'],'code_saturne')
 CODE_SATURNE_STUDY_PATH = os.path.join(CODE_SATURNE_DATA_PATH,'STUDIES')
 CODE_SATURNE_TEMPLATE_PATH = os.path.join(CODE_SATURNE_DATA_PATH,'TEMPLATES')
 
-CODE_SAT_ACT_XML_NAME = 'actuator_disk_case_5.xml'#'actuator_disk_case.xml'
+CODE_SAT_ACT_XML_NAME = 'actuator_disk_case_6.xml'#'actuator_disk_case.xml'
 CODE_SAT_STD_XML_NAME = 'case.xml'
 """
 The path to the template file for a code-saturne axial induction finder case.
@@ -51,6 +51,9 @@ codeSatActDisk = "ACT_DISK_CODE_SAT_JOB"
 This is used by the bisection to tell when a job has completed...
 '''
 bisectionTaskDone = True
+
+# Physical constants
+AIR_DENSITY = configMap['airDensity']
 
 def copyFile(src,dest):
     if os.path.exists(src):
@@ -144,6 +147,10 @@ def codeSaturneSim(name,headLoss,meshType=meshTypes_COPY,meshCode='',codeSatType
     # Set the mesh file name
     # TODO: This needs to be updated to set the mesh file name when building a mesh.
     root.findall(".solution_domain/meshes_list/mesh")[0].attrib['name']=meshCode
+
+    # Set the density of the fluid in the xml file
+    density = root.findall("./physical_properties/fluid_properties/property[@label='Density']/initial_value")[0]
+    density.text = str(AIR_DENSITY)
 
     print "Set xml files, now getting or building mesh."
     # TODO: Need to write for code that calls whatever module will actually build the mesh, for now we just copy it from the standard location...
@@ -377,7 +384,7 @@ class AxialBisectionTask(Thread):
             means_z.append(mnz)
             pressure.append(self.getProbePressure(press,i))
         # Calculate the efficiency
-        rho = 1.07862
+        rho = float(AIR_DENSITY)
         powerCoeff = 2.0 *(pressure[2]-pressure[4])*means_x[2]/(rho*means_x[0]**3)
         print "AxialBisectionTask.getPowerCoeff>",path,powerCoeff
         return float(powerCoeff)
@@ -452,6 +459,6 @@ class AxialBisectionTask(Thread):
 
 if __name__ == '__main__':
     #MainControllerTask().start()
-    AxialBisectionTask(10,3000).start()
+    AxialBisectionTask(1.0,150.0).start()
     import socket
     run(host='atlacamani.marietta.edu', port=SERVER_PORT)
