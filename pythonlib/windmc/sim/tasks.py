@@ -377,7 +377,7 @@ class AxialBisectionTask(Thread):
             means_z.append(mnz)
             pressure.append(self.getProbePressure(press,i))
         # Calculate the efficiency
-        rho = 1.17862
+        rho = 1.07862
         powerCoeff = 2.0 *(pressure[2]-pressure[4])*means_x[2]/(rho*means_x[0]**3)
         print "AxialBisectionTask.getPowerCoeff>",path,powerCoeff
         return float(powerCoeff)
