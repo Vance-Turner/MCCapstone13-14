@@ -21,15 +21,13 @@ jsonFile = open('config.json')
 configMap = json.load(jsonFile)
 jsonFile.close()
 
-SERVER_PORT = configMap['serverPort']
-SERVER_DATA_PATH = configMap['serverDataPath']
-WINDMC_PATH = configMap['windmcPath']
+SERVER_PORT = 2000
 
 CODE_SATURNE_DATA_PATH = os.path.join(configMap['serverDataPath'],'code_saturne')
 CODE_SATURNE_STUDY_PATH = os.path.join(CODE_SATURNE_DATA_PATH,'STUDIES')
 CODE_SATURNE_TEMPLATE_PATH = os.path.join(CODE_SATURNE_DATA_PATH,'TEMPLATES')
 
-CODE_SAT_ACT_XML_NAME = 'actuator_disk_case_6.xml'#'actuator_disk_case.xml'
+CODE_SAT_ACT_XML_NAME = 'actuator_disk_case_3.xml'#'actuator_disk_case.xml'
 CODE_SAT_STD_XML_NAME = 'case.xml'
 """
 The path to the template file for a code-saturne axial induction finder case.
@@ -49,19 +47,10 @@ meshTypes_BUILD = 'BUILD_MESH'
 codeSatStd = "STANDARD_CODE_SAT_JOB"
 codeSatActDisk = "ACT_DISK_CODE_SAT_JOB"
 
-salomeInstallLocation = configMap["salomeInstallLoc"]
-
 '''
 This is used by the bisection to tell when a job has completed...
 '''
 bisectionTaskDone = True
-
-# Physical constants
-AIR_DENSITY = configMap['airDensity']
-
-INLET_VEL = configMap['inletVel']
-
-TUNNEL_RADIUS = configMap['tunnelRadius']
 
 def copyFile(src,dest):
     if os.path.exists(src):
@@ -156,14 +145,6 @@ def codeSaturneSim(name,headLoss,meshType=meshTypes_COPY,meshCode='',codeSatType
     # TODO: This needs to be updated to set the mesh file name when building a mesh.
     root.findall(".solution_domain/meshes_list/mesh")[0].attrib['name']=meshCode
 
-    # Set the density of the fluid in the xml file
-    density = root.findall("./physical_properties/fluid_properties/property[@label='Density']/initial_value")[0]
-    density.text = str(AIR_DENSITY)
-
-    # Set the inlet velocity
-    inn = root.findall("./boundary_conditions/inlet[@label='inlet']/velocity_pressure/norm")[0]
-    inn.text = INLET_VEL
-
     print "Set xml files, now getting or building mesh."
     # TODO: Need to write for code that calls whatever module will actually build the mesh, for now we just copy it from the standard location...
     if meshType==meshTypes_COPY:
@@ -240,64 +221,23 @@ class MainControllerTask(Thread):
         # task = AxialInductionTask(0.5,0.5,'task_0.5')
         # task.start()
 
-from windmc.modelling.tunnelscript import ACTUATOR_TUNNEL_GEN
-
-
-class MeshGenerationTask(Thread):
-    def __init__(self, generationType, **genParams):
-        self.genType = generationType
-        self.genParams = genParams
-
-    def run(self):
-        if self.genType == ACTUATOR_TUNNEL_GEN:
-            commandList = []
-            commandList.append(os.path.join(salomeInstallLocation, 'runAppli'))
-            commandList.append('-t')
-            commandList.append(os.path.join(WINDMC_PATH, 'modelling', 'tunnelscript.py'))
-            '''
-            commandList.append(ACTUATOR_TUNNEL_GEN)
-            commandList.append(self.genPath)
-            for key in self.genParams.keys():
-                commandList.append(str(key)+':'+self.genParams[key]
-            '''
-            actuatorPath = os.path.join(WINDMC_PATH,'modelling','actuator.json')
-            actFile = open(actuatorPath,'r')
-            actMap = json.load(actFile)
-            actFile.close()
-            for key in self.genParams.keys():
-                actMap[str(key)] = self.genParams[key]
-            actFile = open(actuatorPath,'w')
-            json.dump(actMap,actFile)
-            actFile.close()
-            print "MeshGenerationTask, calling generation command>",commandList
-            output = open(self.genParams['outputPath']+'.info','w')
-            subprocess.call(commandList,stdout=output)
-            output.close()
-            print "MeshGenerationTask, mesh gen command finished!"
-
-
 import pandas as pd
 import os
 import time
 
 class AxialBisectionTask(Thread):
 
-    def __init__(self,lowerGuess,upperGuess,tunnelRadius):
+    def __init__(self,lowerGuess,upperGuess):
         Thread.__init__(self)
         self.a = lowerGuess
         self.b = upperGuess
-        self.tunnelRadius = tunnelRadius
         # Holds information from process: a, b, p, powerCoeff(a), powerCoeff(b), powerCoeff(p),
         self.data = []
 
     def run(self):
         global bisectionTaskDone
         #mesh = #'actuator_disk_tunnel.med'#'WindTunnel_HD.med'
-        #mesh = 'WindTunnel_HD.med'
-        # First we must generate our mesh
-        meshOutput = os.path.join(CODE_SATURNE_DATA_PATH,'MESHES','tunnel_'+str(self.tunnelRadius)+'.med')
-        MeshGenerationTask(ACTUATOR_TUNNEL_GEN,outputPath=meshOutput,tunnelRadius=self.tunnelRadius,diskFineness=4,tunnelFineness=4).run()
-        mesh = meshOutput
+        mesh = 'WindTunnel_HD.med'
         row = []
         row.append(self.a)
         row.append(self.b)
@@ -436,7 +376,7 @@ class AxialBisectionTask(Thread):
             means_z.append(mnz)
             pressure.append(self.getProbePressure(press,i))
         # Calculate the efficiency
-        rho = float(AIR_DENSITY)
+        rho = 1.17862
         powerCoeff = 2.0 *(pressure[2]-pressure[4])*means_x[2]/(rho*means_x[0]**3)
         print "AxialBisectionTask.getPowerCoeff>",path,powerCoeff
         return float(powerCoeff)
@@ -511,6 +451,6 @@ class AxialBisectionTask(Thread):
 
 if __name__ == '__main__':
     #MainControllerTask().start()
-    AxialBisectionTask(1.0,90.0,TUNNEL_RADIUS).start()
+    AxialBisectionTask(780,810).start()
+    import socket
     run(host='atlacamani.marietta.edu', port=SERVER_PORT)
-v

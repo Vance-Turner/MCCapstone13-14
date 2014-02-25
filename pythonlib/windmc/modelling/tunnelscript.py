@@ -1,6 +1,6 @@
+ACTUATOR_TUNNEL_GEN = "ActuatorTunnelGenerator"
 
-def createTunnel(fileName, diskX=50.0, diskY=0.0, diskZ=0.0, diskHeight=0.1, diskRadius=4.0, tunnelHeight=100.0,
-                 tunnelRadius=40.0, doGUI=False):
+def createTunnel(fileName, kwargs, doGUI=False):
     '''
     @author: Vance Turnewitsch
     @date: Feb 20, 2014
@@ -20,15 +20,27 @@ def createTunnel(fileName, diskX=50.0, diskY=0.0, diskZ=0.0, diskHeight=0.1, dis
     import SMESH
     from salome.smesh import smeshBuilder
 
-    smesh = smeshBuilder.New(salome.myStudy)
+    # Get the parameters
+    diskX = kwargs['diskX']
+    diskY = kwargs['diskY']
+    diskZ = kwargs['diskZ']
 
-    # Meshing parameters
-    tunnelMaxTetraSize = 2.5
-    tunnelMinTetraSize = 0.1
-    tunnelFineness = smeshBuilder.Fine
-    diskMaxTetraSize = 1
-    diskMinTetraSize = 0.08
-    diskFineness = smeshBuilder.Fine
+    diskHeight = kwargs['diskHeight']
+    diskRadius = kwargs['diskRadius']
+    tunnelHeight = kwargs['tunnelHeight']
+    tunnelRadius = kwargs['tunnelRadius']
+
+    tunnelFineness=kwargs['tunnelFineness']
+    diskFineness=kwargs['diskFineness']
+
+    tunnelMaxTetraSize=kwargs['tunnelMaxTetraSize']
+    tunnelMinTetraSize=kwargs['tunnelMinTetraSize']
+    diskMaxTetraSize=kwargs['diskMaxTetraSize']
+    diskMinTetraSize=kwargs['diskMinTetraSize']
+
+    print "Creating tunnel with following properties:",kwargs
+
+    smesh = smeshBuilder.New(salome.myStudy)
 
     # Make the actuator disk
     startDiskBase = geompy.MakeVertex(diskX, diskY, diskZ)
@@ -174,10 +186,37 @@ def createTunnel(fileName, diskX=50.0, diskY=0.0, diskZ=0.0, diskHeight=0.1, dis
     volumeFilter = smesh.GetFilter(SMESH.VOLUME,SMESH.FT_BelongToGeom,SMESH.FT_EqualTo,diskCyl)
     volumeGroup = windTunnelMesh.GroupOnFilter(SMESH.VOLUME,'Disk',volumeFilter)
     # Ok, let's spit it out!
+    # Get Information About Mesh by GetMeshInfo
+    print "\nInformation about mesh by GetMeshInfo:"
+    info = smesh.GetMeshInfo(windTunnelMesh)
+    keys = info.keys(); keys.sort()
+    for i in keys:
+       print " %s : %d" % ( i, info[i] )
+    # Silly salome-meca can only deal with strings not unicode types...so we have to make sure we have one.
+    print "Saving MED to>",str(fileName),type(str(fileName))
+    windTunnelMesh.ExportMED(str(fileName), autoDimension=False)
 
-    windTunnelMesh.ExportMED(fileName, autoDimension=False)
     if doGUI:
         salome.sg.updateObjBrowser(1)
 
+    import runSalome
+    runSalome.killLocalPort()
+
 if __name__ == '__main__':
-    createTunnel('/home/vance/Downloads/tunnel.med', doGUI=False)
+    # parse the arguments
+    # This map holds the defaults for creating a tunnel and disk
+    import json, os, sys
+    print 'Args:',sys.argv
+    jsonFile = os.path.join(os.path.dirname(sys.argv[0]),'actuator.json')
+    print "loading json from>",jsonFile
+    defaultMap = json.load(open(jsonFile,'r'))
+    # defaultMap = {
+    # "diskX": 50.0, "diskY": 0.0, "diskZ": 0.0,
+    # "tunnelHeight": 100.0, "tunnelRadius": 15.0, "tunnelFineness": 3,
+    # "tunnelMaxTetraSize": 2.5, "tunnelMinTetraSize": 0.1,
+    # "diskHeight": 0.1, "diskRadius": 4.0, "diskFineness": 3,
+    # "diskMaxTetraSize": 1, "diskMinTetraSize": 0.08,
+    # "outputPath":"/home/vance/Downloads/tunnel_23.med"
+    # }
+    createTunnel(defaultMap['outputPath'],defaultMap,doGUI=False)
+    print "Tunnel created!"

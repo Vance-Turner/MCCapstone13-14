@@ -1,1 +1,7 @@
-{"serverDataPath": "/home/vance/Capstone/pythonlib/cluster", "windmcPath": "/home/vance/Capstone/pythonlib/windmc"}
+{   "serverDataPath": "/home/vance/Capstone/Feb18_bis50/cluster",
+    "windmcPath": "/home/vance/Capstone/Feb18_bis50/windmc",
+    "airDensity":"1.2929",
+    "serverPort":"2000",
+    "inletVel":"5",
+    "salomeInstallLoc":"/home/vance/salome_2014/appli_V7_3_0",
+    "tunnelRadius":15}

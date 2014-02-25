@@ -1,0 +1,8 @@
+{
+    "diskX": 50.0, "diskY": 0.0, "diskZ": 0.0,
+    "tunnelHeight": 100.0, "tunnelRadius": 15.0, "tunnelFineness": 4,
+    "tunnelMaxTetraSize": 2.5, "tunnelMinTetraSize": 0.1,
+    "diskHeight": 0.1, "diskRadius": 4.0, "diskFineness": 4,
+    "diskMaxTetraSize": 1, "diskMinTetraSize": 0.08,
+    "outputPath":"/home/vance/Downloads/tunnel_23.med"
+    }
