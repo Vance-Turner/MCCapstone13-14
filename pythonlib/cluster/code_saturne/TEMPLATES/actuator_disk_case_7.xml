@@ -133,10 +133,10 @@
 	</boundary_conditions>
 	<analysis_control>
 		<output>
-			<writer id="-1" label="resultsMED">
+			<writer id="-1" label="resultsCGNS">
 				<frequency period="none"/>
 				<output_at_end status="on"/>
-				<format name="med" options=""/>
+				<format name="cgns" options="binary,divide_polyhedra"/>
 				<directory name="postprocessing"/>
 				<time_dependency choice="fixed_mesh"/>
 			</writer>

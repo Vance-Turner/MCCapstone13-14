@@ -312,26 +312,26 @@ class CodeSatMeshGenTask(Thread):
     Runs a single code-saturne simulation with a case name of sim_maxtetrasize.
     Does an actuator disk simulation with now shroud.
     """
-    def __init__(self,tunnelMaxSize,tunnelRadius):
+    def __init__(self,tunnelMaxTetraSize,diskTetraSize,tunnelRadius):
         Thread.__init__(self)
-        self.tunnelMaxSize = tunnelMaxSize
+        self.tunnelMaxTetraSize = tunnelMaxTetraSize
+        self.diskTetraSize = diskTetraSize
         self.tunnelRadius = tunnelRadius
 
     def run(self):
         # Generate the mesh
-        t = time.time()
-        meshFileName = 'tunnel_'+str(self.tunnelMaxSize)+'_'+str(t)+'.med'
-        meshOutput = os.path.join(CODE_SATURNE_DATA_PATH,'MESHES',meshFileName)
-        task = MeshGenerationTask(ACTUATOR_TUNNEL_GEN,outputPath=meshOutput,tunnelRadius=self.tunnelRadius,tunnelMaxSize=self.tunnelMaxSize)
+        meshOutput = os.path.join(CODE_SATURNE_DATA_PATH,'MESHES','tunnel_'+str(self.tunnelMaxTetraSize)+'_'+str(time.time())+'.med')
+        task = MeshGenerationTask(ACTUATOR_TUNNEL_GEN,outputPath=meshOutput,tunnelRadius=self.tunnelRadius,diskFineness=4,tunnelFineness=4,
+                           tunnelMaxTetraSize=self.tunnelMaxTetraSize,diskMaxTetraSize=self.diskTetraSize,diskMinTetraSize=self.diskTetraSize)
         id = meshingService.submitJob(task)
 
         while not meshingService.isJobCompleted(id):
             time.sleep(3)
 
         # Run the simulation
-		# Build the case format string
-        caseName = "sim_"+str(self.tunnelMaxSize)+"_"+time.strftime("%d_%m")
-        codeSaturneSim(caseName,10.0,meshTypes_COPY,meshFileName,codeSatActDisk)
+	# Build the case format string
+	caseName = "sim_"+str(self.tunnelMaxTetraSize)+"_"+time.strftime("%d_%m")
+        codeSaturneSim(caseName,50.0,meshTypes_COPY,meshOutput,codeSatActDisk)
 
 
 import pandas as pd
@@ -570,10 +570,9 @@ if __name__ == '__main__':
     #MainControllerTask().start()
     #AxialBisectionTask(1.0,90.0,TUNNEL_RADIUS).start()
     import numpy as np
-    sizes = [1,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2.0,2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3.0]
+    sizes = np.linspace(0.023,3.0,10).round(4)
     for size in sizes:
         print "Starting task:",str(size)
-        CodeSatMeshGenTask(size,TUNNEL_RADIUS).start()
+        CodeSatMeshGenTask(size,0.1,TUNNEL_RADIUS).start()
     print "All tasks finished!"
     run(host='atlacamani.marietta.edu', port=SERVER_PORT)
-

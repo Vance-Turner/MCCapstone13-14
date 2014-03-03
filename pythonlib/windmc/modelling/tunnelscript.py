@@ -11,14 +11,15 @@ def createTunnel(fileName, kwargs, doGUI=False):
     salome.salome_init()
     import GEOM
     from salome.geom import geomBuilder
-    from SMESH_mechanic import SMESH
+    theStudy = salome.myStudy
+    #from SMESH_mechanic import SMESH
 
     geompy = geomBuilder.New(salome.myStudy)
     if doGUI:
         gg = salome.ImportComponentGUI("GEOM")
 
-    import SMESH
-    from salome.smesh import smeshBuilder
+    #import SMESH
+    #from salome.smesh import smeshBuilder
 
     # Get the parameters
     diskX = kwargs['diskX']
@@ -29,7 +30,7 @@ def createTunnel(fileName, kwargs, doGUI=False):
     diskRadius = kwargs['diskRadius']
     tunnelHeight = kwargs['tunnelHeight']
     tunnelRadius = kwargs['tunnelRadius']
-
+    '''
     tunnelFineness=kwargs['tunnelFineness']
     diskFineness=kwargs['diskFineness']
 
@@ -37,10 +38,12 @@ def createTunnel(fileName, kwargs, doGUI=False):
     tunnelMinTetraSize=kwargs['tunnelMinTetraSize']
     diskMaxTetraSize=kwargs['diskMaxTetraSize']
     diskMinTetraSize=kwargs['diskMinTetraSize']
+    '''
+    tunnelMaxSize = kwargs['tunnelMaxSize']
 
     print "Creating tunnel with following properties:",kwargs
 
-    smesh = smeshBuilder.New(salome.myStudy)
+    #smesh = smeshBuilder.New(salome.myStudy)
 
     # Make the actuator disk
     startDiskBase = geompy.MakeVertex(diskX, diskY, diskZ)
@@ -131,7 +134,7 @@ def createTunnel(fileName, kwargs, doGUI=False):
 
     # Get faces on the disk
     diskInletFace_Orig = geompy.GetShapesOnPlaneWithLocationIDs(diskCyl, geompy.ShapeType["FACE"], vx, startDiskBase, GEOM.ST_ON)[0]
-    diskOutletFace_Orig = geompy.GetShapesOnPlaneWithLocationIDs(diskCyl, geompy.ShapeType["FACE"], vx,geompy.MakeVertex(50.0 + diskHeight, 0, 0),GEOM.ST_ON)[0]
+    diskOutletFace_Orig = geompy.GetShapesOnPlaneWithLocationIDs(diskCyl, geompy.ShapeType["FACE"], vx,geompy.MakeVertex(diskX + diskHeight, 0, 0),GEOM.ST_ON)[0]
     diskWallFace_Orig = geompy.GetShapesOnCylinderWithLocationIDs(diskCyl, geompy.ShapeType["FACE"], vx, startDiskBase, diskRadius,GEOM.ST_ON)[0]
 
     # Create the face groups of the disk
@@ -139,7 +142,125 @@ def createTunnel(fileName, kwargs, doGUI=False):
     diskOutletGroup_Orig = createFaceGroup(diskCyl, 'DiskOutletOrig', diskOutletFace_Orig)
     diskWallGroup_Orig = createFaceGroup(diskCyl, 'DiskWallOrig', diskWallFace_Orig)
 
+    ###
+    ### SMESH component
+    ###
 
+    import  SMESH, SALOMEDS
+    from salome.smesh import smeshBuilder
+
+    # calculate the number of segments for the disk
+    numOfSegments = round(60.0/3.0*tunnelMaxSize)
+    smesh = smeshBuilder.New(theStudy)
+    TunnelSansDisk = smesh.Mesh(tunnel)
+    Regular_1D = TunnelSansDisk.Segment()
+    Max1D_3 = Regular_1D.MaxSize(tunnelMaxSize)
+    MEFISTO_2D = TunnelSansDisk.Triangle(algo=smeshBuilder.MEFISTO)
+    MaxArea2D_5 = MEFISTO_2D.MaxElementArea(5)
+    NETGEN_3D = TunnelSansDisk.Tetrahedron()
+    Max2D_3 = smesh.CreateHypothesis('MaxElementArea')
+    Max2D_3.SetMaxElementArea( 3 )
+    a60_Segments1D = smesh.CreateHypothesis('NumberOfSegments')
+    a60_Segments1D.SetNumberOfSegments( int(numOfSegments) )
+    a60_Segments1D.SetDistrType( 0 )
+    status = TunnelSansDisk.AddHypothesis(Regular_1D,diskInletGroup)
+    status = TunnelSansDisk.AddHypothesis(a60_Segments1D,diskInletGroup)
+    status = TunnelSansDisk.AddHypothesis(MEFISTO_2D,diskInletGroup)
+    status = TunnelSansDisk.AddHypothesis(Max2D_3,diskInletGroup)
+    status = TunnelSansDisk.AddHypothesis(Regular_1D,diskOutletGroup)
+    status = TunnelSansDisk.AddHypothesis(a60_Segments1D,diskOutletGroup)
+    status = TunnelSansDisk.AddHypothesis(MEFISTO_2D,diskOutletGroup)
+    status = TunnelSansDisk.AddHypothesis(Max2D_3,diskOutletGroup)
+    status = TunnelSansDisk.AddHypothesis(MEFISTO_2D,diskWallGroup)
+    status = TunnelSansDisk.AddHypothesis(Max2D_3,diskWallGroup)
+    MaxSize_1D_2 = smesh.CreateHypothesis('MaxLength')
+    MaxSize_1D_2.SetLength( 2 )
+    Disk_1 = smesh.Mesh(diskCyl)
+    status = Disk_1.AddHypothesis(MaxSize_1D_2)
+    status = Disk_1.AddHypothesis(Regular_1D)
+    status = Disk_1.AddHypothesis(Max2D_3)
+    status = Disk_1.AddHypothesis(MEFISTO_2D)
+    status = Disk_1.AddHypothesis(NETGEN_3D)
+    Inlet_1 = TunnelSansDisk.GroupOnGeom(inletGroup,'Inlet',SMESH.FACE)
+    Outlet_1 = TunnelSansDisk.GroupOnGeom(outletGroup,'Outlet',SMESH.FACE)
+    TunnelWall_1 = TunnelSansDisk.GroupOnGeom(wallGroup,'TunnelWall',SMESH.FACE)
+    DiskInlet_1 = TunnelSansDisk.GroupOnGeom(diskInletGroup,'DiskInlet',SMESH.FACE)
+    DiskOutlet_1 = TunnelSansDisk.GroupOnGeom(diskOutletGroup,'DiskOutlet',SMESH.FACE)
+    DiskWall_1 = TunnelSansDisk.GroupOnGeom(diskWallGroup,'DiskWall',SMESH.FACE)
+    Import_1D2D = Disk_1.UseExisting2DElements(geom=diskInletGroup_Orig)
+    DiskInlet_Faces = Import_1D2D.SourceFaces([ DiskInlet_1 ],0,0)
+    DiskOutlet_Faces = smesh.CreateHypothesis('ImportSource2D')
+    DiskOutlet_Faces.SetSourceFaces( [ DiskOutlet_1 ] )
+    DiskOutlet_Faces.SetCopySourceMesh( 0, 0 )
+    status = Disk_1.AddHypothesis(Import_1D2D,diskOutletGroup_Orig)
+    status = Disk_1.AddHypothesis(DiskOutlet_Faces,diskOutletGroup_Orig)
+    DiskWall_Faces = smesh.CreateHypothesis('ImportSource2D')
+    DiskWall_Faces.SetSourceFaces( [ DiskWall_1 ] )
+    DiskWall_Faces.SetCopySourceMesh( 0, 0 )
+    status = Disk_1.AddHypothesis(Import_1D2D,diskWallGroup_Orig)
+    status = Disk_1.AddHypothesis(DiskWall_Faces,diskWallGroup_Orig)
+    isDone = TunnelSansDisk.Compute()
+    isDone = Disk_1.Compute()
+    Tunnel_1 = smesh.Concatenate([TunnelSansDisk.GetMesh(), Disk_1.GetMesh()], 1, 1, 1e-05)
+    [ Inlet_2, Outlet_2, TunnelWall_2, DiskInlet_2, DiskOutlet_2, DiskWall_2 ] = Tunnel_1.GetGroups()
+    aCriteria = []
+    aCriterion = smesh.GetCriterion(SMESH.VOLUME,SMESH.FT_BelongToGeom,SMESH.FT_EqualTo,diskCyl)#SMESH.VOLUME,SMESH.FT_BelongToGeom,SMESH.FT_Undefined,'Disk')
+    aCriteria.append(aCriterion)
+    aFilter_1 = smesh.GetFilterFromCriteria(aCriteria)
+    aFilter_1.SetMesh(Tunnel_1.GetMesh())
+    Disk_2 = Tunnel_1.GroupOnFilter( SMESH.VOLUME, 'Group_1', aFilter_1 )
+    Disk_2.SetColor( SALOMEDS.Color( 1, 0.666667, 0 ))
+    Disk_2.SetName( 'Disk' )
+    DiskInlet_Sub = TunnelSansDisk.GetSubMesh( diskInletGroup, 'DiskInlet_Sub' )
+    DiskOutlet_Sub = TunnelSansDisk.GetSubMesh( diskOutletGroup, 'DiskOutlet_Sub' )
+    DiskWall_Sub = TunnelSansDisk.GetSubMesh( diskWallGroup, 'DiskWall_Sub' )
+    DiskInlet_3 = Import_1D2D.GetSubMesh()
+    DiskOutlet_3 = Disk_1.GetSubMesh( diskOutletGroup_Orig, 'DiskOutlet' )
+    DiskWall_3 = Disk_1.GetSubMesh( diskWallGroup_Orig, 'DiskWall' )
+
+
+    ## Set names of Mesh objects
+    smesh.SetName(Regular_1D.GetAlgorithm(), 'Regular_1D')
+    smesh.SetName(NETGEN_3D.GetAlgorithm(), 'NETGEN_3D')
+    smesh.SetName(MEFISTO_2D.GetAlgorithm(), 'MEFISTO_2D')
+    smesh.SetName(MaxArea2D_5, 'MaxArea2D_5')
+    smesh.SetName(Import_1D2D.GetAlgorithm(), 'Import_1D2D')
+    smesh.SetName(Max1D_3, 'Max1D_3')
+    smesh.SetName(a60_Segments1D, '60_Segments1D')
+    smesh.SetName(MaxSize_1D_2, 'MaxSize_1D_2')
+    smesh.SetName(Inlet_1, 'Inlet')
+    smesh.SetName(Outlet_1, 'Outlet')
+    smesh.SetName(Max2D_3, 'Max2D_3')
+    smesh.SetName(TunnelWall_1, 'TunnelWall')
+    smesh.SetName(DiskInlet_1, 'DiskInlet')
+    smesh.SetName(DiskInlet_Sub, 'DiskInlet_Sub')
+    smesh.SetName(DiskInlet_Faces, 'DiskInlet_Faces')
+    smesh.SetName(DiskOutlet_1, 'DiskOutlet')
+    smesh.SetName(DiskOutlet_Faces, 'DiskOutlet_Faces')
+    smesh.SetName(DiskWall_1, 'DiskWall')
+    smesh.SetName(DiskOutlet_3, 'DiskOutlet')
+    smesh.SetName(DiskWall_Sub, 'DiskWall_Sub')
+    smesh.SetName(DiskWall_3, 'DiskWall')
+    smesh.SetName(DiskOutlet_Sub, 'DiskOutlet_Sub')
+    smesh.SetName(DiskInlet_3, 'DiskInlet')
+    smesh.SetName(TunnelSansDisk.GetMesh(), 'TunnelSansDisk')
+    smesh.SetName(Tunnel_1.GetMesh(), 'Tunnel')
+    smesh.SetName(Disk_1.GetMesh(), 'Disk')
+    smesh.SetName(Disk_2, 'Disk')
+    smesh.SetName(DiskWall_Faces, 'DiskWall_Faces')
+    smesh.SetName(DiskWall_2, 'DiskWall')
+    smesh.SetName(DiskInlet_2, 'DiskInlet')
+    smesh.SetName(DiskOutlet_2, 'DiskOutlet')
+    smesh.SetName(Outlet_2, 'Outlet')
+    smesh.SetName(TunnelWall_2, 'TunnelWall')
+    smesh.SetName(Inlet_2, 'Inlet')
+
+
+    if salome.sg.hasDesktop():
+      salome.sg.updateObjBrowser(1)
+
+    '''
+    Old meshing stuff...
     # Now do the meshing
     cylinderMesh = smesh.Mesh(tunnel, 'Cylinder')
 
@@ -150,7 +271,7 @@ def createTunnel(fileName, kwargs, doGUI=False):
     cylAlgo3DParams.SetFineness(tunnelFineness)
     cylAlgo3DParams.SetOptimize(True)
     print "Computing Tunnel Mesh..."
-    cylinderMesh.Compute()
+    #cylinderMesh.Compute()
 
     # Now create groups on the mesh from the geometry
     meshInlet = cylinderMesh.GroupOnGeom(inletGroup, "Inlet")
@@ -178,29 +299,34 @@ def createTunnel(fileName, kwargs, doGUI=False):
     diskAlgo3DParams.SetMaxSize(diskMaxTetraSize)
     diskAlgo3DParams.SetMinSize(diskMinTetraSize)
     diskAlgo3DParams.SetFineness(diskFineness)
-    diskMesh.Compute()
+    #diskMesh.Compute()
 
     windTunnelMesh = smesh.Concatenate([cylinderMesh.GetMesh(), diskMesh.GetMesh()], False, True, 1e-05, False,
                                        'WindTunnel')
     # Create group of volumes that make up the actuator disk
     volumeFilter = smesh.GetFilter(SMESH.VOLUME,SMESH.FT_BelongToGeom,SMESH.FT_EqualTo,diskCyl)
     volumeGroup = windTunnelMesh.GroupOnFilter(SMESH.VOLUME,'Disk',volumeFilter)
+    '''
     # Ok, let's spit it out!
     # Get Information About Mesh by GetMeshInfo
     print "\nInformation about mesh by GetMeshInfo:"
-    info = smesh.GetMeshInfo(windTunnelMesh)
+    info = smesh.GetMeshInfo(Tunnel_1)
     keys = info.keys(); keys.sort()
     for i in keys:
        print " %s : %d" % ( i, info[i] )
     # Silly salome-meca can only deal with strings not unicode types...so we have to make sure we have one.
     print "Saving MED to>",str(fileName),type(str(fileName))
-    windTunnelMesh.ExportMED(str(fileName), autoDimension=False)
+    Tunnel_1.ExportMED(str(fileName), autoDimension=False)
 
     if doGUI:
         salome.sg.updateObjBrowser(1)
 
-    import runSalome
-    runSalome.killLocalPort()
+    #import runSalome
+    #runSalome.kill_salome({'portkill':True,'kilall':False})
+    import os
+    from killSalomeWithPort import killMyPort
+    killMyPort(os.getenv('NSPORT'))    
+
 
 if __name__ == '__main__':
     # parse the arguments
@@ -210,13 +336,15 @@ if __name__ == '__main__':
     jsonFile = os.path.join(os.path.dirname(sys.argv[0]),'actuator.json')
     print "loading json from>",jsonFile
     defaultMap = json.load(open(jsonFile,'r'))
-    # defaultMap = {
-    # "diskX": 50.0, "diskY": 0.0, "diskZ": 0.0,
-    # "tunnelHeight": 100.0, "tunnelRadius": 15.0, "tunnelFineness": 3,
-    # "tunnelMaxTetraSize": 2.5, "tunnelMinTetraSize": 0.1,
-    # "diskHeight": 0.1, "diskRadius": 4.0, "diskFineness": 3,
-    # "diskMaxTetraSize": 1, "diskMinTetraSize": 0.08,
-    # "outputPath":"/home/vance/Downloads/tunnel_23.med"
-    # }
+    '''
+    defaultMap = {
+    "diskX": 79.5, "diskY": 0.0, "diskZ": 0.0,
+    "tunnelHeight": 160.0, "tunnelRadius": 100.0, "tunnelFineness": 4,
+    "tunnelMaxTetraSize": 2.5, "tunnelMinTetraSize": 0.1,
+    "diskHeight": 0.5, "diskRadius": 27.0, "diskFineness": 4,
+    "diskMaxTetraSize": 1, "diskMinTetraSize": 0.08,
+    "outputPath":"/home/vance/Downloads/tunnel_23.med"
+    }
+    '''
     createTunnel(defaultMap['outputPath'],defaultMap,doGUI=False)
     print "Tunnel created!"
