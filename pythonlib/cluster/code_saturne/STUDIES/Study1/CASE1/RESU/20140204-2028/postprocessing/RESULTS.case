@@ -1,8 +1,0 @@
-FORMAT
-type: ensight gold
-
-GEOMETRY
-model: results.geo
-
-VARIABLE
-scalar per element:       parallel_domain       results.parallel_domain
