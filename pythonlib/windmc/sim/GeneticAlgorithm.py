@@ -4,21 +4,46 @@ Created on Mar 4, 2014
 @author: vance
 '''
 
+import json
+import os
+import subprocess
+import sys
+jsonFile = open('config.json')
+configMap = json.load(jsonFile)
+jsonFile.close()
+
+SERVER_PORT = configMap['serverPort']
+SERVER_DATA_PATH = configMap['serverDataPath']
+WINDMC_PATH = configMap['windmcPath']
+
+"""
+Controls what we do when we find a duplicate
+gene in x in a chromosome.
+"""
+IGNORE_DUPLICATE_GENE = True
+
 def saturneEvaluator(chromosome):
     # Extract points
     shroudPoints = []
     print "saturneEvaluator, evaluating>"#chromosome
     xpoints = []
-    for i in range(0,44,2):
+    for i in range(0,20,2):
         if not chromosome[i] in xpoints:
-            shroudPoints.append([chromosome[i],chromosome[i+1]])  
-            xpoints.append(chromosome[i])
+            if IGNORE_DUPLICATE_GENE:
+                shroudPoints.append([chromosome[i],chromosome[i+1]])  
+                xpoints.append(chromosome[i])
+            else:
+                return 0
+        else:
+            print "Found duplicate chromosome, ignoring!"
     shroudPoints.sort(key=lambda item: item[0])
-    from windmc.sim import codesaturnesim
     print "About to start sim!>",shroudPoints
-    powerCoeff = codesaturnesim.doSimulation(shroudPoints)
-    print "Got power coeff from sim>",powerCoeff
-    return powerCoeff
+    global WINDMC_PATH
+    jsonData = json.dumps({'shroudPoints':shroudPoints})
+    returnCode = subprocess.call(['python','-m','windmc.sim.codesaturnesim',jsonData])
+    #powerCoeff = codesaturnesim.doSimulation(shroudPoints)
+    print "Got power coeff from sim>",returnCode
+    return float(returnCode)*1000.0
 
 if __name__ == '__main__':
 #     from windmc.sim import codesaturnesim
@@ -38,7 +63,7 @@ if __name__ == '__main__':
      
     # Create the allele object
     galleles = GAllele.GAlleles()
-    for i in range(10):
+    for i in range(4):
         galleles.add(horizontalAlleles1)
         galleles.add(verticalAlleles)
          
@@ -47,11 +72,11 @@ if __name__ == '__main__':
     galleles.add(point2XAllele)
     galleles.add(point2YAllele)
      
-    for i in range(10):
+    for i in range(4):
         galleles.add(horizontalAlleles2)
         galleles.add(verticalAlleles)
          
-    genome = G1DList.G1DList(44)
+    genome = G1DList.G1DList(20)
     genome.evaluator.set(saturneEvaluator)
     genome.setParams(allele=galleles)
     genome.mutator.set(Mutators.G1DListMutatorAllele)

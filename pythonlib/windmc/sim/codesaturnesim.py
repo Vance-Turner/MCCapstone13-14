@@ -278,50 +278,63 @@ def postProcessingFinished():
     sys.stderr.close()
     return 'GOOD'
 
-def doSimulation(shroudPoints):
-    from threading import Thread
-    import uuid
-    id = uuid.uuid1()
-    casePath = None
-    class Starter(Thread):
+# This is so that simulations don't start simultaneously, specifically we don't want
+# salome-meca starting up concurrently with another process of salome.
+import random
+sleepTime = random.randint(1,120)
+print "codesaturnesim, sleeping for ",sleepTime," before starting simulations..."
+time.sleep(random.randint(1,120))
+print "codesaturnesim, done sleeping!"
+
+import sys
+args = sys.argv[1]
+dataMap = json.loads(args)
+shroudPoints = dataMap['shroudPoints']
+print "codesaturnesime, the shroud points>",shroudPoints
+
+_id = uuid.uuid1()
+casePath = None
+class Starter(Thread):
+    
+    def __init__(self):
+        Thread.__init__(self)
         
-        def __init__(self):
-            Thread.__init__(self)
-            
-        def run(self):   
-            global SERVER_PORT
-            casePath = codeSaturneSim(str(id), shroudPoints, 0.25, meshTypes_BUILD)
-            
-    Starter().start()
-    startedServer = False
-    global SERVER_PORT
-    while not startedServer:
-        print "\n---Trying to start on>",SERVER_PORT
-        try:
-            run(host='atlacamani.marietta.edu', port=SERVER_PORT,quiet=True)
-        except Exception:
-            print "Failed to start on:",SERVER_PORT
-        SERVER_PORT = int(SERVER_PORT)
-        SERVER_PORT += 1
-        SERVER_PORT = str(SERVER_PORT)
-    if casePath == None:
-        print "Didn't get a valid case path after simulation!"
-        return 0
-    else:
-        try:
-            resultsDir = os.path.join(casePath,'RESU')
-            resultsDir = os.listdir(resultsDir)[0]
-            resultsDir = os.path.join(casePath,'RESU',resultsDir,'postprocessing','powerCoefficient.txt')
-            powerCoeffFile = open(resultsDir,'r')
-            powerCoeff = float(powerCoeffFile.readline())
-            print "Returning powerCoeff>",powerCoeff
-            powerCoeffFile.close()
-            if powerCoeff > 0.98:
-                return 0
-            else:
-                return powerCoeff
-        except:
-            print "Failed to get a power coefficient..."
-            return 0       
+    def run(self):   
+        global SERVER_PORT
+        casePath = codeSaturneSim(str(_id), shroudPoints, 0.25, meshTypes_BUILD)
+        
+Starter().start()
+startedServer = False
+global SERVER_PORT
+while not startedServer:
+    print "\n---Trying to start on>",SERVER_PORT
+    try:
+        run(host='atlacamani.marietta.edu', port=SERVER_PORT,quiet=True)
+    except Exception:
+        print "Failed to start on:",SERVER_PORT
+    SERVER_PORT = int(SERVER_PORT)
+    SERVER_PORT += 1
+    SERVER_PORT = str(SERVER_PORT)
+if casePath == None:
+    print "Didn't get a valid case path after simulation!"
+    sys.exit(0)
+else:
+    try:
+        resultsDir = os.path.join(casePath,'RESU')
+        resultsDir = os.listdir(resultsDir)[0]
+        resultsDir = os.path.join(casePath,'RESU',resultsDir,'postprocessing','powerCoefficient.txt')
+        powerCoeffFile = open(resultsDir,'r')
+        powerCoeff = float(powerCoeffFile.readline())
+        print "Returning powerCoeff>",powerCoeff
+        powerCoeffFile.close()
+        if powerCoeff > 0.98 or powerCoeff < 0:
+            sys.exit(0)
+        else:
+            sys.exit(powerCoeff*1000)
+    except:
+        print "Failed to get a power coefficient..."
+        sys.exit(0)  
+        
+sys.exit(0)    
             
 #print doSimulation([[60,35],[70,20],[78,28],[82,28],[90,35],[110,30]])
