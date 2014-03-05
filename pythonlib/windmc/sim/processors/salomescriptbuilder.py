@@ -4,7 +4,17 @@ Created on Mar 2, 2014
 @author: vance
 '''
 import os
-
+import subprocess
+    
+def copyFile(src,dest):
+    if os.path.exists(src):
+        subprocess.call(['cp', src, dest])
+        # check to make sure it exists!
+        if not os.path.exists(dest):
+            raise Exception("File not copied for xml, failing!>"+src+" "+dest)
+    else:
+        raise Exception("Src or Destination does not exist!"+src+" "+dest) 
+    
 def buildPostProcessScript(inputFile,outputPath,outputID,windMCPath,tunnelWidth=100.0,actuatorX=78.0,actuatorRadius=4.0,\
                            diskPoints=30,radiusPoints=10,\
                            inletRadius=90.0,inletLoc=5.0,inletRadialPoints = 20,inletCircumFerentialPoints=30):
@@ -38,9 +48,12 @@ def buildPostProcessScript(inputFile,outputPath,outputID,windMCPath,tunnelWidth=
         pyFy.write('import os\n')
         pyFy.write('from killSalomeWithPort import killMyPort\n')
         pyFy.write('killMyPort(os.getenv(\'NSPORT\'))\n')
-        return pyFyName
+        
+    pandasproc = os.path.join(outputPath,'pandas_process_'+str(outputID)+'.py')
+    copyFile(os.path.join(windMCPath,'sim','processors','pandaspostproc.py'), pandasproc)
+    return (pyFyName,pandasproc)   
      
-def main(baseDir):
+def main(windMCPath,RESUDir,_id,PORT):
     
     from threading import Thread
     class runner(Thread):
@@ -61,44 +74,46 @@ def main(baseDir):
             diskPoints = 10
             radiusPoints = 20
             inletRadialPoints = 30
-            inletCircumPoints = 20   
-            windMCPath = os.path.join(baseDir,'windmc')         
-            pyFy = buildPostProcessScript(meshFile, outputPath, outputID, windMCPath, tunnelWidth, actuatorX, actuatorRadius, diskPoints, radiusPoints,\
+            inletCircumPoints = 20          
+            (pyFy,pandasFy) = buildPostProcessScript(meshFile, outputPath, outputID, windMCPath, tunnelWidth, actuatorX, actuatorRadius, diskPoints, radiusPoints,\
                                   inletRadialPoints = inletRadialPoints,inletCircumFerentialPoints=inletCircumPoints)
             print "pyFy>",pyFy
             import subprocess
             salomeLoc = "/home/vance/salome_2014/appli_V7_3_0"
-            shFile = os.path.join(outputPath,'doSaturne_'+str(self._id)+'.sh')
+            shFile = os.path.join(outputPath,'doPostProc_'+str(self._id)+'.sh')
             bash = open(shFile,'w')
             bash.write('#!/bin/sh \n')
             bash.write(os.path.join(salomeLoc,'runAppli')+' -t '+os.path.join(outputPath,pyFy))
+            bash.write('\npython '+pandasFy+' '+outputPath+' '+_id)
+            bash.write('\nwget http://atlacamani.marietta.edu:'+str(PORT)+'/'+'jobcompleted/postprocessing')
             bash.close()
             subprocess.call(['chmod','a+x',shFile])
             subprocess.call(['sbatch',shFile])
     
-    basePath = os.path.join(baseDir,"cluster","code_saturne","STUDIES")
-    simS = os.listdir(basePath)
-    import time
-    for sim in simS:
-        # Get case directory
-        dirs = os.listdir(os.path.join(basePath,sim))
-        simPath = ''
-        for adir in dirs:
-            if adir[0]=='s':
-                simPath = adir
-                break
-        print "Got sim path>",simPath
-        resuDir = os.path.join(basePath,sim,simPath,'RESU')
-        resu = os.listdir(resuDir)[0]
-        outputPath = os.path.join(resuDir,resu,'postprocessing')
-        runner(sim,outputPath).start()
-        time.sleep(5)
+#     basePath = os.path.join(baseDir,"cluster","code_saturne","STUDIES")
+#     simS = os.listdir(basePath)
+#     import time
+#     for sim in simS:
+#         # Get case directory
+#         dirs = os.listdir(os.path.join(basePath,sim))
+#         simPath = ''
+#         for adir in dirs:
+#             if adir[0]=='s':
+#                 simPath = adir
+#                 break
+#         print "Got sim path>",simPath
+#         resuDir = os.path.join(basePath,sim,simPath,'RESU')
+#         resu = os.listdir(resuDir)[0]
+#         outputPath = os.path.join(resuDir,resu,'postprocessing')  
+    runner(_id,RESUDir).start()
+#         time.sleep(5)
         
 if __name__ == '__main__':
     # The windmc path must be set!
-    baseDir = None
+    import sys
+    baseDir = sys.argv[1]
     if baseDir==None:
         raise Exception('Must set the base directory to do salome post-processing!')
     else:
-        main(baseDir)
+        main(baseDir,)
          
