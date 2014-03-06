@@ -43,7 +43,7 @@ def saturneEvaluator(chromosome):
     returnCode = subprocess.call(['python','-m','windmc.sim.codesaturnesim',jsonData])
     #powerCoeff = codesaturnesim.doSimulation(shroudPoints)
     print "Got power coeff from sim>",returnCode
-    return float(returnCode)*1000.0
+    return float(returnCode)
 
 if __name__ == '__main__':
 #     from windmc.sim import codesaturnesim
