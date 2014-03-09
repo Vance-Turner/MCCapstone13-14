@@ -1,5 +1,5 @@
-{   "serverDataPath": "/home/vance/Capstone/Mar5_Gen1/cluster",
-    "windmcPath": "/home/vance/Capstone/Mar5_Gen1/windmc",
+{   "serverDataPath": "/home/vance/Capstone/Mar7_Gen1/cluster",
+    "windmcPath": "/home/vance/Capstone/Mar7_Gen1/windmc",
     "airDensity":"1.2929",
     "serverPort":"2000",
     "inletVel":"5",

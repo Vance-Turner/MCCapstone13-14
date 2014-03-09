@@ -362,7 +362,7 @@ class GPopulation:
       # We have multiprocessing
       if self.multiProcessing[0] and MULTI_PROCESSING:
          logging.debug("Evaluating the population using the multiprocessing method")
-         proc_pool = Pool()
+         proc_pool = Pool(1)
 
          # Multiprocessing full_copy parameter
          if self.multiProcessing[1]:

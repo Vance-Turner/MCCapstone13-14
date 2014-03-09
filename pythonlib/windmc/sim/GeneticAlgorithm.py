@@ -8,6 +8,8 @@ import json
 import os
 import subprocess
 import sys
+from threading import Thread
+from windmc.modelling.meshingservice import MeshingService
 jsonFile = open('config.json')
 configMap = json.load(jsonFile)
 jsonFile.close()
@@ -22,6 +24,9 @@ gene in x in a chromosome.
 """
 IGNORE_DUPLICATE_GENE = True
 
+meshingServer = MeshingService()
+meshingServer.start()
+    
 def saturneEvaluator(chromosome):
     # Extract points
     shroudPoints = []
@@ -40,10 +45,28 @@ def saturneEvaluator(chromosome):
     print "About to start sim!>",shroudPoints
     global WINDMC_PATH
     jsonData = json.dumps({'shroudPoints':shroudPoints})
-    returnCode = subprocess.call(['python','-m','windmc.sim.codesaturnesim',jsonData])
+    class Runner(Thread):
+        
+        def __init__(self,meshingServ,shroudPts,jsonData):
+            Thread.__init__(self)
+            self.meshingServ = meshingServ
+            self.shroudPoints = shroudPts
+            self.jsonData = jsonData
+            
+        def run(self):
+            from windmc.sim.codesaturnesim import CodeSaturneSim
+            codeSatSim = CodeSaturneSim(self.meshingServ,self.shroudPoints,self.jsonData)
+            self.results = codeSatSim.main()
+            
+        def getResults(self):
+            return self.result
+    runner = Runner(meshingServer,shroudPoints,jsonData)
+    runner.start()
+    runner.join()
+    #returnCode = subprocess.call(['python','-m','windmc.sim.codesaturnesim',jsonData])
     #powerCoeff = codesaturnesim.doSimulation(shroudPoints)
-    print "Got power coeff from sim>",returnCode
-    return float(returnCode)
+    print "Got power coeff from sim>",runner.getResults()
+    return float(runner.getResults())
 
 if __name__ == '__main__':
 #     from windmc.sim import codesaturnesim
@@ -86,7 +109,7 @@ if __name__ == '__main__':
     csvfile_adapter = DBAdapters.DBFileCSV('output1.csv')
     geneticAlg.setDBAdapter(csvfile_adapter)
     geneticAlg.setMultiProcessing(True)
-    geneticAlg.setGenerations(4)
+    geneticAlg.setGenerations(1)
     print "Preparing to evolve..."
     geneticAlg.evolve(1)
     print geneticAlg.bestIndividual()
