@@ -159,15 +159,15 @@ if __name__ == '__main__':
     from pyevolve import GAllele, G1DList, GSimpleGA
     from pyevolve import Mutators, Initializators, DBAdapters
      
-    verticalAlleles = GAllele.GAlleleRange(15,50,False)#True)
-    horizontalAlleles1 = GAllele.GAlleleRange(52,75,False)#True)
-    horizontalAlleles2 = GAllele.GAlleleRange(85,108,False)#$True)
+    verticalAlleles = GAllele.GAlleleRange(1,25,False)#True)
+    horizontalAlleles1 = GAllele.GAlleleRange(26,38,False)#True)
+    horizontalAlleles2 = GAllele.GAlleleRange(43,54,False)#$True)
      
     # The alleles for the middle points
-    point1XAllele = GAllele.GAlleleList([78])
-    point1YAllele = GAllele.GAlleleList([28])
-    point2XAllele = GAllele.GAlleleList([82])
-    point2YAllele = GAllele.GAlleleList([28])
+    point1XAllele = GAllele.GAlleleList([39])
+    point1YAllele = GAllele.GAlleleList([14])
+    point2XAllele = GAllele.GAlleleList([41])
+    point2YAllele = GAllele.GAlleleList([14])
      
     # Create the allele object
     galleles = GAllele.GAlleles()

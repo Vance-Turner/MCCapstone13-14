@@ -349,8 +349,11 @@ class CodeSatServerHandler(BaseHTTPRequestHandler):
     
     #@get('/jobcompleted/postprocessing')
     def postProcessingFinished(self):
+        print "CodeSatServerHandler..postProcFinished"
         self.server.getCodeSatSim().ALL_JOBS_COMPLETED=True
         self.send_response(200)
         self.send_header("Content-type", "text/html")
-        self.end_headers()  
+        self.end_headers() 
+        print "CodeSatServerHandler..Killing server..." 
         self.server.shutdown()
+        print "CodeSatServerHandler..KilledServer"

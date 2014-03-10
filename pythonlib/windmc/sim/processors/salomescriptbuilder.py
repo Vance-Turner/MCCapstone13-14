@@ -15,9 +15,9 @@ def copyFile(src,dest):
     else:
         raise Exception("Src or Destination does not exist!"+src+" "+dest) 
     
-def buildPostProcessScript(inputFile,outputPath,outputID,windMCPath,tunnelWidth=100.0,actuatorX=78.0,actuatorRadius=4.0,\
+def buildPostProcessScript(inputFile,outputPath,outputID,windMCPath,tunnelWidth=50.0,actuatorX=39.5,actuatorRadius=13.0,\
                            diskPoints=30,radiusPoints=10,\
-                           inletRadius=90.0,inletLoc=5.0,inletRadialPoints = 20,inletCircumFerentialPoints=30):
+                           inletRadius=40.0,inletLoc=5.0,inletRadialPoints = 20,inletCircumFerentialPoints=30):
     pyFyName = os.path.join(outputPath,'post_proc_'+str(outputID)+'.py')
     with open(pyFyName,'wb') as pyFy:
         # First read in and write out the code that extracts the information from the MED file
@@ -68,9 +68,9 @@ def main(windMCPath,RESUDir,_id,PORT):
             meshFile = os.path.join(outputPath,'resultsMED.med')
             print "Mesh file>",meshFile
             outputID = str(self._id)
-            tunnelWidth = 100.0
-            actuatorX = 78.0
-            actuatorRadius = 3.9
+            tunnelWidth = 50.0
+            actuatorX = 39.5
+            actuatorRadius = 13.0
             diskPoints = 10
             radiusPoints = 20
             inletRadialPoints = 20 # was 30

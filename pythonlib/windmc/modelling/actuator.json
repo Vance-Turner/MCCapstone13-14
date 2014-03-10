@@ -1,7 +1,7 @@
 {
-    "diskX": 79.5, "diskY": 0.0, "diskZ": 0.0,
-    "tunnelHeight":160.0, "tunnelRadius": 100.0, "tunnelMaxSize":3.0,
-    "diskHeight": 1.0, "diskRadius": 27.0,"shroudThickness":0.25,
+    "diskX": 39.5, "diskY": 0.0, "diskZ": 0.0,
+    "tunnelHeight":80.0, "tunnelRadius": 50.0, "tunnelMaxSize":2.0,
+    "diskHeight": 1.0, "diskRadius": 13.5,"shroudThickness":0.25,
     "outputPath":"/home/vance/Downloads/tunnel_23.med"
 
     }

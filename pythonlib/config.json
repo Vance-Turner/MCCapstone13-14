@@ -1,7 +1,7 @@
-{   "serverDataPath": "/home/vance/Capstone/Mar10_Gen2/cluster",
-    "windmcPath": "/home/vance/Capstone/Mar10_Gen2/windmc",
+{   "serverDataPath": "/home/vance/Capstone/Mar10_Gen4/cluster",
+    "windmcPath": "/home/vance/Capstone/Mar10_Gen4/windmc",
     "airDensity":"1.2929",
     "serverPort":"2000",
     "inletVel":"5",
     "salomeInstallLoc":"/home/vance/salome_2014/appli_V7_3_0",
-    "tunnelRadius":100.0}
+    "tunnelRadius":50.0}
