@@ -4,31 +4,29 @@ Created on Mar 6, 2014
 @author: vance
 '''
 
-from bottle import run, post, request
 import uuid
 meshingJobs = {}
 from threading import Thread
 import os, subprocess, time, json
+from multiprocessing import Queue, Process
 
 class MeshingService(Thread):
 
     def __init__(self):
         Thread.__init__(self)
         print "Creating a new MeshingService!"
-        self.meshTaskQueue = []
+        self.meshTaskQueue = Queue(300)
         self.alive=True
-        self.jobMap = {}
 
     def run(self):
         print "MeshingService...running"
         while(self.alive):
-            print "MeshingService, checking the task queue...:",self.TASK_QUEUE
-            if len(self.TASK_QUEUE)>0:
+            print "MeshingService, checking the task queue..."
+            if not self.meshTaskQueue.empty():
                 print "MeshingService, got a job!"
-                lst = self.TASK_QUEUE.pop()
+                lst = self.meshTaskQueue.get()
                 print "MeshingService, starting a job!"
                 lst[0].start()
-                self.jobMap[lst[1]]=True
             else:
                 print "MeshingService...sleeping"
                 time.sleep(30)
@@ -40,20 +38,9 @@ class MeshingService(Thread):
     def submitJob(self,task):
         print "MeshingService, received a meshing task job!"
         _id = uuid.uuid1()
-        self.jobMap[_id]=False
-        self.TASK_QUEUE.append([task,_id])
-        print "MeshingService...added job to task queue>",self.TASK_QUEUE
-        return _id
-    
-    @property
-    def TASK_QUEUE(self):
-        print "Someone is accessing the task queue:",self.meshTaskQueue
-        return self.meshTaskQueue
-
-    @TASK_QUEUE.setter
-    def TASK_QUEUE(self,value):
-        print "Someone is trying to set the task queue:original,new:",self.meshTaskQueue,value
-        self.meshTaskQueue = value            
+        self.meshTaskQueue.put([task,_id])
+        print "MeshingService...added job to task queue"
+        return _id       
 
 def copyFile(src,dest):
     if os.path.exists(src):

@@ -362,7 +362,7 @@ class GPopulation:
       # We have multiprocessing
       if self.multiProcessing[0] and MULTI_PROCESSING:
          logging.debug("Evaluating the population using the multiprocessing method")
-         proc_pool = Pool(1)
+         proc_pool = Pool(80)
 
          # Multiprocessing full_copy parameter
          if self.multiProcessing[1]:
@@ -371,6 +371,7 @@ class GPopulation:
                self.internalPop[i] = results[i]
          else:
             results = proc_pool.map(multiprocessing_eval, self.internalPop)
+            print "The results are in from the processes!"
             for individual, score in zip(self.internalPop, results):
                individual.score = score
       else:

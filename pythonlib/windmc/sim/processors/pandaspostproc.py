@@ -28,7 +28,7 @@ if __name__ == '__main__':
     pressureOutlet = df[0:1].mean(axis=1)[0]
     
     columns = []
-    for i in range(600):
+    for i in range(400):
         columns.append(str(i))
         
     diskVelocityFile = os.path.join(postProcPath,caseName+'_diskInlet_velocity_.csv')

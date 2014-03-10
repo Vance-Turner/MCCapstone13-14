@@ -26,11 +26,11 @@ WIND_MC_PATH = None
 
 class CodeSaturneSim():
     
-    def __init__(self,meshingService, shroudPoints,dataMap):
+    def __init__(self,meshingMethod, shroudPoints,dataMap):
         """
         Holds results of code-saturne jobs. The key is the job id and the value is the energy extracted.
         """
-        self.meshingService = meshingService
+        self.meshingMethod = meshingMethod
         self.shroudPoints = shroudPoints
         self.dataMap = dataMap
         
@@ -167,13 +167,16 @@ class CodeSaturneSim():
             self.copyFile(os.path.join(self.CODE_SAT_MESH_TEMPLATES,meshCode),os.path.join(studyPath,'MESH',meshCode))
         elif meshType==meshTypes_BUILD:
             print "Generating mesh..."
-            from windmc.modelling.meshingservice import MeshGenerationTask
+            from windmc.sim.GeneticAlgorithm import MeshGenerationTask
             #serverPort, salomeInstall, WIND_MC, generationID, generationDirectory,**genParams
             meshGenTask = MeshGenerationTask(self.SERVER_PORT,self.salomeInstallLocation,\
                                              self.WINDMC_PATH,\
                                              name, meshGenDir,\
                                              shroudPoints=shroudRawPoints,outputPath=meshFilePath)
-            self.meshingService.submitJob(meshGenTask)
+            waitTime = self.meshingMethod.getMeshWaitTime()
+            print 'codesaturnesim, got mesh wait time!>',waitTime
+            time.sleep(waitTime)
+            meshGenTask.run()
             print "Waiting for mesh to generate..."
             while not self.MESH_GENERATED:
                 time.sleep(5)
@@ -236,11 +239,15 @@ class CodeSaturneSim():
                 
         starter = Starter(self,_id,shroudPoints)
         starter.start()
-        
-        while self.keepServerAlive():
-            httpd_server.handle_request()   
-                
-        self.CASE_PATH = starter.CASE_PATH()
+        httpd_server.serve_forever()
+#         while self.keepServerAlive():
+#             httpd_server.handle_request()
+#              
+#         print "Shutting down http server in codesaturnesim..."
+#         httpd_server.shutdown()  
+#         print "Server shut down!"
+        print "The server was shut down!, is the starter thread still running?>",starter.is_alive()
+        self.CASE_PATH = starter.CASE_PATH
         
         print "CodeSatSim, got a post processing finished!"
         if self.CASE_PATH == None:
@@ -298,11 +305,10 @@ class Starter(Thread):
         self.shroudPoints = shroudPoints
         
     def run(self):   
-        self.CASE_PATH = self.codesatsim.codeSaturneSim(str(self.id), self.shroudPoints, 0.25, meshTypes_BUILD)    
-        
-    @property
-    def CASE_PATH(self):
-        return self.CASE_PATH
+        casePath = self.codesatsim.codeSaturneSim(str(self.id), self.shroudPoints, 0.25, meshTypes_BUILD)    
+        print "codesaturnesim..starter..run, the casePath gotten>",casePath
+        self.CASE_PATH = casePath
+    
     
 class CodeSatServerHandler(BaseHTTPRequestHandler):
     
@@ -313,13 +319,13 @@ class CodeSatServerHandler(BaseHTTPRequestHandler):
         'Do the parsing'
         path = self.path
         pieces = path.split('/')
-        print "CodeSatSever, responding to>",path,' pieces>',pieces,(path[1] == 'jobcompleted'),(path[2]=='meshfinished')
+        print "CodeSatSever, responding to>",path,' pieces>',pieces,(pieces[1] == 'jobcompleted'),(pieces[2]=='meshfinished')
         if pieces[1] == 'jobcompleted' and pieces[2]=='meshfinished':
-            self.server.getCodeSatSim().meshCompleted()
+            self.meshCompleted()
         elif pieces[1] == 'jobcompleted' and pieces[2]=='postprocessing':
-            self.server.getCodeSatSim().postProcessingFinished()
+            self.postProcessingFinished()
         elif pieces[1] == 'jobcompleted':
-            self.server.getCodeSatSim().jobCompleted(pieces[2], pieces[3])
+            self.jobCompleted(pieces[2], pieces[3])
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()            
@@ -347,3 +353,4 @@ class CodeSatServerHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()  
+        self.server.shutdown()

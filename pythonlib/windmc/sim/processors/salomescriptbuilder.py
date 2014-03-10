@@ -73,7 +73,7 @@ def main(windMCPath,RESUDir,_id,PORT):
             actuatorRadius = 3.9
             diskPoints = 10
             radiusPoints = 20
-            inletRadialPoints = 30
+            inletRadialPoints = 20 # was 30
             inletCircumPoints = 20          
             (pyFy,pandasFy) = buildPostProcessScript(meshFile, outputPath, outputID, windMCPath, tunnelWidth, actuatorX, actuatorRadius, diskPoints, radiusPoints,\
                                   inletRadialPoints = inletRadialPoints,inletCircumFerentialPoints=inletCircumPoints)
