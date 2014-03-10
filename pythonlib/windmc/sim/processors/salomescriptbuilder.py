@@ -55,40 +55,40 @@ def buildPostProcessScript(inputFile,outputPath,outputID,windMCPath,tunnelWidth=
      
 def main(windMCPath,RESUDir,_id,PORT):
     
-    from threading import Thread
-    class runner(Thread):
+    #from threading import Thread
+    #class runner(Thread):
         
-        def __init__(self,id_,inputPath):
-            Thread.__init__(self)
-            self._id = id_
-            self._inputPath = inputPath
-            
-        def run(self):
-            outputPath = self._inputPath
-            meshFile = os.path.join(outputPath,'resultsMED.med')
-            print "Mesh file>",meshFile
-            outputID = str(self._id)
-            tunnelWidth = 50.0
-            actuatorX = 39.5
-            actuatorRadius = 13.0
-            diskPoints = 10
-            radiusPoints = 20
-            inletRadialPoints = 20 # was 30
-            inletCircumPoints = 20          
-            (pyFy,pandasFy) = buildPostProcessScript(meshFile, outputPath, outputID, windMCPath, tunnelWidth, actuatorX, actuatorRadius, diskPoints, radiusPoints,\
-                                  inletRadialPoints = inletRadialPoints,inletCircumFerentialPoints=inletCircumPoints)
-            print "pyFy>",pyFy
-            import subprocess
-            salomeLoc = "/home/vance/salome_2014/appli_V7_3_0"
-            shFile = os.path.join(outputPath,'doPostProc_'+str(self._id)+'.sh')
-            bash = open(shFile,'w')
-            bash.write('#!/bin/sh \n')
-            bash.write(os.path.join(salomeLoc,'runAppli')+' -t '+os.path.join(outputPath,pyFy))
-            bash.write('\npython '+pandasFy+' '+outputPath+' '+_id)
-            bash.write('\nwget http://atlacamani.marietta.edu:'+str(PORT)+'/'+'jobcompleted/postprocessing')
-            bash.close()
-            subprocess.call(['chmod','a+x',shFile])
-            subprocess.call(['sbatch',shFile])
+#         def __init__(self,id_,inputPath):
+#             Thread.__init__(self)
+#             self._id = id_
+#             self._inputPath = inputPath
+        
+#     def run(self):
+    outputPath = RESUDir#self._inputPath
+    meshFile = os.path.join(outputPath,'resultsMED.med')
+    print "Mesh file>",meshFile
+    outputID = str(_id)
+    tunnelWidth = 50.0
+    actuatorX = 39.5
+    actuatorRadius = 13.0
+    diskPoints = 10
+    radiusPoints = 20
+    inletRadialPoints = 20 # was 30
+    inletCircumPoints = 20          
+    (pyFy,pandasFy) = buildPostProcessScript(meshFile, outputPath, outputID, windMCPath, tunnelWidth, actuatorX, actuatorRadius, diskPoints, radiusPoints,\
+                          inletRadialPoints = inletRadialPoints,inletCircumFerentialPoints=inletCircumPoints)
+    print "pyFy>",pyFy
+    import subprocess
+    salomeLoc = "/home/vance/salome_2014/appli_V7_3_0"
+    shFile = os.path.join(outputPath,'doPostProc_'+str(_id)+'.sh')
+    bash = open(shFile,'w')
+    bash.write('#!/bin/sh \n')
+    bash.write(os.path.join(salomeLoc,'runAppli')+' -t '+os.path.join(outputPath,pyFy))
+    bash.write('\npython '+pandasFy+' '+outputPath+' '+_id)
+    bash.write('\nwget http://atlacamani.marietta.edu:'+str(PORT)+'/'+'jobcompleted/postprocessing')
+    bash.close()
+    subprocess.call(['chmod','a+x',shFile])
+    subprocess.call(['sbatch',shFile])
     
 #     basePath = os.path.join(baseDir,"cluster","code_saturne","STUDIES")
 #     simS = os.listdir(basePath)
@@ -105,7 +105,7 @@ def main(windMCPath,RESUDir,_id,PORT):
 #         resuDir = os.path.join(basePath,sim,simPath,'RESU')
 #         resu = os.listdir(resuDir)[0]
 #         outputPath = os.path.join(resuDir,resu,'postprocessing')  
-    runner(_id,RESUDir).start()
+    #runner(_id,RESUDir).start()
 #         time.sleep(5)
         
 if __name__ == '__main__':

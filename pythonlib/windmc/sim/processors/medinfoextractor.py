@@ -23,8 +23,11 @@ def extractPressure(tunnelWidth, actuatorX, actuatorRadius,inputFile,outputPath,
         for angle in angles:
             point = [actuatorX,mag*np.cos(angle),mag*np.sin(angle)]
             print "Trying to get point on:",str(point)
-            points.append(point)
-            values.append(pressureField.getValueOn(point)[0])
+            try:
+                values.append(pressureField.getValueOn(point)[0])
+                points.append(point)
+            except:
+                print "Was unable to get value at:",str(point)
     import csv
     import os
     with open(os.path.join(outputPath,outputID+'_pressure_.csv'),'wb') as csvfile:
@@ -44,8 +47,11 @@ def extractVelocity(crossSectionWidth,profileX,inputFile,outputPath,outputID,dis
         for angle in angles:
             point = [profileX,mag*np.cos(angle),mag*np.sin(angle)]
             print "Trying to get point on:",str(point)
-            points.append(point)
-            values.append(velocityField.getValueOn(point)[component])
+            try:
+                values.append(velocityField.getValueOn(point)[component])
+                points.append(point)
+            except:
+                print "Was uanble to get velocity at:",str(point)
     import csv
     import os
     with open(os.path.join(outputPath,outputID+'_velocity_.csv'),'wb') as csvfile:

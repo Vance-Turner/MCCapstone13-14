@@ -159,7 +159,7 @@ if __name__ == '__main__':
     from pyevolve import GAllele, G1DList, GSimpleGA
     from pyevolve import Mutators, Initializators, DBAdapters
      
-    verticalAlleles = GAllele.GAlleleRange(1,25,False)#True)
+    verticalAlleles = GAllele.GAlleleRange(10,25,False)#True)
     horizontalAlleles1 = GAllele.GAlleleRange(26,38,False)#True)
     horizontalAlleles2 = GAllele.GAlleleRange(43,54,False)#$True)
      

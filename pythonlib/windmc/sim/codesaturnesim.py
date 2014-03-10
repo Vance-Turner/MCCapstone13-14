@@ -6,7 +6,7 @@ Created on Mar 4, 2014
 '''
 
 from exceptions import Exception
-from threading import Thread
+from threading import Thread, Event
 import os
 import time
 import json
@@ -89,6 +89,9 @@ class CodeSaturneSim():
         self.INLET_VEL = self.configMap['inletVel']
         
         self.TUNNEL_RADIUS = self.configMap['tunnelRadius']
+        
+        # Event for killing the server
+        self.stopServerEvent = Event()
     
     def copyFile(self,src,dest):
         if os.path.exists(src):
@@ -239,12 +242,12 @@ class CodeSaturneSim():
                 
         starter = Starter(self,_id,shroudPoints)
         starter.start()
-        httpd_server.serve_forever()
-#         while self.keepServerAlive():
-#             httpd_server.handle_request()
-#              
+#         httpd_server.serve_forever()
+        while not self.stopServerEvent.isSet():
+            httpd_server.handle_request()
+#               
 #         print "Shutting down http server in codesaturnesim..."
-#         httpd_server.shutdown()  
+#         #httpd_server.shutdown()  
 #         print "Server shut down!"
         print "The server was shut down!, is the starter thread still running?>",starter.is_alive()
         self.CASE_PATH = starter.CASE_PATH
@@ -336,11 +339,16 @@ class CodeSatServerHandler(BaseHTTPRequestHandler):
         print "Job Completed...calling post-processing."
         # Get the results directory
         global WIND_MC_PATH
-        casePath = self.server.getCodeSatSim().jobCasePathMap[study+'-'+case]
-        resultsDir = os.path.join(casePath,'RESU')
-        resultsDir = os.listdir(resultsDir)[0]
-        resultsDir = os.path.join(casePath,'RESU',resultsDir,'postprocessing')
-        salomescriptbuilder.main(WIND_MC_PATH, resultsDir, case, self.server.getCodeSatSim().SERVER_PORT)
+        try:
+            casePath = self.server.getCodeSatSim().jobCasePathMap[study+'-'+case]
+            resultsDir = os.path.join(casePath,'RESU')
+            resultsDir = os.listdir(resultsDir)[0]
+            resultsDir = os.path.join(casePath,'RESU',resultsDir,'postprocessing')
+            salomescriptbuilder.main(WIND_MC_PATH, resultsDir, case, self.server.getCodeSatSim().SERVER_PORT)
+        except:
+            print "There was a fatal error in the code-saturne simulation, killing server and returning 0!!!"
+            self.server.getCodeSatSim().stopServerEvent.set()
+            print "CodeSatServerHandler..jobCompleted..KilledServer"
         
     #@get('/jobcompleted/meshfinished')
     def meshCompleted(self):
@@ -355,5 +363,6 @@ class CodeSatServerHandler(BaseHTTPRequestHandler):
         self.send_header("Content-type", "text/html")
         self.end_headers() 
         print "CodeSatServerHandler..Killing server..." 
-        self.server.shutdown()
+        #self.server.shutdown()
+        self.server.getCodeSatSim().stopServerEvent.set()
         print "CodeSatServerHandler..KilledServer"
