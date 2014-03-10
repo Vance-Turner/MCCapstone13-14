@@ -69,7 +69,7 @@ def main(windMCPath,RESUDir,_id,PORT):
     print "Mesh file>",meshFile
     outputID = str(_id)
     tunnelWidth = 50.0
-    actuatorX = 39.5
+    actuatorX = 38.5
     actuatorRadius = 13.0
     diskPoints = 10
     radiusPoints = 20

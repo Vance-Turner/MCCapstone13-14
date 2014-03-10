@@ -26,11 +26,10 @@ WIND_MC_PATH = None
 
 class CodeSaturneSim():
     
-    def __init__(self,meshingMethod, shroudPoints,dataMap):
+    def __init__(self, shroudPoints,dataMap):
         """
         Holds results of code-saturne jobs. The key is the job id and the value is the energy extracted.
         """
-        self.meshingMethod = meshingMethod
         self.shroudPoints = shroudPoints
         self.dataMap = dataMap
         
@@ -176,9 +175,9 @@ class CodeSaturneSim():
                                              self.WINDMC_PATH,\
                                              name, meshGenDir,\
                                              shroudPoints=shroudRawPoints,outputPath=meshFilePath)
-            waitTime = self.meshingMethod.getMeshWaitTime()
-            print 'codesaturnesim, got mesh wait time!>',waitTime
-            time.sleep(waitTime)
+#             waitTime = self.meshingMethod.getMeshWaitTime()
+#             print 'codesaturnesim, got mesh wait time!>',waitTime
+#             time.sleep(waitTime)
             meshGenTask.run()
             print "Waiting for mesh to generate..."
             while not self.MESH_GENERATED:
@@ -212,11 +211,11 @@ class CodeSaturneSim():
     # This is so that simulations don't start simultaneously, specifically we don't want
     # salome-meca starting up concurrently with another process of salome.
     def main(self):
-        import random
-        sleepTime = random.randint(1,120)
-        print "codesaturnesim, sleeping for ",sleepTime," before starting simulations..."
-        #time.sleep(sleepTime)
-        print "codesaturnesim, done sleeping!"
+#         import random
+#         sleepTime = random.randint(1,120)
+#         print "codesaturnesim, sleeping for ",sleepTime," before starting simulations..."
+#         #time.sleep(sleepTime)
+#         print "codesaturnesim, done sleeping!"
 
         #args = sys.argv[1]
         #dataMap = self.dataMap#json.loads(args)

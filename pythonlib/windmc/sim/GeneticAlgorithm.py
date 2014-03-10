@@ -130,21 +130,20 @@ def saturneEvaluator(chromosome):
     jsonData = json.dumps({'shroudPoints':shroudPoints})
     class Runner(Thread):
         
-        def __init__(self,meshingServ,shroudPts,jsonData):
+        def __init__(self,shroudPts,jsonData):
             Thread.__init__(self)
-            self.meshingServ = meshingServ
             self.shroudPoints = shroudPts
             self.jsonData = jsonData
             
         def run(self):
             from windmc.sim.codesaturnesim import CodeSaturneSim
-            codeSatSim = CodeSaturneSim(self.meshingServ,self.shroudPoints,self.jsonData)
+            codeSatSim = CodeSaturneSim(self.shroudPoints,self.jsonData)
             codeSatSim.main()
             self.result = codeSatSim.getSimResults()
             
         def getResults(self):
             return self.result
-    runner = Runner(meshstaller,shroudPoints,jsonData)
+    runner = Runner(shroudPoints,jsonData)
     runner.start()
     runner.join()
     #returnCode = subprocess.call(['python','-m','windmc.sim.codesaturnesim',jsonData])
@@ -191,7 +190,7 @@ if __name__ == '__main__':
     genome.initializator.set(Initializators.G1DListInitializatorAllele)
  
     from pyevolve import Consts
-    Consts.CDefGAPopulationSize = 2
+    Consts.CDefGAPopulationSize = 30
     geneticAlg = GSimpleGA.GSimpleGA(genome)
     csvfile_adapter = DBAdapters.DBFileCSV('output1.csv')
     geneticAlg.setDBAdapter(csvfile_adapter)

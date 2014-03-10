@@ -370,9 +370,34 @@ class GPopulation:
             for i in xrange(len(self.internalPop)):
                self.internalPop[i] = results[i]
          else:
-            results = proc_pool.map(multiprocessing_eval, self.internalPop)
+            #results = proc_pool.map(multiprocessing_eval, self.internalPop)
+            # This function calls the evaluator function of a chromosome and stores the results
+            def topEvaluator(queue,chromosome,evaluator):
+                result = evaluator(chromosome)
+                queue.put([chromosome,result])
+                
+            from multiprocessing import Process
+            import multiprocessing, time
+            processes = []
+            resultsQueue = multiprocessing.Queue(self.popSize)
+            for chromosome in self.internalPop:
+                p = Process(target = topEvaluator,args=(resultsQueue,chromosome,multiprocessing_eval))
+                processes.append(p)
+                time.sleep(15)
+                p.start()
+            for process in processes:
+                if process.is_alive():
+                    process.join()
+            results = []
+            # The original PyEvolve goes assumes the order of the genomes and the results are the same.
+            while not resultsQueue.empty():
+                try:
+                    results.append(resultsQueue.get(block=False))
+                except:
+                    print "Tried to get item from GPopulation results queue while it was empty and failed!"
+                
             print "The results are in from the processes!"
-            for individual, score in zip(self.internalPop, results):
+            for individual, score in results:#zip(self.internalPop, results):
                individual.score = score
       else:
          for ind in self.internalPop:

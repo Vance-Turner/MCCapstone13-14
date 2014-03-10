@@ -193,7 +193,7 @@ def createTunnel(fileName, kwargs, doGUI=False,doMeshing=True,killSalomeAfter=Tr
             from salome.smesh import smeshBuilder
         
             # calculate the number of segments for the disk
-            numOfSegments = round(60.0/3.0*tunnelMaxSize)
+            numOfSegments = round(60.0*3.0/tunnelMaxSize)
             smesh = smeshBuilder.New(theStudy)
             TunnelSansDisk = smesh.Mesh(tunnel)
             Regular_1D = TunnelSansDisk.Segment()
