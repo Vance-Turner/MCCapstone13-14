@@ -375,7 +375,7 @@ class GPopulation:
             def topEvaluator(queue,chromosome,evaluator):
                 result = evaluator(chromosome)
                 queue.put([chromosome,result])
-                
+                print "\n\n---------\nEvaluation done for a chromosome!:",result,queue.qsize(),"-------\n\n"
             from multiprocessing import Process
             import multiprocessing, time
             processes = []
@@ -388,6 +388,7 @@ class GPopulation:
             for process in processes:
                 if process.is_alive():
                     process.join()
+            print "GPopulation..all processes have finished"
             results = []
             # The original PyEvolve goes assumes the order of the genomes and the results are the same.
             while not resultsQueue.empty():
@@ -396,9 +397,10 @@ class GPopulation:
                 except:
                     print "Tried to get item from GPopulation results queue while it was empty and failed!"
                 
-            print "The results are in from the processes!"
+            print "The results are in from the processes!:",results
             for individual, score in results:#zip(self.internalPop, results):
                individual.score = score
+               print "Just set the individual score to>",individual.score
       else:
          for ind in self.internalPop:
             ind.evaluate(**args)

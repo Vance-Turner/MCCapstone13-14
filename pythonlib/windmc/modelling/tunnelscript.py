@@ -371,10 +371,10 @@ def createTunnel(fileName, kwargs, doGUI=False,doMeshing=True,killSalomeAfter=Tr
 
     #import runSalome
     #runSalome.kill_salome({'portkill':True,'kilall':False})
-    if killSalomeAfter:
-        import os
-        from killSalomeWithPort import killMyPort
-        killMyPort(os.getenv('NSPORT'))    
+#     if killSalomeAfter:
+#         import os
+#         from killSalomeWithPort import killMyPort
+#         killMyPort(os.getenv('NSPORT'))    
 
 
 if __name__ == '__main__':
@@ -382,17 +382,17 @@ if __name__ == '__main__':
     # This map holds the defaults for creating a tunnel and disk
     import json, os, sys
     print 'Args:',sys.argv
-    jsonFile = os.path.join(os.path.dirname(sys.argv[0]),'actuator.json')
-    print "loading json from>",jsonFile
-    defaultMap = json.load(open(jsonFile,'r'))
+    #jsonFile = os.path.join(os.path.dirname(sys.argv[0]),'actuator.json')
+    #print "loading json from>",jsonFile
+    #defaultMap = json.load(open(jsonFile,'r'))
     
-#     defaultMap = {
-#     "diskX": 79.5, "diskY": 0.0, "diskZ": 0.0,
-#     "tunnelHeight": 160.0, "tunnelRadius": 100.0, "tunnelFineness": 4,
-#     "diskHeight": 1.0, "diskRadius": 27.0, "diskFineness": 4,
-#     "tunnelMaxSize": 3.0, "shroudPoints":[[60,35],[70,20],[78,28],[82,28],[90,35],[110,30]],"shroudThickness":0.25,
-#     "outputPath":"/home/vance/Downloads/tunnel_23.med"
-#     }
+    defaultMap = {
+    "diskX": 39.5, "diskY": 0.0, "diskZ": 0.0,
+    "tunnelHeight": 80.0, "tunnelRadius": 50.0, "tunnelFineness": 4,
+    "diskHeight": 1.0, "diskRadius": 13.0, "diskFineness": 4,
+    "tunnelMaxSize": 2.0, "shroudPoints":[[30,30],[35,10],[39,14],[41,14],[45,17.5],[55,15]],"shroudThickness":0.25,
+    "outputPath":"/home/vance/Downloads/tunnel_23.med"
+    }
     
     createTunnel(defaultMap['outputPath'],defaultMap,doGUI=False)
     print "Tunnel created!"

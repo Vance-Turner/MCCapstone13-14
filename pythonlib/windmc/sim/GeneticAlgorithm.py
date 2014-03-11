@@ -149,7 +149,7 @@ def saturneEvaluator(chromosome):
     #returnCode = subprocess.call(['python','-m','windmc.sim.codesaturnesim',jsonData])
     #powerCoeff = codesaturnesim.doSimulation(shroudPoints)
     print "Got power coeff from sim>",runner.getResults()
-    return float(runner.getResults())
+    return float(runner.getResults())*10000
 
 if __name__ == '__main__':
 #     from windmc.sim import codesaturnesim
@@ -192,11 +192,16 @@ if __name__ == '__main__':
     from pyevolve import Consts
     Consts.CDefGAPopulationSize = 30
     geneticAlg = GSimpleGA.GSimpleGA(genome)
-    csvfile_adapter = DBAdapters.DBFileCSV('output1.csv')
-    geneticAlg.setDBAdapter(csvfile_adapter)
-    geneticAlg.setMultiProcessing(True)
+    #csvfile_adapter = DBAdapters.DBFileCSV('output1.csv')
+    #geneticAlg.setDBAdapter(csvfile_adapter)
+    #geneticAlg.setPopulationSize(80)
     geneticAlg.setGenerations(1)
-    print "Preparing to evolve..."
+    #geneticAlg.setMinimax(Consts.minimaxType["maximize"])
+    geneticAlg.setMultiProcessing(True)
     geneticAlg.evolve(1)
+    #geneticAlg.setGenerations(2)
+#     print "Preparing to evolve..."
+#     geneticAlg.evolve(1)
     print geneticAlg.bestIndividual()
-    csvfile_adapter.commitAndClose()
+    #geneticAlg.dumpStatsDB()
+    #csvfile_adapter.commitAndClose()
