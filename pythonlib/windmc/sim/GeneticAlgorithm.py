@@ -112,6 +112,8 @@ class MeshGenerationTask(Thread):
     
 def saturneEvaluator(chromosome):
     # Extract points
+#     import random
+#     time.sleep(random.randint(0,20))
     shroudPoints = []
     print "saturneEvaluator, evaluating>"#chromosome
     xpoints = []
@@ -190,12 +192,12 @@ if __name__ == '__main__':
     genome.initializator.set(Initializators.G1DListInitializatorAllele)
  
     from pyevolve import Consts
-    Consts.CDefGAPopulationSize = 30
+    Consts.CDefGAPopulationSize = 80
     geneticAlg = GSimpleGA.GSimpleGA(genome)
-    #csvfile_adapter = DBAdapters.DBFileCSV('output1.csv')
-    #geneticAlg.setDBAdapter(csvfile_adapter)
+    csvfile_adapter = DBAdapters.DBSQLite(identify="Mar10_Gen22")#DBAdapters.DBFileCSV('output1.csv')
+    geneticAlg.setDBAdapter(csvfile_adapter)
     #geneticAlg.setPopulationSize(80)
-    geneticAlg.setGenerations(1)
+    geneticAlg.setGenerations(18)
     #geneticAlg.setMinimax(Consts.minimaxType["maximize"])
     geneticAlg.setMultiProcessing(True)
     geneticAlg.evolve(1)

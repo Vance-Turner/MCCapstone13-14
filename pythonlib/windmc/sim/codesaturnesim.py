@@ -15,6 +15,8 @@ import xml.etree.ElementTree as ET
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from windmc.sim.processors import salomescriptbuilder
 import uuid
+import requests
+import random
 
 meshTypes_COPY = 'COPY_MESH'
 meshTypes_BUILD = 'BUILD_MESH'
@@ -23,6 +25,11 @@ codeSatStd = "STANDARD_CODE_SAT_JOB"
 codeSatActDisk = "ACT_DISK_CODE_SAT_JOB"
 
 WIND_MC_PATH = None
+
+# The locations that meshing services are running on
+meshServicesLocs = ['http://atlacamani301:3000','http://atlacamani302:3000','http://atlacamani303:3000','http://atlacamani304:3000',
+                    'http://atlacamani305:3000','http://atlacamani306:3000','http://atlacamani307:3000','http://atlacamani308:3000',
+                    'http://atlacamani309:3000','http://atlacamani310:3000']
 
 class CodeSaturneSim():
     
@@ -171,14 +178,62 @@ class CodeSaturneSim():
             print "Generating mesh..."
             from windmc.sim.GeneticAlgorithm import MeshGenerationTask
             #serverPort, salomeInstall, WIND_MC, generationID, generationDirectory,**genParams
-            meshGenTask = MeshGenerationTask(self.SERVER_PORT,self.salomeInstallLocation,\
-                                             self.WINDMC_PATH,\
-                                             name, meshGenDir,\
-                                             shroudPoints=shroudRawPoints,outputPath=meshFilePath)
-#             waitTime = self.meshingMethod.getMeshWaitTime()
-#             print 'codesaturnesim, got mesh wait time!>',waitTime
-#             time.sleep(waitTime)
-            meshGenTask.run()
+#             meshGenTask = MeshGenerationTask(self.SERVER_PORT,self.salomeInstallLocation,\
+#                                              self.WINDMC_PATH,\
+#                                              name, meshGenDir,\
+#                                              shroudPoints=shroudRawPoints,outputPath=meshFilePath)
+# #             waitTime = self.meshingMethod.getMeshWaitTime()
+# #             print 'codesaturnesim, got mesh wait time!>',waitTime
+# #             time.sleep(waitTime)
+#             meshGenTask.run()
+#             print "Waiting for mesh to generate..."
+#             while not self.MESH_GENERATED:
+#                 time.sleep(5)
+#             print "Mesh generated apparently!"
+
+            # The new meshing solution!
+            # First get the meshing node with the fewest jobs
+#             jobCounts = []
+#             for loc in meshServicesLocs:
+#                 try:
+#                     pollReq = requests.get(loc+'/jobs')
+#                     print "Got job count:",pollReq.text
+#                     jobCounts.append(int(pollReq.text))
+#                 except:
+#                     print "Failed to reach:",loc
+#                 jobCounts.append(-1)
+#             # Now get the one with the fewest jobs
+#             fewest = 0
+#             for i in range(len(jobCounts)):
+#                 if not jobCounts[i]==-1:
+#                     if jobCounts[i] < jobCounts[fewest]:
+#                         fewest = i
+            # Get the reachable nodes
+            reachable = []
+            for loc in meshServicesLocs:
+                try:
+                    pollReq = requests.get(loc+'/jobs')
+                    print "Got job count:",pollReq.text
+                    reachable.append(loc)
+                except:
+                    print "Failed to reach:",loc   
+            # Now pick a random node to send job to:
+            print "Got reachable nodes:",reachable
+            node = random.randint(0,len(reachable)-1)
+            print "Going to send job to:",node,meshServicesLocs[node]             
+            # Ok, now have the server with the fewest job counts, let's post
+            #print "Got lazy server:",meshServicesLocs[fewest]
+            # What the meshing service expects \/ \/ \/\/\/\/\
+            # serverPort = request.forms.get("serverPort")
+            # salomeInstall = request.forms.get("salomeInstall")
+            # WIND_MC = request.forms.get("WIND_MC")
+            # generationID = request.forms.get("generationID")
+            # generationDirectory = request.forms.get("generationDirectory")
+            # otherData = json.loads(request.forms.get("otherData"))
+            jobData = {"serverPort":self.SERVER_PORT,"salomeInstall":self.salomeInstallLocation,"WIND_MC":self.WINDMC_PATH,
+                       "generationID":name,"generationDirectory":meshGenDir,"otherData":json.dumps({"shroudPoints":shroudRawPoints,"outputPath":meshFilePath})}
+            jobResponse = requests.post(meshServicesLocs[node]+'/meshrequest/',data=jobData)
+            print "Got response from meshing service>",jobResponse
             print "Waiting for mesh to generate..."
             while not self.MESH_GENERATED:
                 time.sleep(5)

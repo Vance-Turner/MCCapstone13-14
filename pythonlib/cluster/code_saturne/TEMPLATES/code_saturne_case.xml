@@ -52,7 +52,7 @@
 		<atmospheric_flows model="off"/>
 		<heads_losses>
 			<head_loss zone_id="2">
-				<kxx>0.25</kxx>
+				<kxx>0.50</kxx>
 				<kyy>0</kyy>
 				<kzz>0</kzz>
 				<a11>1</a11>

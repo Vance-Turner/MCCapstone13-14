@@ -17,37 +17,29 @@ meshTaskQueue = Queue(300)
 # lock to hold mesh task queues
 theLock = Lock()
 
-# class MeshingService(Thread):
-# 
-#     def __init__(self):
-#         Thread.__init__(self)
-#         print "Creating a new MeshingService!"
-#         self.meshTaskQueue = Queue(300)
-#         self.alive=True
-# 
-#     def run(self):
-#         print "MeshingService...running"
-#         while(self.alive):
-#             print "MeshingService, checking the task queue..."
-#             if not self.meshTaskQueue.empty():
-#                 print "MeshingService, got a job!"
-#                 lst = self.meshTaskQueue.get()
-#                 print "MeshingService, starting a job!"
-#                 lst[0].start()
-#             else:
-#                 print "MeshingService...sleeping"
-#                 time.sleep(3)
-#         print "MeshingService...exiting"
-#         
-#     def kill(self):
-#         self.alive = False
-# 
-#     def submitJob(self,task):
-#         print "MeshingService, received a meshing task job!"
-#         _id = uuid.uuid1()
-#         self.meshTaskQueue.put([task,_id])
-#         print "MeshingService...added job to task queue"
-#         return _id       
+class MeshingService(Thread):
+ 
+    def __init__(self):
+        Thread.__init__(self)
+        print "Creating a new MeshingService!"
+        self.alive=True
+ 
+    def run(self):
+        print "MeshingService...running"
+        while(self.alive):
+            print "MeshingService, checking the task queue..."
+            if not meshTaskQueue.empty():
+                print "MeshingService, got a job!"
+                lst = meshTaskQueue.get()
+                print "MeshingService, starting a job!"
+                lst.run()
+            else:
+                print "MeshingService...sleeping"
+                time.sleep(3)
+        print "MeshingService...exiting"
+         
+    def kill(self):
+        self.alive = False      
 
 def copyFile(src,dest):
     if os.path.exists(src):
@@ -59,9 +51,9 @@ def copyFile(src,dest):
         raise Exception("Src or Destination does not exist!"+src+" "+dest)
 
 class MeshGenerationTask(Thread):
-    def __init__(self, serverPort, salomeInstall, WIND_MC, generationID, generationDirectory,**genParams):
+    def __init__(self, serverPort, salomeInstall, WIND_MC, generationID, generationDirectory,otherDataMap):
         Thread.__init__(self)
-        self.genParams = genParams
+        self.genParams = otherDataMap
         self.genID = generationID
         self.genDir = generationDirectory
         self.salomeInstallLoc = salomeInstall
@@ -110,15 +102,15 @@ class MeshGenerationTask(Thread):
         subprocess.call([os.path.join(self.genDir,'doMeshing.sh')],stdout=output)    
         #subprocess.call(commandList,stdout=output)
         output.close()
-        print "MeshGenerationTask, mesh gen command finished!"
-        with theLock:
-            print "Now testing for more tasks?>",meshTaskQueue.empty()
-            if not meshTaskQueue.empty():
-                aTask = meshTaskQueue.get(False)
-                print "Got a task from the queue?>",aTask
-                if not aTask==None:
-                    aTask.start()
-        print "Finishing our task..."
+#         print "MeshGenerationTask, mesh gen command finished!"
+#         with theLock:
+#             print "Now testing for more tasks?>",meshTaskQueue.empty()
+#             if not meshTaskQueue.empty():
+#                 aTask = meshTaskQueue.get(False)
+#                 print "Got a task from the queue?>",aTask
+#                 if not aTask==None:
+#                     aTask.start()
+#         print "Finishing our task..."
         
         
 @post('/meshrequest/')
@@ -135,19 +127,24 @@ def postMeshJob():
     print "Created the mesh gen task"
     with theLock:
         print "Acquired the lock!"
-        wasEmpty = meshTaskQueue.empty()
-        print "Did we have any tasks?>",wasEmpty
         meshTaskQueue.put(meshGenTask)
-        print "Put a job in the queue"
-        if wasEmpty:
-            "Starting up a new mesh gen task!"
-            meshGenTask.start()
-        else:
-            print "Apparently the queue had some tasks so we didn't start this one up."
     return "Job submitted!"
 
 @get('/info')
 def getInfo():
     return "You have reached the meshing service!"
 
-run(host='atlacamani301', port=3000)
+@get('/jobs')
+def getJobCount():
+    count = -1
+    with theLock:
+        count = meshTaskQueue.qsize()
+    print "Got the job count?>",count
+    return str(count) 
+
+if __name__=="__main__":
+    node = input("Enter node number:")
+    thePort = input("Enter port:")
+    meshingService = MeshingService()
+    meshingService.start()
+    run(host='atlacamani'+str(node), port=thePort)
