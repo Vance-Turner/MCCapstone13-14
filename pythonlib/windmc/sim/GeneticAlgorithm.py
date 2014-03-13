@@ -153,6 +153,13 @@ def saturneEvaluator(chromosome):
     print "Got power coeff from sim>",runner.getResults()
     return float(runner.getResults())*10000
 
+generationCounter= 0
+def generationCallBack(ga_engine):
+    print "Cleaning up after a generation:",ga_engine.getCurrentGeneration()
+    currentGen = ga_engine.getCurrentGeneration()
+    subprocess.call([WINDMC_PATH+'/../cleanUp.sh',str(currentGen)])
+    print "Cleaned up!"
+
 if __name__ == '__main__':
 #     from windmc.sim import codesaturnesim
 #     codesaturnesim.doSimulation([[60,35],[70,20],[78,28],[82,28],[90,35],[110,30]])
@@ -194,10 +201,11 @@ if __name__ == '__main__':
     from pyevolve import Consts
     Consts.CDefGAPopulationSize = 80
     geneticAlg = GSimpleGA.GSimpleGA(genome)
-    csvfile_adapter = DBAdapters.DBSQLite(identify="Mar10_Gen22")#DBAdapters.DBFileCSV('output1.csv')
+    csvfile_adapter = DBAdapters.DBSQLite(identify="Mar12_Gen2",frequency=1,commit_freq=1)#DBAdapters.DBFileCSV('output1.csv')
     geneticAlg.setDBAdapter(csvfile_adapter)
+    geneticAlg.stepCallback.set(generationCallBack)
     #geneticAlg.setPopulationSize(80)
-    geneticAlg.setGenerations(18)
+    geneticAlg.setGenerations(72)
     #geneticAlg.setMinimax(Consts.minimaxType["maximize"])
     geneticAlg.setMultiProcessing(True)
     geneticAlg.evolve(1)
