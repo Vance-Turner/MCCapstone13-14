@@ -3,13 +3,11 @@ Created on Mar 6, 2014
 
 @author: vance
 '''
-
-import uuid
-meshingJobs = {}
 from threading import Thread, Lock
 from Queue import Queue
 import os, subprocess, time, json
-from bottle import run, get, post, request, app, route
+from bottle import run, get, post, request
+from multiprocessing import Process
 
 # The Queue of meshes we need to make
 meshTaskQueue = Queue(300)
@@ -17,22 +15,62 @@ meshTaskQueue = Queue(300)
 # lock to hold mesh task queues
 theLock = Lock()
 
+# How often should we clean up after salome?
+cleanUpRate = 10
+
+# How long should we wait for a meshing job comes in before starting the group up
+pollTime = 5
+
+# What is the max number of mesh jobs to run at a given time.
+meshGroupSize = 15
+
+# How long to wait between starting a process
+startUpDelay = 15
+
+def runMeshTask(meshtask):
+    meshGenTask = MeshGenerationTask(meshtask['serverPort'], meshtask['salomeInstall'], 
+                                     meshtask['WIND_MC'], meshtask['generationID'], 
+                                     meshtask['generationDirectory'], meshtask['otherData'])
+    print "Created mesh generation task!"
+    meshGenTask.run()
+    print "Mesh gentask finished"
+
 class MeshingService(Thread):
  
     def __init__(self):
         Thread.__init__(self)
         print "Creating a new MeshingService!"
         self.alive=True
+        self.counter = 0
  
     def run(self):
         print "MeshingService...running"
         while(self.alive):
             print "MeshingService, checking the task queue..."
             if not meshTaskQueue.empty():
-                print "MeshingService, got a job!"
-                lst = meshTaskQueue.get()
-                print "MeshingService, starting a job!"
-                lst.run()
+                meshJobs = []
+                print "Getting jobs from queue..."
+                for i in range(meshGroupSize):
+                    print "Waiting to get job:",i
+                    try:
+                        meshJobs.append(meshTaskQueue.get(True, pollTime))
+                    except:
+                        pass
+                print "Got jobs:",len(meshJobs)
+                processes = []
+                for job in meshJobs:
+                    process = Process(target=runMeshTask, args=(job,))
+                    processes.append(process)
+                    process.start()
+                    time.sleep(startUpDelay)
+                # Wait until all are done
+                for process in processes:
+                    if process.is_alive():
+                        process.join()
+                        
+                print "All done, now killing salome..."
+                subprocess.call(['/home/vance/killAllSalome.sh'])
+                print 'Killed salome!'
             else:
                 print "MeshingService...sleeping"
                 time.sleep(3)
@@ -123,11 +161,11 @@ def postMeshJob():
     generationDirectory = request.forms.get("generationDirectory")
     otherData = json.loads(request.forms.get("otherData"))
     print "meshingservice, got a job and data>",serverPort,salomeInstall,WIND_MC,generationID,generationDirectory,otherData
-    meshGenTask = MeshGenerationTask(serverPort, salomeInstall, WIND_MC, generationID, generationDirectory,otherData)
-    print "Created the mesh gen task"
     with theLock:
         print "Acquired the lock!"
-        meshTaskQueue.put(meshGenTask)
+        meshTaskQueue.put({'serverPort':serverPort,'salomeInstall':salomeInstall,'WIND_MC':WIND_MC,
+                           'generationID':generationID,'generationDirectory':generationDirectory,
+                           'otherData':otherData})
     return "Job submitted!"
 
 @get('/info')
@@ -141,6 +179,11 @@ def getJobCount():
         count = meshTaskQueue.qsize()
     print "Got the job count?>",count
     return str(count) 
+
+@get('/killSalome')
+def killSalome():
+    subprocess.call(['/home/vance/killAllSalome.sh'])
+    return "Killed salome"
 
 if __name__=="__main__":
     node = input("Enter node number:")

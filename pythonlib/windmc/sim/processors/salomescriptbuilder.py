@@ -5,6 +5,9 @@ Created on Mar 2, 2014
 '''
 import os
 import subprocess
+import random
+import requests
+from windmc.sim import utilities
     
 def copyFile(src,dest):
     if os.path.exists(src):
@@ -29,7 +32,7 @@ def buildPostProcessScript(inputFile,outputPath,outputID,windMCPath,tunnelWidth=
         print "Args gotten>",args
         pyFy.write('\n')
         pyFy.write('extractPressure('+args+')\n')
-        args = ','.join(map(str,[tunnelWidth,actuatorX+4,actuatorRadius,'"'+inputFile+'"','"'+outputPath+'"','"'+outputID+'_outlet"',diskPoints,radiusPoints]))
+        args = ','.join(map(str,[tunnelWidth,actuatorX+1.3,actuatorRadius,'"'+inputFile+'"','"'+outputPath+'"','"'+outputID+'_outlet"',diskPoints,radiusPoints]))
         pyFy.write('extractPressure('+args+')\n')
         
         args = ','.join(map(str,[inletRadius,inletLoc,'"'+inputFile+'"','"'+outputPath+'"','"'+outputID+'"'\
@@ -69,7 +72,7 @@ def main(windMCPath,RESUDir,_id,PORT):
     print "Mesh file>",meshFile
     outputID = str(_id)
     tunnelWidth = 50.0
-    actuatorX = 38.5
+    actuatorX = 39.4
     actuatorRadius = 13.0
     diskPoints = 10
     radiusPoints = 20
@@ -78,7 +81,6 @@ def main(windMCPath,RESUDir,_id,PORT):
     (pyFy,pandasFy) = buildPostProcessScript(meshFile, outputPath, outputID, windMCPath, tunnelWidth, actuatorX, actuatorRadius, diskPoints, radiusPoints,\
                           inletRadialPoints = inletRadialPoints,inletCircumFerentialPoints=inletCircumPoints)
     print "pyFy>",pyFy
-    import subprocess
     salomeLoc = "/home/vance/salome_2014/appli_V7_3_0"
     shFile = os.path.join(outputPath,'doPostProc_'+str(_id)+'.sh')
     bash = open(shFile,'w')
@@ -88,25 +90,13 @@ def main(windMCPath,RESUDir,_id,PORT):
     bash.write('\nwget http://atlacamani.marietta.edu:'+str(PORT)+'/'+'jobcompleted/postprocessing')
     bash.close()
     subprocess.call(['chmod','a+x',shFile])
-    subprocess.call(['sbatch',shFile])
-    
-#     basePath = os.path.join(baseDir,"cluster","code_saturne","STUDIES")
-#     simS = os.listdir(basePath)
-#     import time
-#     for sim in simS:
-#         # Get case directory
-#         dirs = os.listdir(os.path.join(basePath,sim))
-#         simPath = ''
-#         for adir in dirs:
-#             if adir[0]=='s':
-#                 simPath = adir
-#                 break
-#         print "Got sim path>",simPath
-#         resuDir = os.path.join(basePath,sim,simPath,'RESU')
-#         resu = os.listdir(resuDir)[0]
-#         outputPath = os.path.join(resuDir,resu,'postprocessing')  
-    #runner(_id,RESUDir).start()
-#         time.sleep(5)
+    # Send it off to a service
+    reachable = utilities.getActivePostProcessingServices()
+    theNode = reachable[ random.randint(0,len(reachable)-1) ]
+    postData = {'bashScriptPath':shFile}
+    print 'Sending post-processing to>',theNode
+    requests.post(theNode+'/jobrequest/',data=postData)
+    #subprocess.call(['sbatch','--nodelist','atlacamani[301-306]',shFile])
         
 if __name__ == '__main__':
     # The windmc path must be set!
